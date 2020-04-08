@@ -1,0 +1,20 @@
+#------------------#
+# do u even B R O  #
+#------------------#
+
+-new phone who dis: Z E E K 
+-what: network sec tool/IDS
+-why: cut large pcap into bro logs(https/dns/snmp/+)
+
+cheatsheet: https://github.com/corelight/bro-cheatsheets/blob/master/Corelight-Bro-Cheatsheets-2.6.pdf
+
+# R I T A --> real intel intel analysis <-- #
+
+
+beaconing tools 
+|
+|---->VSAgent: bd beacons 10s + b64 via cleartext html
+|
+|-------->plainttext is meant to be encrypted/decrypted<----------|
+|-------->c l e a r t e x t is NOT meant to be encrypted/decrypted------|
+|---->DNSCat2: =^.^=
