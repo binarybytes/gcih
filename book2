@@ -2,12 +2,132 @@
 #     apply PICERL      #
 #-----------------------#
 
-what is ISR evilgrade tool
+~
+      ~
+            ~
+                  ~
+                        what is ISR evilgrade tool
 
-tips: check hashes across multiple servers
-*zone transfers<--
+                         tips: check hashes across multiple servers
+                                    *zone transfers<--
 
-HDM-hdmoore (warVOX + msploit)
+                                  HDM-hdmoore (warVOX + msploit)
 
---karmetasploit--
+                              --karmetasploit--   
+                  ~
+        ~
+~
+Book2:
+>OSINT
+>>DNS
+>>>web searches
+>>>>GHDB
+>>>>>MALTEGO
+
+
+
+#----OSINT----#
+OSINT use: src from sites, APIs via 3rd parties, etc
+OSINT challenges: bunch of sources man
+-e.g, spiderFoot 
+
+Attackers goal: discover ++ targets iP addrs
+
+Passive recon: osint (spiderfoot)
+Active recon: direct packets (nslookup, dig, dnsdumpster)
+
+#------DNS------#
+Dumping DNS records = which machines are accessible
+
+Windows:
+> nslookup
+> dnsserver 1.2.3.4
+> set type=AXFR
+> ls -d zonetransfer.me
+
+*Nix:
+$ dig @dnsname example.com AXFR zonetransfer.me
+
+--based nmap brute force--
+
+
+$ sudo nmap --script dns-brute --script-args dns-brute.domain=example.com, dns-brute.threads=6, dns-brute.hostlist=./namelist.txt -sS -p 53
+
+
+[P]ICERL: restrict zone transfers = config DNS servers properly
+-split DNS= ext info to ext servers, int info to int servers
+
+*TIP: effectively use a good namelist e.g github/danielmiessler*
+
+P[I]CERL: look for packets going to/from TCP port 53 on DNS servers.
+→dns queries/response via UDP p53
+→z.transfers via TCP p53
+
+#----web searches---# 
+
+Search tgts public site:
+-press release
+-white papers
+-design docs
+-sample deliverables
+-open jobs/hiring
+-key people
+-contacts
+-biz partners+ISP+suppliers (link:[tgt_company].com” - for sites tht link to the tgt
+-UseNet postings of employees
+
+++
+
+-public DBs (SEC’s edgar DB for publically traded UR companies)
+-monster[.]com, pipl[.]com, namechk[.]com, hackr sites, 
+-Pushpin by tim tomes (social media geolocation using flickr+google photo metadata) + part of recon-ng
+---> provide lat/lon + radius in kms = pulls social media posts from tht area + map to behavior patterns + internal pics
+Src: github/dakotaNetlson
+
+[P]ICERL: limit/control info + make hiring ads general, limit site info, find out wat sites are linked to u
+
+P[I]CERL: find spider/crawl activity
+
+#----GHDB---#
+-site: example . com
+-link: link: example . com (shows sites linked to tgt side)
+-intitle: adminstrator (title matches search criteria)
+-inurl: /admin 
+-related: (shows similar pgs)
+-cache: example . com (historical)
+ ---> wayback machine
+-filetype: example . com .asp, .jsp, .php, .bak, .cgi
+-ext: rdp rdp
+
+*PRO TIP: use diff search engines + ‘@’ is used in Baidu*
+
+FOCA automates GHDB searches + dns brute force + dir indexes 
+Src: github/elevenpaths/FOCA
+Intitle: index.of “parent directory”
+Inurl: “ViewerFrame?Mode=” ---Panasonic webcams
+---FOCA !!!
+
+ORRRRR
+
+Bishop Fox SearchDiggity combines ++ Shodan^^^
+--->requires APIs
+--->malware diggity, DLP diggity, flash diggity
+
+[P]ICERL: edit robots.txt or metatag so crawlers back off
+
+
+#-----MALTEGOOOOO----#
+
+-intel gathering tool via public src
+--graphically displays relay info called transforms
+-*nix, windows, OS, free or $760/yr
+
+Free downsies: no export/save/nagscreen/”75 transforms/day”/one entity a time/
+
+[P]ICERL: chk ur shit brooooo
+
+
+Pg 57
+
+
 
