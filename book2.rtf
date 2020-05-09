@@ -23,7 +23,14 @@ Book2:
 >>>web searches
 >>>>GHDB
 >>>>>MALTEGO
-
+>>>>>>WEB RECON
+>>>>>>>SCANNING
+>>>>>>>>WAR DIALING
+>>>>>>>>>WAR DRIVING
+>>>>>>>>NET MAPPING
+>>>>>>>PORT SCAN
+>>>>>>SMB
+>>>>>
 
 
 #----OSINT----#
@@ -128,6 +135,156 @@ Free downsies: no export/save/nagscreen/”75 transforms/day”/one entity a tim
 
 
 Pg 57
+
+#---WEB RECON---#
+
+-sites offers research capabilities (net scanning via tracert, ping, port scans, DOS)
+-->shodan.io, tools.dnsstuff.com, network-tools.com, securityspace.com
+Shodan indexes service banners == google index webpage text
+
+Shodan cheatsheet: thor-sec.com/cheatsheet/shodan/shodan_cheat_sheet/
+
+!----STEP 2: SCANNING----!
+
+Attackers goal: begin scans for openings in tgt sys
+
+#---WAR DIALING WHO DIS-----#
+
+WDialers: dial sequence of telephones, modem carriers or 2nd dial tones
+--- (remote access to routers)
+→ access to route/switch components
+
+warVox: dials via multiple VOIP accounts + listens/records answers as mp3 audio for spectrum analysis + applies sigs to see what answered (modem, fax, vmail , etc)
+
+Goodies: caller ID spoofing, 1000 calls/hr, caller ID as “SELF” to bypass PIN auth in vmail sys + spectrum analysis
+
+github/rapid7/warvox
+
+[P]ICERL: get list of analog lines at your PBX + dial digital lines + check telco bills for numbers + user training for good pwds!!!!
+
+
+#----WAR DRIVING----#
+
+-recon analysis against wireless network
+--->Active scan: hit up SSID for get backs
+--->Passive: hear steady callouts/beacons by AP, gaining SSID/encrypt/auth type
+
+Tools: 
+inSSIDer lite from metageek (Win - active)
+WiFi Analyzer( FarProc - for Androids) --->Geiger counter (visible signal strength closer to AP)
+--->needs loc auth
+<---in-app ads
+Kismet: passive for linux
+
+[[[[specs]]]]
+WPA:wireless protected access -AUTH=TKIP (temporal key integrity protocol) -- NOT supported
+WPA2 ---via mode Cipher Block Chaining Message Auth Check Protocol (CCMP????????)
+WPA3 ---via Galois Counter mode (GCM 256bit key)
+
+*most modern WIFI uses AES (advances encryption standard)*
+[[[[auth]]]]
+PSK: preshared-key 
+EAP: enterprise uses Extensible auth protocol like pword/certs/tokens
+SAE: simul auth of equals - elminates offline pwd guessing
+
+wigle[.]net/stats#ssidstats
+
+Don’t need Pineapple AP
+-can use ILMN -VM (neighbor.willhackforsushi.com)
+
+Hostapd-WPE: github/OpenSecurityResearch/
+
+Attack
+--BlueTooth, ZigBee, Z-Wave, RFID
+Handheld wifi scanning NetScoutAirCheck G2
+
+
+Crazyradio PA 
+github/insecurityofthings/jackit
+github/hak5darren/USB-Rubber-Ducky/wifi/Duckyscript
+
+
+[P]ICERL: use WPA2 +higher, enterprise use TLS/RADIUS/ 2FA like PEAP or TTLS
+P[I]CERL: wireless IDS
+PI[CERL]: remove rogue/renegade APs !!
+
+#----Network MAPPING----#
+
+Attacker goal: create topology of tgt network
+---DMZ + perimeter netwrk + intranet
+
+Nmap goal: hit each addr to get a whodiz? == addr in use
+-->nmap hits/sweeps before it launches port scan
+
+TTL was created so its above 0, otherwise timeout sent to sender
+--->up to 255 hops
+----otherwise phantom packets circling the internet for eternity
+
+traceroute/tracert/nmap = measure the path the packet takes across a network
+
+[P]ICERL: disable in/out ICMP echo hits 
+
+
+
+#--port scan---#
+
+Attkr goal: find holes in tgt sys
+
+TCP/UDP rides on top of IP
+--tcp: session oriented + tries to deliver in order + resend drop msgs (like amz prime ! )
+--udp: best-effort delivery + may drop + out of order 
+
+Ports == entry points/doors/ into your sys
+→ 65,536 (times 2) ports
+
+Port listings maintained by IANA 
+--i.e, tcp 80 web server, tcp 445 windows SMB, tcp 53 dns, etc
+
+All TCP hits (http/telnet/ftp/etc) are via 3way handshake
+----This is how TCP makes its delivery promising !!!
+
+UDP/user datagram OR unreliable damn protocol 
+
+Nmap Scan types:
+SYN: halfopen scans (only SYN+SYN-ACK, no final ACK)
+Connect: slow/easy detection via full 3way hshake
+ACK: port identification/not connection to host
+FIN: limited to *nix sys, similar to ACK
+FTP proxy bounce: bounce attack off poor config FTP server
+Idle: divert attn/obscure attkr location
+UDP: locale vuln UDP srvcs
+
+Stateful packet filters allow SYNS if it’s tied to an earlier outgoing packet (SYN-ACK)
+--drops new SYN packets, can get RST response , can be useful for network mapping, not ports
+
+Masscan: github/robertdavidgraham/masscan
+--100packets/second
+
+github/christruncer/eyewithness
+
+--reverse multiplex---
+
+Remux.py
+---setup a proxy listener so traffic is hard to tell where it originates
+--config ur browser to go through remux + pulls down list of proxies
+
+[P]ICERL: close all unused ports/srvcs + proxy FW 
+---check listening ports on Win (netstat -nab | find “LISTENING”)
+---*nix (sudo netstat -nap | grep “LISTEN “)
+---> sudo lsof -i | grep nc
+
+SMB has a varierty of netowork features (file/printer sharing, domain auth, remote admin, etc)
+--enum a tgt with admin creds to run code 
+SMB is via TCP p445, older netbios tcp/udp p135-139
+
+SAMBA for *nix sys
+
+tinyurl[.]com/yyvfvhw2
+
+Need to:
+Powershell empire
+Bloodhound 
+
 
 
 
