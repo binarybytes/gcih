@@ -69,6 +69,17 @@ NetCat allows only one client:listener
 ***PRO TIP: stealthy file transfer via UDP port 53 -- looks like regular DNS traffic***
 ++PRO TIP: jus run /bin/sh or cmd.exe == already logged in as user who ran NC -l ++
 
+
+#----MOVE FILES/DATA AX NET-----#
+--the file tht gets eating by the mouth is the one being moved
+L>C:
+nc -l -p 1111 <file.exe
+nc 1.2.3.4 1111 >file.exe
+
+C>L:
+nc 1.2.3.4 1111 <file.exe
+nc -l -p 1111 >file.exe
+
 #------RELAYS------#
 
 1way juice street:
