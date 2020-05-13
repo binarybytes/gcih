@@ -122,3 +122,57 @@ B3.Pg23
 
 
 #----SNIFFING----#
+
+Goal: snatch packets from the LAN 
+
+Broadcast network ---> everyone
+Switch network → destination only
+
+Promiscuous mode - all traff from/going anywhere on eth0
+Each NIC has uniq MAC addr (48 bits)
+-switches maps MAC/port to NIC
+Aka CAM table (content addr memory)
+
+Wireshark/tshark ++ protocol parsing >500
+
+****TIP: all sniffers grab bits from the netways***
+
+IP to MAC addr mapping = ARP (addr resolution protocol)
+--->no way to tell if it’s from the tgt machine
+
+!!!concern: anyone can send an ARP request (here, take this data...jus in case u wana know, the MAC for the IP 1.2.3.4 is AA:BB:CC:DD)!!!!
+
+---> you can flood a switches memory/CAM table + poison tgt machine ARP cache
+------even wen there’s current IP mappings already in the cache
+
+Solaris has ARP TTL’s (wait for TTL is OVERRRRR and poison ARP cache!!!!!!!!!!!)
+
+-resolve IP to Domain name = DNS
+--->if empty, Win queries local sys:
+-LLMNR (link local multicast name resolution)
+-NBT-NS (netbios name service)
+
+T00lz:
+-bettercap finds tgts + arp poisons + traff hijacker
+-arpspoof for arp poison + relay via attkr sys > tru dest
+-MITMf by github/byt3bl33d3r/MITMf
+-network miner (netresec[.]com/?page=Networkminer
+
+ARP poison:
+1> setup IP fwd all to router= redirect all attkr traffic to router (default gateway)
+2> arp hit tgt system = maps IP of router to MAC of attkr
+3> sniff network (tgt sends data > DG > attkr > DG
+
+
+Playing with TCP stream
+--fake update notifications, run .hta app (HTA drive by)
+--MITMf bd exe files in transit (FilePwn)
+
+DNS poison:
+1> attkr uses dns poison (betttercap/mitmf)
+2> tgt searches site via browser
+3> attkr intercepts, sends fake dns request to wherever
+
+
+
+Pg 44
