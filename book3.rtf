@@ -173,6 +173,174 @@ DNS poison:
 2> tgt searches site via browser
 3> attkr intercepts, sends fake dns request to wherever
 
+#--SSL certificates----#
+
+Goal: dodge em
+1> compromise CA/RA - cert authority/registration auth
+2> powerbleed/heartbleed memory from ssl en apache servers
+3> hash collisions
+
+#---session hijack---#
+
+combo  > spoof + sniff <
+
+-other ways to TAP traffic other than ARP poisons
+
+-web proxy autodisc (WPAD)
+
+[PICERL]: 
+
+-set ARP tables at sysboot - IP:MAC (no overwrites)
+-port security locks down MAC:port
+-dynamic ARP inspection + dhcp snoop
+-encrypt sesh
+-secure protocols (SSH v2 / vpn cryp)
+-don’t telnet 
+
+#--------BOF----------#
+
+Buffer overflows
+
+-stuff fat data into small vessel
 
 
-Pg 44
+-how programs run on a pc:
+1> cpu gets orders from mem
+2> cpu has instruction pointer to tell next location
+3> cpu goes to next location in mem
+
+-exceptions are for branches/jumps encounters
+
+Causes of branches/jumps: if/then conditions + loops + subroutines + go-to statements
+
+
+#---subroutines---#
+
+1> main function starts
+2> subroutine is called
+3> pointer jumps to new area of memory
+4> RP returns to main function from subr
+
+LIFO
+--push things on top
+--pop things from top
+
+RP(return pointer) contains address where execution was shook 
+---->where we wana return to after function
+
+why: program calls subroutines to increase space for variables on stack
+---stack is like a notepad to rmr things / space for memory
+
+
+Create a BOF:
+1> find vuln to bof
+---a) brute force
+----b) shove patterns of a bunch of garbage
+-----c) find IP containing ur pattern (!exploitable)
+2> write bytecode:mem
+3> set RP to stack so it exez
+
+[C lib Functions assoc to bof vulns]
+-strcpy
+-strncpy
+-strcat
+-sprintf
+-scanf
+-fgets
+-gets
+-getws
+-memcpy
+-memmove
+
+-find the offset for RP !
+
+-look for crashes -- if ABCD is in RP slot, that’s where to place the RP
+
+NOP
+-no operation assembly code = protocol for do nothing
+
+NOP
+NOP
+NOP
+NOP
+Mal code 
+RP
+
+-NOP + mal code + RP = egg
+
+#---METASPLOIT----#
+
+-exploit framework
+-stitches together custom xploits/payloads
+-GUI = armitage
+-can do vuln check first before wasting xploit
+-cleans up after itself (doesnt leave sys/srvc crashes)
+
+--Metasploit Interpreter == Meterpreter
+
+Offers
+1> no separate process = runs inside exploit
+2> manipulates memory / no touch HDD
+3> own cmd + no exe on tgt sys
+4> new mods while running in memory
++encryption (TLS)
+
+[P]ICERL: IPS/HIPS, app whitelisting
+
+
+#----Windows-----#
+
+Windows Defender has exploit guard (EG)
+
+-mod: data exe prevention DEP (nonx stack)
+DEP is hardware/software
+
+-msf can dodge DEP via Return-Oriented programming (ROP)
+
+-ROP makes RPs exe in legitimate Win DLLs 
+-->attkrs can use ROP to exe RPs in libraries 1x1 to achieve #goals
+---->#gadgets
+-DEP can’t stop ROP since the libraries are legitimate OS functions
+
+#---canaries---#
+
+-canaries = integrity check for a RP
+-sys calculates hash of RP (canary)
+-funk call start, RP then canary
+-funk call end, sys calculates hash (if yes, return to funk)
+---if no, graceful crash
+
+3 canaries:
+-random (random values to protect RP)
+-terminator (values dnt carry over)
+-XOR (random values + xor’d stack data)
+
+
+[PICERL]: identify server crashes + IV checks + nonx stacks + proxies + rebuild
+
+#--protocol parsers---#
+
+Can easily be BOFd as it opens files/searches
+
+Veil/Unicorn (create macros in mal files)
+
+Ghostwriting: junk code to bypass AV = add 2 subtract 2
+---added code changes sig/hash of program
+-edit assembly code
+--search for xor register
+--push [reg]
+--pop [reg]
+--xor [reg], [reg]
+---->add/rm reg
+
+-NOP enough to bypass most AV 
+
+#---bypass security controls----#
+-code cave = hijack jump funk > unused space in exe where malware waits
+-keyed payloads = encrypted payload using key from envrmnt var
+-digitally sign malware (stuxnet/flame/duqu)
+-living off the land (LOL)
+---> use native exe/tools cus AV cant detect (uses OS funk)
+
+
+
