@@ -1,1 +1,106 @@
+#-------------#
+#  pwd power  #
+#-------------#
+
+>>>>>>>>>>>>>>>>>>>>>>pwd
+>>>>>>>>>>>>>>>>>>LANMAN
+>>>>>>>>>>>>>>>>>NTHASH
+>>>>>>>>>>>>>>>win10
+>>>>>>>>>>>>>*nix
+>>>>>>>>>>>hash'
+
+#-----pwd cracking-----#
+
+-pwd CIA ++
+-win pwd store: SAM db+AD server
+-*nix pwd store: /etc/shadow
+-pwd guessing: slow/bad/scripts useful but acc lout
+
+-#----hyrda---#
+-*nix based
+-dict attks only (fasted method) = word file angst hash
+-best for protocol support (rdp/smpty/smb/vnc etc)
+
+pwd-crckg: plaintxt pwd w/ only cryp pwd
+1>valid user ID+cryp algo
+2>cryp pwd+pwd list
+3>cryp each pwd in list+run hash against tool
+
+Attk methods:
+-brute force (matter of time)
+-hybrid (add #+% to words = he11o!!)
+
+-usr pwd+sys hash of pwd = hash’ (hash prime)
+---->matches=authenticated
+
+#---LANMAN-----#
+-win pwd hash (legacy for >win NT)
+-->not case preserved (all upper case) + padded 14bytes + null (0x00)
+1>upper case 
+2>pad 14bytes
+3>split 2x7 bytes
+4>DES cryp
+
+advantage: pwd no longer than two 7byte chunks
+---->all alphanumeric values >120 days
+----->bypass with <14 chars
+replaced by…
+
+#---NT Hash----#
+
+
+--converts pwd from ASCII > Unicode
+-MD4 cryp to 16bytes hash
+-stored in SAM via AES/RC4
+-includes case sensitivity
+-disadvantage: no salts (users w/ same pwd have same hash)
+
+****TIP: not to be confused w/ NTLMv1/v2 --not hash funk -- but auth algos
+
+-salts add entropy (randomness/lack of predictability) degree of disorder
+-disadvan: salt stored in plaintxt = rainbow tables (hash dictionary)
+ 
+#--obtain domain hashes---#
+-copy the NTDS.dit file (encrypted)
+-only for SYS use (no COPY cmd for anyone)
+→ ntdsutil tool (manage+create Bup of AD data)
+---run this tool^ + ‘activate instance ntds + ifm 
+-decrypt ntds.dit file (using reg hive keyse) + xtract pwd hashes
+-secretsdump.py script to xtract ntds.dit/sys reg data
+
+Win10 hash crack:
+1>meterpreter hashdump cmd (migrate -N lsass.exe)
+----a)mb incomplete + local users only
+2>meterpreter smart_hashdump (reads pwd hash from disk)
+----a)local pwd hash + if DC will get all
+----b) UAC (user acc cntrl) will make it fail, hashdump via lsass.exe wnt)
+
+hashdump+other tools show hashes as:
+username:userid:LANMAN:NTHASH
+
+empty hash:
+tom:502:aad3b435b3424654:31d6cfe0d3456
+--lanman: am all day baffled by
+--nthash: difficult choice for encrypted data
+
+#---*nix----#
+-early sys used DES
+-unames in /etc/passwd
+-pwd hash in /etc/shadow
+
+*nix advan: salts + rounds O000o0o0o0o0o (hashes 5000x)
+-($1) 1000 rounds
+-($5/6) 5000 rounds
+----attackers offload computation to GPUs
+
+>--------HASH PRIME = SALT + PWD←-----
+
+-NIST recommends PBKDF2 (pwd based key derivation funk 2)
+--allows dev to choose HMAC hash rounds (minimum 2 for hmac)
+---> some need a million  ++ WiFi WPA/WPA2 needs 4,096 SHA1 hash rounds
+-bcrypt (like PBKDF2) but needs memory + limited on formats (no null bytes/ max of 72 b)
+---scrypt same ^ but performed in serial
+-Argon2 newer / not widely adopted
+
+Pg 30
 
