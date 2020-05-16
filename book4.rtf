@@ -251,7 +251,91 @@ XSS = user frontend browser
 ---both need to filter out shit
 
 PICERL: CSP + response headers for HttpOnly + IDS + script filters
-Pg 112
 
+
+#---webapp state maint---#
+
+
+-uname+pwd = sesh creds
+-tracking this access:
+1>url sesh track (in url)
+2>hidden form elements (in src code browser)
+3>cookies
+Web app > browser: “here hold this, wen u come back, show me it again”
+
+-using proxy lets u edit raw http/https + nonpers cookies
+
+Atkr 	     proxy	webserver
+[] ----------->[__]---------->[______]
+				    |
+[]-------------[__]-------------------<---
+
+webapp manipulation tools (ZAP/paros/burp)
+-burp runs in java + regex + alter HTTP req in real-time + 
+-w3af (webapp attk/audit fr.work) -
+--->python + mitm proxy
+-fiddler
+-#1=ZAP
+-->import SSL cert to auth a site
+-supports chain proxies (use if separate from netways)
+-web spider offloads allsite
+-point&click tool
+-looks for mal bhaviour (iframes/bof),
+-sql/xss etc
+
+-some apps can put data in 0sized frames
+-cookies+hidden form elements can be edited n passed back to browser
+
+-WAFs (webapp FW)
+--secureSphere waf
+-citrix netscalers app FW
+-f5 ASM (app sec mngr)
+-modSecurity similar but not proxy
+
+PICERL: bup + logs
+
+#----DOS---#
+
+-goal: block services
+-defense: bandwidth + redundant/parallel paths + bups
+-local DOS (tgt machine, e.g cpuHog - high process)
+-network DOS (malform packet  + packet flood)
+---malform packets = too long, PoD (ping of death) , teardrop attack (weird fragmented packets)
+---packet flood = sending ++ packets to tgt
+
+-DNS amplification 
+---spoofed packets to a 3rd PT 
+--smurf attk sends to network browadcast 
+---->DNS amp does not ^
+
+--DNS amp sends small spoon DNS reqs to DNS servers
+--->DNS servers sends larger response to the alleged tgt = flooding “tgt”
+-DNS uses UDP to fire&forget
+
+EDNS- extension mechanism for DNS
+1> attkr locates DNS server doin recursion
+2> attkr send queries to ^ to look for attkr controlled server
+3> attkr sends big data/txt record to ^servers (cached+TTL)
+4> attkr sends DNS query to server + spoof tgt to flood
+5> DNS server reponds w big data/TXT record via UDP = flood
+
+
+-DDOS (tribe flood net 2000)
+-pulsing zombies (bomb for brief time, dormant, reawaken)
+
+
+-LOIC (low orbit ion cannon)
+--TCP/UDP/HTTP floods
+-pull tgts from IRC
+-can look for twitter feeds (volunteers to participate in DDOS)
+
+-HOIC (high orbit ion cannon)
+-multithreaded (faster reqs)
+-boosters (JS scripts to access multiple pgs on tgt site)
+-
+
+
+PICERL: throttle /block + patch + IDS/IPS + AV + egress antispoof perimeter DG
+-arbot+riverbed cascade + cisco
 
 
