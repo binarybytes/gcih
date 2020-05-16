@@ -8,6 +8,14 @@
 >>>>>>>>>>>>>>>win10
 >>>>>>>>>>>>>*nix
 >>>>>>>>>>>hash'
+>>>>>>>>>>john
+>>>>>>>>>HCat
+>>>>>passdahash
+>>>>>>>>>w0rms+b0ts
+>>>>>>>>>>>>>>>>cmdinject
+>>>>>>>>>>>>>>>>>>>>>>>SQLinject
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>XSS
+
 
 #-----pwd cracking-----#
 
@@ -102,5 +110,148 @@ tom:502:aad3b435b3424654:31d6cfe0d3456
 ---scrypt same ^ but performed in serial
 -Argon2 newer / not widely adopted
 
-Pg 30
+
+#----pwdcracking-----#
+
+Attkr goal: 
+1> break into low sys
+2.> dump hashes
+3> crack hash+gain plaintext pwd
+4> reuse pwds to get crit sys
+
+#----Johnnnnyyy----#
+-store in john.pot
+
+*NIX
+-must feed it encrypted pwd file
+-*nix w/ no shadow pwd, jus feed it /etc/passwd
+--->w/ shadow, must sudo + merge /etc/passwd + /etc/shadow
+---->must use unshadow from johnyyyy
+
+[# unshadow /etc/passwd /etc/shadow > combined]
+
+Wins
+-feed johnny txt output from mpreter’s hashdump/smart_hashdump/mimikatz/impact’s py 
+-tell john lanman/nt hash via --format=NT /--format=lanman
+
+
+4 modes:
+1> single (account name+hybrid+/etc/passwd
+2> wordlist (dict list as src)
+3> incremental (br. force)
+4> external (optional 3rd party)
+
+-before cracking, MERGE into single file = combined
+--++finds out hash funk its working w/
+
+#----hashcat^.^-----#
+
+-uses GPUs
+-5 modes
+1>straight (wrdlist)
+2>combinator/mask (2 wrdlists)
+3>brute force
+4>hyb wrdlist+mask (adds mask mode to straight mode)
+5>hyb mask+wrdlist (reverse ^)
+
+[P]ICERL: kill the LANMAN + strong pwd + pwd policy + deploy LAPS + MS credguard
+
+-PAM (pluggable auth mod) -extend auth funk -- link RADIUS/kerberos/biometrics
+
+#----passDAhash-----#
+
+-grab hash + load into mem + auth via SMB ==== pass the hash (PTH) attk
+-->memory via LSASS (local security authority subsys srvc)
+
+1>steal hashes via msf 
+2>put hash into mem on another controlled tgt
+3>access based on smb like net use, mount ntfs + run regedit
+
+[P]ICERL: set reg key [LocalAccountTokenFilterPolicy] to default 0 + RID500 disabled
+
+-legacy AD, common for service accounts to have SHIT pwds
+--->any user can req ^ serv tkts (hashes in tkts + cracked via HCat)
+***PRO TIP: the service for the SA dont needa be there, just the tkt**
+--->mimikatz/impacket can xtract hash from tkts
+
+
+P[I]CERL: look for unusual admin traff + unexpected SMB hits + excessive s>s SMB + new pwd
+
+#-----WORMS+B0T$--------#
+
+
+-worms auto atk tools spread via netways
+-bots r specialized bd
+---->maintain bd + irc + mail relay + http proxy + dos
+
+-can get bots on tgts via email attachments via C2 callbacks to sites 
+----++ drive by downloads + browser exploits
+----common ports for IRC is TCP 6667 and TCP3000/3333
+
+-bots can morph code = bypass AV
+-scan for other vuln tgts to install same bot
+-useful for anon surfing (proxy strips out src IP/user agent -- before http req)
+-GRE (generic route encapsulation) redirector === hides where attkr is located on network
+
+----BOTS CAN:
+-------->tcp redirect (like netcat)
+---------harvest email addrs to spam
+--------have an API for new feets + plugins
+---------remotely shutdown + uninstall themselves
+--------virtualization detection capable
+
+
+PICERL: harden sys (most use BOF vulns) + patch + crypt HDD
+
+#----web app attacks-----#
+
+account harvesting: find user IDs based on how apps respond to auth
+PICERL: error messages vague + consistent + account louts
+
+#-----cmd injections-----#
+
+-cmds used as user input
+
+-blind cmd injection (sniff to see if the tgt send the data out e.g, ping ur own ip, sniff ICMP reqs)
+
+PICERL: clean code + unusual outbound hits + assessments + config chng + WAF + rebuild
+
+#----SQL inject----#
+
+-search/update/delete data in backend sql db
+-web app use web servers + backend DB
+----->accepts user input → adds to sql statement to get data
+----see how the app responds with quotes, etc (cough up more info)
+-can automate this [nmap + ZAP proxy + burp + sqlmap]
+
+-double dash [ -- ] = comment delimiter (ignore everything after user input)
+-semicolon [ ; ] =  query terminator
+-asterisk [ *] = wildcard select
+-percent [ % ] = match any substr
+-underscore [ _ ] = match any char
+----> OR, TRUE, 1=1, SELECT, JOIN, UPDATE
+‘ or 1=1;-- [this means “ or TRUE = dumps db]
+
+PICERL: no web app admin to DB + filter input + code with parameterized queries + 
+---->search app logs for [union/select/join/inner]
+--DLP solutions for PII (cc/sin/ etc) + filter attk IP at FW
+
+#----XSS-----#
+
+-reflecting user input back to users
+1>tgt uses vuln web app
+2>attkr gets tgt to click on link w/ JS
+3>tgt browser sends script to web app as user input
+4>web app runs script > back to browser
+5>script runs on browser, grabs cookies + sends via http or email to atkr
+
+
+SQL = backend DB
+XSS = user frontend browser
+---both need to filter out shit
+
+PICERL: CSP + response headers for HttpOnly + IDS + script filters
+Pg 112
+
+
 
