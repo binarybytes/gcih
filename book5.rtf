@@ -212,4 +212,51 @@ PICERL: sec templates + chkrootkit (checks link count) + AIDE (alt to tripwire i
 [ C:\> type bad.exe > notepad.exe:stream1.exe]
 [ C:\> more < c:\bad.exe:stream1]
 
-pg76
+#---------ADS------------#
+-find ADS via: [dir /r] or [get-item * -stream *]
+-win CANNOT delete streams wtf (move to FAT = dropped stream)
+
+
+#---log editing----#
+
+-.logs rewrite to .evt format (system.evtx/security.evtx/application.evtx)
+---->-mtptr: [clearev] --clears all those ^
+---sophisticated attkrs will do line x line editing
+-dedicated logging server + WEF (ev fwd) + msyslog + ELK
+#-----c0ver trax--------#
+
+-protocol manipulation (1 protocol inside +protocol)
+----shell via web traff or shell via icmp traff
+
+Reverse http shell
+-RHTTPshell asks cmds from attkr external machine
+--->sends to tgt as http
+--->results pushed at next web req
+
+Icmp tunnelling: info in payload of icmp req
+-ptunnel (tcp over icmp)
+-loki (shell over icmp)
+-icmpshell + ping chat + icmpCmd
+
+Ptunnel
+Client: listens on tcp port + external dest 
+Proxy: external machine via ping from client + connect to port of client
+
+Covert channel via tcp/ip
+-insert data via unused/misused fields
+covert_tcp > only ascii between syss
+----via IP identification / TCP init sequence # / tcp ack #
+
+Gcat: testing DLP for cmd exe + dl/ul of files + keylogging / shell code from Gmail
+
+PICERL: stop unknown procs + least priv + NIDS for anomalies + rebuild
+
+#--steg---#
+-hiding data within files (image / sound / etc)
+Tools (jsteg/mp3stego/smail/invisible secrets/stash/hydan/silent eye)
+
+-LSB (least significant bit) --- detect stego
+
+PICERL: hash if u have src image + 
+
+
