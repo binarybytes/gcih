@@ -151,4 +151,65 @@ sits btween hardware / programs
 -*nix: loadable kernel mod (legit + add support new hw + code support new ft.)
 -win: device drivers (runs at kernel + alter sys call (kernel))
 
-pg46
+#--------r00tkit---------#
+1>LMK (loadable kernel modules) via drivers (signing code into kernel)
+2>altering kernel in memory (if mem/ram is packed, goes to HDD, alter it there)
+3>change kernel image file on HDD (linux kfile stored /boot/vmlinuz + Win=Ntoskrnl.exe/win32/sys)
+--->NTLDR canaries it, so patch will kill integrity check
+4>virtualize the sys (reverse honeypot)
+
+-examples
+-r00ty (detects 32bit/64bit + installs as driver/lmk via insmod + hides lsmod)
+--->cone of silence (hide things from visible procs + allow invisible procs to see)
+-Avatar rtkt (dl 2 drivers + bootkit)
+-fontanini rtkt (replaces read funk + easy)
+
+PICERL: sec templates + chkrootkit (checks link count) + AIDE (alt to tripwire integrity chker)
+---check worm propagation pattern + autodetect/throttle
+----->wipe/reformat HDD + restore from bup
+
+#-----COVER TRAX--------#
+
+
+-*nix: hide a file = dot/two dot b4 file “. ” or “.. ” or space “ “
+
+-where to hide files:
+1>/dev (info about devices + chunks of HDD/refs to terminals)
+2>/tmp (weird files by apps to store temp data + wipe after reboot)
+3>/etc (config of machine + bad spot as monitored)
+4>/usr/local/man (man pages)
+5>/use/src (*nix src code)
+
+#----Nix log editing------#
+
+-remove files from syslog (/etc/syslog.conf file)
+-some store in /var/log
+
+-delete bash history (plant false cmds into other user history file = distract)
+---$HOME/ .bash_history
+
+***PRO TIP: shell history writes > shell exits****
+
+----------->>>>>add a space b4 cmd = no logging <<<<<<<<<------------
+
+
+#------Accounting Entries------#
+
+*nix: 4 files = accounting entries
+1>/var/run/utmp (current logged on user - invoked by who cmd)
+2>/var/log/wtmp (history of logged in users)
+3>/var/log/btmp (bad logins)
+4>/var/log/lastlog (most recent login time/date for users)
+
+-can only edit with tools (wtmped.c /marry.c /cloak.c /logwedit.c/wzap.c ++)
+
+#----NTFS hidden files-----#
+
+-create ++ streams assoc to files in dir
+-cp/type cmd
+-copy data>filename (notepad) + colon + stream name (new name)
+-more cmd to view + need to kno name/loc
+[ C:\> type bad.exe > notepad.exe:stream1.exe]
+[ C:\> more < c:\bad.exe:stream1]
+
+pg76
