@@ -1,1 +1,154 @@
 
+
+>>>>>VNC
+>>>>>>>Wrappers/packers
+>>>>>>>>>>>>>MemAnalysis/Capture
+>>>>>>>>>>>>>>>>>>>>>>>>>>>r00tkitz
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>maintainAccesss
+>>>>>>>>>>>>>>>>>>>>>>>>>>HIDING
+>>>>>>>>>>>>>>>>DLLinject
+>>>>>>>>>>>kernel
+
+
+
+review
+-recon: case the joint
+-scan: probe to breakin
+-exploit: takeover
+-keepacess: stay in
+
+T[T]P: bd (backdoors) + TH (trojan horse)
+-bd = program to bypass sec cntrl 
+-TH = app w/ hidden funks
+-TH+bd= trojan horse bd suite
+
+-server exe on tgt
+-server controlled from client
+-found via AV (not VNC - popular RC program good/bad guys)
+
+popular (poison ivy + VNC + dameware + darkcomet rat + blackshades + gh0st rat)
+
+#----VNC----#
+
+-port 5900 to send GUI ax netway
+-use SSH port redirection on TCP p5900 SSHv2 (strong crypt)
+
+-scareware (scare ppl thinking they hacked/infected)
+-social engineer to ‘fix’ the issue = install bd/TH
+-pretends to be from MS/Dell/etc
+---charges $$$ (clears event logs lol)
+
+Features
+-keystroke loggers (get pwds)
+-create dialog boxes 
+-lockup/reboot pc
+-get NTFS info
+-access files
+-etc
+
+
+#----Wrappers----#
+
+-wrappers aka binders
+-2inputs/1output (2 programs smashes together as 1 exe)
+-saranWrap / eliteWrap
+
+
+-AV bypass tool = Veil
+-Veil+wrapper ttps are in SET (social engineering tk)
+-
+
+#---packers----#
+
+-compressed exe (smaller distribution)
+-packed exe has no interesting str + cant disassemble
+--until its decompressed its gibberish
+
+PICERL: reverse engineering malware 
+---immunity debugger is great + python scripts/GUI
+-->ghidra also great
+
+#----mem analysis/capture----#
+
+cap/dump memory:
+-“memoryDD.bat” - mandiants free Memoryze tool 
+-“fastdump” - HBGary tool 
+-win32dd/mdd from mantech
+.vmem files for VMware guests
+
+analyze memory:
+-Google’s Rekall ←---
+-Volatility 
+
+#----r00tkitz----#
+
+--mods existing programs to create TH-bd
+-maintains root access, doesn’t gain root access (need B0F , etc)
+1>persistent bd
+2>masks sys comp (hide login/process/files+)
+
+-app lvl TH-bd = adds new apps
+-rootkits TH-bd= mod existing programs
+
+-maintain access
+-->replace login/rshd/sshd/inetd/tcpd services to ++ bd
+-chfn/chsh/passwd/su + bd pwd = r00t
+
+
+
+
+#--------HIDING---------#
+1>process hiding (replace ps/top/pidof/killall = dnt show/stop THbd)
+2>network hiding (netstat/ifconfig = dnt show)
+3>file hiding (ls/find/du = dnt show)
+4>event hiding (syslogd = dnt record THbd+related)
+
+#-----DLLinject-------#
+
+-exe loads DLLs it needs to run 
+-attkr forces exe to use DLL it never needed (crafted)
+(get more than wat it came for)
+1>create space in process for DLL
+2>add parameters to space
+3>code into mem of runin process
+4>create new thread in new process (runs any code = bad DLL)
+5>free up resources after exe 0
+6>api hook/overwrite 
+
+-start>run>secpol.msc
+--->sec settings>local policies>user rights assign>debug programs
+----who has debug priv
+
+DLL use case:
+1>copy rtkt to system32 dir
+2>rtkt injects explorer.dll into explorer.exe
+3>explorer.dll ‘API hooks’ code from iexplore.dll
+4>explorer.dll injects iexplore.dll into parent explorer.exe
+(inject code here to mask process/files/regkeys/nettraff++)
+
+***PRO TIP: no such thing as explorer.dll+iexplore.dll****
+
+
+#---kernel sanders rtkt ---------#
+
+-all access to HDD/hardward > kernel
+
+
+#----kernel---------#
+
+controls important stuff in machine
+sits btween hardware / programs
+[Hw | kernel | programs]
+-32bit CPU>sensitivity lvls called Rings (0-3 high-low)
+-to tlk to kernel, ring 3 needs to do ‘sys calls’ (exe/open file)
+-usr process>sys lib>sys call (kernel mode) > hw
+-sys lib sends ‘interrupt’ to cpu (bro change to ring0)
+-sys call table = array cared by kernel sanders
+---->maps sys call names to code in kernel
+++just bunch of pointers > chunks of kernel
+
+-km rktk (hide process/files/net usage/redirection exe)
+-*nix: loadable kernel mod (legit + add support new hw + code support new ft.)
+-win: device drivers (runs at kernel + alter sys call (kernel))
+
+pg46
