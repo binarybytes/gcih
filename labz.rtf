@@ -1,1 +1,52 @@
+#-------------------#
+#                   #
+# know.whats.normal #
+#                   #
+#-------------------#
+
+
+
+
+#--nc listener + taskmgr-----#
+
+Setup nc listener: [nc -l -p 2222]
+Find it via: [netstat -nao] (o includes PID #)
+Good: xref PID from after running [tasklist] or [wmic process list brief] (task mngr output)
+Better: [netstat -naob] - includes exe/dlls > listening ports (need elevated cmd)
+
+taskmgr.exe>details>r.click on name>click PID>ok
+
+[tasklist /v] -- shows processes + user running it
+
+#---unusual srvs----#
+
+[wmic process list full] - gives ++data (cmd line, os name, exepath, parentPID, etc)
+[services.msc] - GUI win srvcs info
+[sc query | more] - LUI of srvcs
+[tasklist /svc] maps procs to srvcs
+
+[FOR /R C:\ %i in (*) do @if %~zi gtr 10000000 echo %i %~zi] - files > 10mb
+/R = recursive
+C:\= c drive
+%i    = iterator var
+In (*) = look everywhere BITCH
+do = ...or else
+@  = no show cmds
+if    = statement
+%~zi = iterator var file size
+gtr = greater 
+10000000 = 10mb
+	echo = display
+
+OR GUI>file explorer>search [size:>10m]
+
+#---regedit---#
+
+HKEY_LML\software\microsoft\windows\currentversion\run
+HKEY_LML\software\microsoft\windows\currentversion\runOnce
+HKEY_LML\software\microsoft\windows\currentversion\runOnceEx (only  autorun task
+
+
+
+
 
