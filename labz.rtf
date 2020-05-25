@@ -49,6 +49,94 @@ HKEY_LML\software\microsoft\windows\currentversion\runOnceEx (only autorun task)
 
 .:. Look for random startup/autorun files (also taskmgr>startup]
 
+Lab 2:
+
+Takeaway: know via IDS/IPS -+- detect + review logs for data exfiltration
+
+Lab 3:
+--->find unusual processes←-
+
+# lsof -p [PID]
+-->files/ports for PID of bd
+
+# cp /bin/sh /tmp/backdoor (copy shell to new bd in temp folder)
+# chmod 4111 /tmp/backdoor (give it executable root privs)
+# find /tmp -uid 0 -perm- 4000 -print
+# rm /tmp/backdoor
+
+
+# cd /tmp
+# cp /bin/nc /tmp/nc
+#/tmp/nc -l -p 2222 &
+# ls -l /tmp/nc  (or lsof -Pi)
+# unlink /tmp/nc (rm the ls of the file)
+# lsof +L1
+# killall nc
+
+#---unush UID 0---#
+
+#grep :0: /etc/passwd
+# useradd -o -u 0 -s /sbin/nologin test
+# sort /etc/passwd -nk3 -t: | less (2nd first account)
+# userdel -rf test
+# clear
+
+
+#--find sus net stuff----#
+
+# ip link set eth0 promisc on (or off when ur done)
+# dmesg | grep promisc
+
+Lab 2.2: wireless lan
+
+> FOR /L %N IN () DO @netsh wlan show networks mode=bssid | findstr "^SSID Signal" && ping -n 16 127.0.0.1 >NUL && cls
+
+NMAP:
+-->non-root nmap does full TCP 3wayhandshake scan
+---> user nmap -sT as root (less logs+sus)
+---> [-A] adds os detect/version/tracert/banners
+
+Open ports:
+-find vuln services + bd
+
+#----win from nix----#
+
+-smb: 135/139/445
+
+#-----SMB SESSIONS----#
+Focus: share list
+--add [-m SMB2] force new use
+
+>rpcclient+smbclient<
+
+$ smbclient -L 10.10.0.1 -U sec504
+
+
+$ rpcclient -L 10.10.0.1 -U sec504
+$> enum{tabtab}
+$> enumdomusers (find user accounts)
+$> srvinfo (server info)
+$> enumalsgroups domain (or builtin)
+$>  lookupnames sec504 (1000)
+$> lookupnames administrator (500)
+$> lookupnames administrators (local group 4)
+$> queryuser 500 (info for admin)
+
+Win:
+> net session
+> net session \\10.10.75.1 /del
+Y
+
+
+#---find weak pwd---#
+Focus: using builtin programs to pwd spray
+
+PS > Set-ExecutionPolicy Unrestricted
+PS > Import-Module .\LocalPasswordSpray.ps1
+PS > Invoke-LocalPasswordSpray -Password Winter2019
+
+
+
 
 
 
