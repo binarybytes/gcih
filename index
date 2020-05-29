@@ -1,1 +1,202 @@
-
+3way handshake	2/100	syn+ack/syn+ack	all tcp are 3way 
+aircrack-ng	2/75	pwd guess tool for PSK wifi 	accepts pcap + wordlist
+Anti-disclosure mvmnt	2/9	vendors dont want vulns disclosed publically 	"no free bugs" mvmt (so researchers get paid)
+app lvl detection	1/48	app logs	web app/ app server/ cloud service
+ASEP	1/67-68	autostart extensibility points - used for exe programs on sys bootup or user login	"HKLM\Software\Microsoft\Windows\CurrentVersion\Run
+HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce
+HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnceEx"
+assessments	1/81	determine how much damage could be caused	"how widely deployed is this platform/app?
+whats the effect of vulnerability exploitation?
+what isthe value of the sys impact  sofar? value of data on those systems?
+is there a public exploit? was on recent?
+what level skill does an attacker need to exploit this?
+is the vuln in the config?
+is there a fix?
+are there other factors that in/decrease this vuln?
+can this be made into a worm?"
+			
+			
+base64	1/74	diff type of enconding	echo base64datadatadata | base64 --decode = decodes b64 data
+bash	1/170	default shell on +linux distros	"ctrl+R = cmd history
+ctrl+L = clear screen
+ctrl+C= abandon cmd
+account (useradd/passwd/su/whoami)
+FS(cd/pwd/ls/abs/mount/eject/mkdir/cp/find/locate/gedit/cat/less)
+running proc (PATH/which/ ./ /ps/jobs)
+net (ifcfg-etho/ifconfig/ip/ping/netstat)
+other (grep/man/info/shutdown)"
+bloodhound	2/139	tool graphs quick relationships to sys + permissions to sys + logged on users 	
+Contaiment	1/86	stop the bleeding + survey situation + FIRST case classification (category/criticality/sensitivity) + inform mgmt + track (CyberCPR)	"short term = stop the damage (disconnect net cable/pull power cable (loses volatile memory) / isolate switch port / place on infected VLAN/apply filters torouter/FW/change name in DNS)
+evidence collection = collect
+long term = deny access (patch/IPS or in-line Snort/Suricata/ Null routing/change pwd/alter trust relationships/apply FW/router filter rules/rm accounts / shutdown bd process/ACL)"
+ccpm 	2/73	cipher block chaining message auth check protocol	encryption AES uses this mode 
+chain of custody	1/84	inventory evidence you exchange + sign + account for it + descriptions 	control access to evidence + under control of one identified person
+crazyRadioPA	2/83	usb dongle accepts unencrypted connections	identify + intercepts keystrokes via ducky script
+cyberCPR	1/92	web app tracking incidents/sys/evidence	"enforces need-to-know on incidents
+all files are hashed/encrypted upon upload
+tracks user tasks/activity
+track attacker campaigns
+auto key analysis
+secure realtime OOB chat
+1-3 users free"
+Drive duplicator	1/98	drive storing evidence needs to be 10% bigger than evidence	
+enterprise authentication	2/73	EAP method use pwds+certs+tokens	
+enterprise wide IR	1/119	know where to look + ingree/egress data	"DNS data = reveal systems connection to bad IPs
+proxy = connection to known c2 + review user agent strings"
+enum	2/136	interrogation tool tgt win sys ax smb session 	enum -u UNAME -p PWD -G IPADDR
+espionage	1/135	stealing info for interests of org/govt	"do osint on your company 
+leak seeding (media leaks)
+thumbprint critical files and search for keywords
+access violations in audit trails
+collect bunch of data 
+make fake project = do word web bugs + track + use signatures"
+Event	1/13	observable occurrence	sys boot/crash, packet flooding, recorded multiple place for corroborating evidence
+eventquery.vbs /L security	1/72	event log for sus events 	"eventquery.vbs /L security = before win7
+wevtutil qe security /f:text = win7-10"
+eventvwr.msc	1/72	look for anomalous elogs 	
+evading IDS/IPS	2/117-119	IDS/IPS dont validate tcp checksum 	attacker can insert TCP reset with invalid checksum to clear IDS/IPS buffer
+eradication	1/104	rid of attackers artifacts + determine cause/symptoms of incident + vulnerability analysis (nessus)	"restore from BUs
+rootkits (wipe drive/0 out/ reformat drive/rebuild sys/patch)"
+eyewitness	2/107	screenshots of sites+vnc+rdp while its doing scanning	
+Forensic images	1/97	"make forensic image as soon as practical
+source for analysis
+image of memory + file sys
+dont do graceful shutdown - YOULL LOSE DATA
+use blank media"	"bit-by-bit image to get all file system data
+some may need advanced network/domain/life forensics 
+many will auto calculate hash of collected evidence"
+			
+gcc	1/200	use make to compile it 	"gcc -o randombackdoor badbackdoor.c
+./randombackdoor"
+gcm	2/73	galois counter mode (encryption mode)	
+GRR	1/39	IR tool = mem analysis on remote hosts with Rekall + free + by Google + store data in async + can wait until host is online to pull data	
+			
+			
+Hacktivism	2/10	hacking for political motives	"defacing systems + allowing political dissidents to comm w/o interference from oppressive govts (censorships)
+ransomware"
+host perimeter	1/48	data enters/leaves host 	personal FW + IPS/ local FW/ port sentry tools
+hostapd-WPE	2/80	impersonate WPA2 enterprise to harvest user creds	
+Identification	1/43	alert	network perimeter/host perimeter/host level/app level 
+iLovemyNeighbour	2/79	rogue AP software	linux VM
+Incident Handling	1/11	action plan for dealing with misuse of comp sys/net/data	
+Incident	1/12	actions resulting in harm to sys/net/data	
+insider threat	1/149	entity with access toyour data (employee/biz partner)	try using warning banners + check FTP sites + monitor message boards + wide net online + 0fox
+inSSIDer	2/69	win tool active scanning standard wifi card	"collects reports info on beacon frames (passive scan)
+probe response (active scan) + gps "
+Jump bag	1/41	stocked items 	FS iso + FTK imager lite + SIFT/encase/sleuth kit + tools + aspirin
+			
+kansa	1/129	detection tool + stacking like sys against each other to do long-tail analysis/positive skew analysis	.\kansa.ps1 -Targetlist .\hosts.txt -ModulePath .\Modules -Verbose -Analysis
+kismet	2/71	passive wifi scanner (linux) 	monitor mode 
+lessons learned	1/115	learn from our mistakes + document what happened + improve capabilities	"develop follow-up report asap max length half day
+do RCA"
+			
+lsof -i 	1/52	running service	
+masscan	2/106	separates SYN from ACK receive	large scanning tool (masscan 1.2.3.0/8 -p 22,23,25,80,445,3380
+money	2/11	making money with malicious code	"crptocurrency miners (bitcoin)
+spam/web based ads (redirects)
+pump/dump stock
+phish 
+DOS extortion (competitors)
+ransonware 
+keystroke logging (bank)
+bots for ^"
+nessus	1/109, 2/123-138	vulnerability scanner by Tenable	
+netscout aircheck g2	2/86	handheld wifi scanning tool + locating malicious ap	
+netsh advfirewall show currentprofile	1/63	see firewall settings (win 7-10)	
+netsh firewall show config	1/63	see firewall settings (win xp-03)	
+netstat 	"1/51
+2/110"	protocol/tcp+ip connections	"n=addresses/port numbers
+a=all connections/listening ports
+o=owning PID
+b=shows exe tht opened (need root)"
+net start 	1/66	running services	net start
+network perimeter detection	1/48	FW/routers/IDS/IPS/DMZ	
+nmap	2/90-98	net map + port scan + 	app data>tcp+udp>IP>datalink
+nmap scan types	2/103-105	ping sweep + syn/ack/fin/ftp/idle/udp/version scan	
+Null routing	1/101	drop packets associated to src/dest IP used in attack	
+Out of band comm	1/46	phones+fax	enterprise got popped, use phones/fax + signed emails (pgp/gpg)
+powershell empire	2/138	bd built in pshell + post exploit scanning 	situational_awareness/network
+Preperation	1/21	constant training/assessment	phish/SE test (phishme), 
+process explorer	1/75	detailed info for runnning processes (including examines memory)	
+process monitor	1/75	shows/logs FS/registry/net+process activity in real time	
+psk	2/73	pre shared key 	shared amount all users
+recon	2/15	case joint + gain info on tgt	"osint (whois) + cert search + spiderfoot
+dns (dig/nslookup) 
+web searches/pushpin/GHDB/robots.txt
+maltego (osint tool/transformations)
+shodan/censys
+war dial/drive"
+recovery	1/110	put impacted sys back into PROD safely + validate sys + user acceptance docs + monitor sys	"verify operation/functionality
+ask for test plan
+run tests + have biz test"
+regedit	1/67	view registry keys	"regedit 
+reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Run = reads reg key"
+rekall	1/97	Google's free tool for capturing/analyzing memory on win machines	
+remux	2/108	port scan through multiple open proxies + connects thru proxies 	remux.py
+rpcclient	2/141	getting info via smb sessions	"rpcclient -U username server
+enumdomusers
+enumalsgroups
+lsaenumsid
+lookupnames
+lookupsids
+servinfo"
+sae	2/73	simultaneous auth of equals	elimiates pwd guessing
+sccm	1/128	reporting + installed software + pull users/services	
+sc query | more	1/66	detailed services	
+services.msc	1/66	services control panel GUI	
+schtasks	1/71	look for unusual sched tasks + running as SYSTEM + in admin group or blank uname 	
+sharpview	2/137	standalone exe tool to enum win dom/servers	collect info on win via cmd (Get-DomainUser, Get-DomainGroup, Get-NetComputer)
+smb sessions	1/62, 2/131-, 2/140-144	"server message block + associated to file/print sharing ++
+via  tcp 445 
+netbios = tcp/udp p135-139"	"net view \\127.0.0.1 = look file shares
+net sessions = inbound smb sesh
+net use = outbound smb sesh 
+nbtstat -S = netbios over tcp/ip activity"
+sys(host) detection	1/48	on the host itself	AV/endpoint security/file integrity tools/ user noticing strange stuff
+systemctl	2/113	disable services	
+			
+			
+			
+tasklist 	1/64	show procs at cmd line	"tasklist /v = verbose
+tasklist /m /fi ""pid eq 615"" = get cmdline + DLL for PID
+tasklist /svc = processes to services"
+taskmanager	1/73	checks resources (cpu/network/ram/etc)	
+tcp header	2/101	src+dstport>seq#>ack#>heln+rsvd+cont bits+window>checksum+urgent point/tcp options+padding/data	
+tcp port 4444	1/51	default port for metasploit payloads	
+tcp port 27017	1/49	mongodb service	
+tcpdump -nn port 27017	1/49	scanning to see if tcp -p 27017 is litening on range.	this port is for mongodb + root is needed for tcpdump
+tcpview 	1/75	shows listening tcp/udp ports + maps to proc	
+udp header	2/102	src+destport>udp msg len + udp checksum > data	
+unauthorized use	1/141	allowed normal access but abusing it	email + web surfing
+unusual accounts	1/69	unexpected accounts	"lusermgr.msc = launch the gui
+net user = list users
+net localgroup administrators = whose in admin group"
+unusual files	1/70	check file space for sudden decreases	FOR /R C:\ %i in (*) do @if %~zi gtr 10000000 echo %i %~zi = size:>10M 
+VMware	1/162	".vmx = config
+nvram = vm bios
+.vmdk = disk file/HD image
+.vmss = suspended state file (paused vm)
+.vmsn = snapshot file (restoring vm)"	"host only net = only host can talk
+bridged = public net (next on switch)
+NAT = host acts as nat (vm behind it)"
+Volatility framework	1/97	capture/analyze memory dumps	
+vulnerability scanning	2/121	map a net + scan for open ports + find vulns + test against list of exploits	nessus
+Warning Banners	1/22	have legal team review and approve in writing	access to sys is monitored
+war drive	2/68	wireless network attacks	inSSIDer
+war dial	2/60	dial telephone # for modem dial tone	
+warVox	2/62	software listens to mp3 audiofile + signatures	characterizes types of sys + spectrum analysis
+wifi pineapple 	2/77	rogue ap	lures victim into network with same SSID
+wiGLE	2/78	wireless geo logging engine	1000 most common SSIDs
+wirelessattacks	2/82	wifi/bluetooth/ZigBee/Z-Wave/RFID attacks	
+WPA	2/73	oldest WPA standard 	
+wpa2	2/73	common + AES with 128bit keys in CCMP	
+wpa3	2/73	not wide + support AES with 256 bit in GCM mode	
+wmic 	1/65, 2/111	detailed proc info	"wmic process list brief = brief proc info
+wmic process list full = detailed proc info 
+wmic process get name, parentprocessid, processid = specific fields
+wmic process where processid=615 get commandline = focus on PID
+wmic startup list full = examine startup items
+wmic process 615 delete = delete PID"
+write blocked	1/98	intercepts write requests 	"software write blockers run on the host directly
+hardware write blockers between hard dish and computer"
+zenmap	2/94	nmap GUI	
