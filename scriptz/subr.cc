@@ -9,6 +9,6 @@ void sample_function(void)
  
 main()
 {
-  tst_function();
-  printf("htb+planet!\n");
+        tst_function();
+        printf("htb+planet!\n");
 }
