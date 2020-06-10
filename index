@@ -18,6 +18,7 @@ dir /s /b ""C:\Documents and Settings\username\Start Manu"" = ASEPs on sys befor
 start msconfig.exe = examine startup items
 wmic startup list full = examine startup items
 kansa can pull unique ASEP data"																					
+argon2	4/28	improvements of b/scrypt/pbkdf2 + scrutiny + no widespread adopt																							
 armitage	3/81	msf GUI																							
 ARP	3/28	address resolution protocol = IP > MAC	data must be directed to the h/w Address (MAC)																						
 arpspoof	3/32	allows attacker to inject fake ARP responses into LAN to redirect traffic 																							
@@ -45,6 +46,7 @@ other (grep/man/info/shutdown)"
 backdoor	3/15	get shell on any tcp/udp port	"unix: nc -l -p 1234 -e /bin/sh
 win: nc -l -p 4321 -e cmd.exe"	persist: nohup ./listener.sh &																					
 bettercap	3/32	ruby framwork + auto discover tgt + ARP poison + diff parses = intercept>hijack tool																							
+bcrypt	4/28	multiple hash rounds (this a protocol) + need shit tonne of mem + >72 + no null/0x00bytes																							
 bd factory (BDF)	3/34	can create custom plugins for TCP manipulation		BDF factory + BDF proxy																					
 bd no -e 	3/20	"$ mknod backpipe p
 $ /bin/bin 0<backpipe | nc -l -p 8080 1>backpipe"																							
@@ -69,9 +71,11 @@ dont use ping/traceroute/nslookup
 review logs from neighboring systems"																					
 coverity static analysis	3/95	code review tool - commercial (c/c++/java/c#)																							
 ccpm 	2/73	cipher block chaining message auth check protocol	encryption AES uses this mode 																						
-chain of custody	1/84	inventory evidence you exchange + sign + account for it + descriptions 	control access to evidence + under control of one identified person																						
+chain of custody	1/84	identification: inventory evidence you exchange + sign + account for it + descriptions 	control access to evidence + under control of one identified person																						
 cpu	3/65	cpu contains register called instruction pointer = tells it where to grab the next instruction for running program																							
+crack Station	4/18	rainbow table software in cloud		many hash algos 																					
 crazyRadioPA	2/83	usb dongle accepts unencrypted connections	identify + intercepts keystrokes via ducky script																						
+cred guard	4/55	mitigates attkrs getting hashes for PTH attacks	set to 0 = no body buy admin (RID 500) can PTH to remote																						
 cyberCPR	1/92	web app tracking incidents/sys/evidence	"enforces need-to-know on incidents
 all files are hashed/encrypted upon upload
 tracks user tasks/activity
@@ -113,6 +117,8 @@ change dns name
 patch/harden system"																					
 eyewitness	2/107	screenshots of sites+vnc+rdp while its doing scanning		"effective to sort through hundreds of sites 
 look for default pages + rdp servers with domains + indexed dirs"																					
+fgdump	4/52	hash dump tool																							
+FIRST Case	1/89	incident details (threat cat+criticality+Sev)																							
 FlawFinder	3/95	code review tool																							
 Forensic images	1/97	"make forensic image as soon as practical
 source for analysis
@@ -127,11 +133,22 @@ gcc	1/200	use make to compile it 	"gcc -o randombackdoor badbackdoor.c
 ./randombackdoor"																						
 gcm	2/73	galois counter mode (encryption mode)																							
 ghostwriting	3/109	junk code = +2 - 2 (reassemble exe to bypass AV + change the hash/sig, but not affect func)	binary to asm src = push <reg>, pop <reg>, xor <reg>	simple NOP bypasses most AV engines																					
-GRR	1/39	IR tool = mem analysis on remote hosts with Rekall + free + by Google + store data in async + can wait until host is online to pull data																							
+GRR	1/39	IR tool = mem analysis on remote hosts with Rekall + free + by Google + store data in async + can wait until host is online to pull data	multi-platform (linux/win/OSx)																						
 gratuitous ARP	3/30	any BITCH can send an ARP response when no bITCH asked for it 	even when a MAC entry is there, it'll SUCK up the new one 	solaris is a LEO and waits for a timeout																					
+GPU	4/27	NVIDIA GeForce RTX 2070 (768,500 hash/s or 153.7 pwd/s)																							
+hash'	4/26	salt+pwd=guess pwd																							
+hashdump	4/21	obtain local pwd hash from Win10 	meterpreter > hashdump  + ps -S lsass.exe + migrate (lsass PID) 	if fails = redo mtprtr sesh + migrate to diff SYS lvl process + migrate to lsass																					
+hashes - windows	4/23	username:userid:LANMAN:NTHASH	am all day baffled by : difficult choices for enc data	empty = user inactive/no decrypt for SAM data																					
+hashes - unix	4/24	old nix stored with DES/no salt (uname/pwd in/etc/pwd)	new md5 pwd hash + blowfish + salt 4b/8b (uname in /etc/pwd + pwdhash in /etc/shadow)	user504:$hashfunk$salt$pwdhash																					
+hashes - unix 2	4/25	$1=MD5 +$2=Blowfish +  $5=sha256 + $6=512 + no$ = DES																							
+hashes - rounds	4/25	hash calc repeated 5k x																							
+hashing			fingerprint of a file																						
 																									
 Hacktivism	2/10	hacking for political motives	"defacing systems + allowing political dissidents to comm w/o interference from oppressive govts (censorships)
 ransomware"																						
+hashcat	4/35-36	uses GPU + lotta formats + office file pwd + kerberos tkt dump via kerberoasting + OS hashes 	straight/combo/bforce/hyb wordlist+mask/hyb mask + wordlist	straight mode (-a 0) = easiest																					
+hashcat - mask	4/40	uses pattern (you must use pwd 8 char, 1 upper, 1 lower ..etc)																							
+hashcat - rule file	4/44	toggle case of letters in wordlist (l33t speak + reverse words + capitilize 1st letter + add#+ etc)																							
 host perimeter	1/48	data enters/leaves host 	personal FW + IPS/ local FW/ port sentry tools																						
 hostapd-WPE	2/80	impersonate WPA2 enterprise to harvest user creds																							
 http Strict Transport Security (HSTS)	3/48	prevents sslstrip	broken by bettercap as it changes hostnames in MITM attk (www.yahoo to wwww.yahoo)																						
@@ -144,13 +161,16 @@ insider threat	1/149	entity with access toyour data (employee/biz partner)	try u
 inSSIDer	2/69	win tool active scanning standard wifi card	"collects reports info on beacon frames (passive scan)
 probe response (active scan) + gps "																						
 instruction pointer	3/65	cpu containing register = instruc pointer (tells where to grab next instruct for run program	cpu grabs one program info from mem via instruc pointer = refer to a location in mem																						
+johnnnyyyy the RIPPER	4/31-33	pwd crack tool + nix/win + feed encry pwd file (merge /etc/pwd and /etc/shadow) 	# unshadow /etc/pwd /etc/shadow > combined	single (var acc name)>wordlist(dict file +hybrid pwd)>incremental(bforce gues)>external mode(ext programs)																					
+john.pot	4/33	crack pwd stored in john.pot file + rm when done/check for old pwds 	must note --format=NT + --format=lanman	$ unshadow pwd shadow > combined																					
 Jump bag	1/41	stocked items 	FS iso + FTK imager lite + SIFT/encase/sleuth kit + tools + aspirin																						
 																									
 kansa	1/129	detection tool + stacking like sys against each other to do long-tail analysis/positive skew analysis	.\kansa.ps1 -Targetlist .\hosts.txt -ModulePath .\Modules -Verbose -Analysis	supports pulling unique ASEP 																					
+kerberoasting	4/56	any domain can req a service tkt + has hashes + req SPN (service principle names) from AD	mimikatz/empire + can extract hash from tkts + service no needed, jus acc + effective for old acc 																						
 keyed payloads	3/114	encrypted payload via key taken from environment var + not in binary + exe searches runtime envirmt for strings > tries to decrypt binary until success		sig diff everytime 																					
 kismet	2/71	passive wifi scanner (linux) 	monitor mode 																						
 klocwork insight pro	3/95	code review tool (c/c++/c#/java)																							
-LANMAN	4/14	legacy pwd hash mech(weak/suscept) + not case sensitive(all upper)	pwd + uppercase + pad to 14b + split 2x7b chunk + DES encrypt + concat = lanman hash																						
+LANMAN	4/14	legacy pwd hash mech(weak/suscept) + not case sensitive(all upper)	pwd + uppercase + pad to 14b + split 2x7b chunk + DES encrypt + concat = lanman hash	no salts																					
 lessons learned	1/115	learn from our mistakes + document what happened + improve capabilities	"develop follow-up report asap max length half day
 do RCA"	make new mistakes + dont repeat old ones 																					
 LLMNR	3/31	link-local multicast name resolution = used by systems to query local sysyems		last resort is NBT-NS																					
@@ -164,6 +184,7 @@ msf exploit	3/80	takes advantage of flaw in tgt program
 msf payload	3/80	makes tgt do smt attkr wants																							
 msf post-exploit	3/80	search/plunder/manipulate tgt																							
 msfvenom	3/110	msfpayload + msfencode = msfvenom (all in one cmd)																							
+mimikatz	4/55	plaintext pwd recovery attack (post-exploit)																							
 MITMF	3/32	MITM tool = intercept HTTPS with SSLStrip+ .... + insert malicious .hta files + redirect to BeEF + integrate with LLMNR poision tools likes Responder	can look for user ID/pwd + session ID/URL + inject JS to harvest keystrokes on sites + use HTML5 Canvas >invoke screenshot of browser	supports file mods + mal injections																					
 money	2/11	making money with malicious code	"crptocurrency miners (bitcoin)
 spam/web based ads (redirects)
@@ -193,14 +214,16 @@ network perimeter detection	1/48	FW/routers/IDS/IPS/DMZ
 nmap	2/90-98	net map + port scan + 	app data>tcp+udp>IP>datalink																						
 nmap scan types	2/103-105	ping sweep + syn/ack/fin/ftp/idle/udp/version scan																							
 NOP sled	3/77	exe continues until it goes down stack to ur malcode	as long as guessed addr jumps back into NOP sled, malcode exes	NOP sled + malcode + RP = egg																					
-NT Hashes	4/15																								
+NTDS.dit	4/19	Win AD database file 	>ntdsutil + ifm + quit + quit 	need to decrypt ntds.dit using registry hive keys																					
+NT Hashes	4/15	modern win sys + case sensitive + converts to unicode+MD4 hash+ encrypt via RC4 or AES/CBC-128 in SAM	no salts used	if already in unicode, dnt need converted																					
 null char	3/75	8 zero bits in a row	"00000000"																						
 Null routing	1/101	drop packets associated to src/dest IP used in attack																							
 Out of band comm	1/46	phones+fax	enterprise got popped, use phones/fax + signed emails (pgp/gpg)																						
-																									
-																									
-																									
-physical attack	3/4	direct access to a system	"stolen laptop + bypass HDD encryption
+PAM	4/48	Pluggable Auth Modules = extend auth funk (link sys to RADIUS server/kerberos/or biometrics auth)																							
+Pass-The-Hash	4/52-55	use hash + from memory (LSASS)+ auth to dest server	replace attacker hash in mem, with victim hash	defence on pg 4/57																					
+PBKDF2	4/28	NIST recommends this pwd hash funk + allows dev to # of HMAC (hash msg auth check)	HMAC need 2 hash/round for given hash funk + some need millie 	WPA/WPA2 uses PBKDF2 for psk + 4096 sha1 rounds																					
+physical attack	1/21	phish framework																							
+	3/4	direct access to a system	"stolen laptop + bypass HDD encryption
 inception/kon-boot (usb attack)
 LAN turtle+responder (usb eth0 adapter to generate DNS hits + capture hashes)"	rubber ducky																					
 port security	3/57	locks down port:MAC	likely on sensitive LANs, e.g, DMZ 																						
@@ -212,12 +235,16 @@ promiscuous mode	3/26	all traffic regardless of dest h/w addr
 protocol layering	3/28	"Domain>IP=DNS: domain name system
 IP>MAC=ARP: address resolution protocol"																							
 protocol parser	3/99	grab data from net + parse it for app	involves cpy diff elements around in mem + carefully check data sized copy . else; BOF	likely around sensitive areas, DMZ + admins use it																					
+printf	4/39	make file w multiple words where \n new line, append each to words in other file																							
 psk	2/73	pre shared key 	shared amount all users																						
 pwd	4/5	need CIA (conf/int/avail) + encrypt/hash	win= sam db+AD...*nix=/etc/shadow	recover pwd/audit pwd strength/dnt use to migrate platforms																					
-pwd crack	4/9	find pwd w/ pwd file+pwd ciphertxt	find uid + encrypt algo + get crypt pwd + create list of dict pwd + encrypt each pwd + check for match	speed = dict/combos/automate																					
+pwd crack	4/9, 4/30	find pwd w/ pwd file+pwd ciphertxt	find uid + encrypt algo + get crypt pwd + create list of dict pwd + encrypt each pwd + check for match	speed = dict/combos/automate																					
 pwd gues	4/6	find valid uid + guess/type pwd 	might trigger acct lkout																						
 pwd hash	4/13	user choose pwd + sys hashes ptxt pwd = sys store tht value 	pwd + hash = hash' (hash prime) + sys checks if it matches stored value = auth!	win=lanman/ntlm , *nix=des/3des/md5/blowfish/sha256/sha512, cpu high=bcrypt/scrypt/pbkdf2																					
 pwd spray	4/7	few pwd > large accts 																							
+RADIUS		Remote Auth Dial In User Service																							
+rainbow crack	4/18	rainbow table software + free tables	LANMAN/NTLM/MD5/SHA1																						
+rainbow tables	4/16	precompute a dict of hashes pwds + compare against it	store in RAM/HDD + tables maps hashes to pwds																						
 RATS	3/95	Rough Auditing Tool for Security = check code flaws																							
 recon	2/15	case joint + gain info on tgt	"osint (whois) + cert search + spiderfoot
 dns (dig/nslookup) 
@@ -247,14 +274,20 @@ lsaenumsid
 lookupnames
 lookupsids
 servinfo"																						
+RTIR	1/91	IR tracking tool																							
 rubber ducky	3/5	Human interface device + automatic keyboard	run kboard cmds via Ducky Script																						
 sae	2/73	simultaneous auth of equals	elimiates pwd guessing																						
+salts	4/15	randomly added bits to pwds	adds entropy (random/no predictability)	makes it harder + random str + not secret + OS auto does it																					
 sccm	1/128	reporting + installed software + pull users/services																							
+scrypt	4/28	hash protocol (like pkbdf2) + lot of mem + ops in serial 																							
 sc query | more	1/66	detailed services																							
-services.msc	1/66	services control panel GUI																							
+secretsdump.py	4/20	services control panel GUI																							
+services.msc	1/66																								
 session hijacking	3/51	combo of sniff + spoof																							
 schtasks	1/71	look for unusual sched tasks + running as SYSTEM + in admin group or blank uname 																							
 sharpview	2/137	standalone exe tool to enum win dom/servers	collect info on win via cmd (Get-DomainUser, Get-DomainGroup, Get-NetComputer)	unpriv accounts to run 																					
+single-iteration pwd	4/27	insecure , e.g, NT pwd hashes (single round MD4 no salt) + 	slow down attkr to crack hash	md5 uses 1k default + sha256/512 = 5k																					
+smart_hashdump	4/22	obtain win10 pwd hash from disk	mtrprtr> ps -A x64 -s + (choose SYS PID no svchost.exe) + migrate 1404  + run ..../smart_hashdump	hashes via lsass mb incomplete/limited to local users + fails with UAC ....hd wont																					
 smb sessions	1/62, 2/131-, 2/140-144	"server message block + associated to file/print sharing ++
 via  tcp 445 
 netbios = tcp/udp p135-139"	"net view \\127.0.0.1 = look file shares
@@ -272,6 +305,7 @@ SSL warning	3/47	"compromise browser + import attacker cert
 SE user to accepting cert 
 MITM browser to use HTTP not httpS
 attack HTTP only sites or SSL only sites"	bleed  server keys from mem + sslstrip																						
+sptoolkit	1/21	phish framework																							
 stack	3/67	logical data structure = stack 	var + RP = stack	LIFE (last in first out) + push things on top + pop things from top																					
 stack canary	3/92	see *canary/canaries* + added by compiler, NOT the OS. 																							
 stack smash	3/68	no input validation checks = data in var can be oflow	attkr malcode + new RP = points into stack to run mal code wen it tries to return from subr																						
@@ -316,12 +350,16 @@ Warning Banners	1/22	have legal team review and approve in writing	access to sys
 war drive	2/68	wireless network attacks	inSSIDer																						
 war dial	2/60	dial telephone # for modem dial tone																							
 warVox	2/62	software listens to mp3 audiofile + signatures	characterizes types of sys + spectrum analysis																						
+WCE	4/54	win cred editor (Pass the hash PTA for kerberos)																							
 wifi pineapple 	2/77	rogue ap	lures victim into network with same SSID																						
 wiGLE	2/78	wireless geo logging engine	1000 most common SSIDs																						
 wirelessattacks	2/82	wifi/bluetooth/ZigBee/Z-Wave/RFID attacks																							
 wireshark	3/27	"sniffing tool (former ethereal)
 -capture traffic + read/parse/display pcap files + read tcpdump format"		huge # of protocol parsers (500+) + text-mode = tshark																					
 word mangling	4/10	hybrid pwd crack 	add symb to dict words (he11o!!)																						
+worms	4/59	auto attk tools spread via net + move sys>sys exploiting weaknesses	exploit warhead to penetrate sys (ramen/nimda/conficker/stuxnet)	most success is nimda + then conficker 08/09 (bof+usb+pwd)																					
+worms - multiplatform	4/62	small # with xplatform 																							
+worms - 0day 	4/63	sasser/zotob via upnp flaw/stuxnet had 4 zeroday																							
 WPA	2/73	oldest WPA standard 		not supported																					
 wpa2	2/73	common + AES with 128bit keys in CCMP																							
 wpa3	2/73	not wide + support AES with 256 bit in GCM mode																							
@@ -337,6 +375,4 @@ write blocked	1/98	intercepts write requests 	"software write blockers run on th
 hardware write blockers between hard dish and computer"																						
 zenmap	2/94	nmap GUI																							
 																									
-																									
-																									
-																									
+																								
