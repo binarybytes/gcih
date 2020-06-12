@@ -185,6 +185,7 @@ john.pot	4/33	crack pwd stored in john.pot file + rm when done/check for old pwd
 Jump bag	1/41	stocked items 	FS iso + FTK imager lite + SIFT/encase/sleuth kit + tools + aspirin	
 				
 kansa	1/129	detection tool + stacking like sys against each other to do long-tail analysis/positive skew analysis	.\kansa.ps1 -Targetlist .\hosts.txt -ModulePath .\Modules -Verbose -Analysis	supports pulling unique ASEP 
+keep access	5/6	2 ways=bd+TjH (looks good but bad)		
 kerberoasting	4/56	any domain can req a service tkt + has hashes + req SPN (service principle names) from AD	mimikatz/empire + can extract hash from tkts + service no needed, jus acc + effective for old acc 	
 keyed payloads	3/114	encrypted payload via key taken from environment var + not in binary + exe searches runtime envirmt for strings > tries to decrypt binary until success		sig diff everytime 
 kismet	2/71	passive wifi scanner (linux) 	monitor mode 	
@@ -196,6 +197,8 @@ LLMNR	3/31	link-local multicast name resolution = used by systems to query local
 LOIC	4/136	low orbit ioc cannon	tcp/udp/http* floods	pull tgt from IRC/use HIVE MIND
 LOL	3/22	living off the land: using what's available w/o intro additional tools		
 lsof -i 	1/52	running service		
+malware layers	5/7	app lvl bd > user-mode rtkt > kernel-mode rtkt		
+				
 masscan	2/106	separates SYN from ACK receive	large scanning tool (masscan 1.2.3.0/8 -p 22,23,25,80,445,3380	
 metasploit/ MSF	3/79, 3/86	exploit framework + payload/tgts + udp port scan + evasion (encoding) + extra ft. 3/86	exploits+payloads+aux modules+post-explt mods	dev builds exploit = used w/ other payloads/exploits in msf + select explt/tgt/payload/option/launch
 meterpreter	3/84	msf payload = carries in mem DLL to tgt box + TLS (encrypts)	no separate process for shellcode + dsnt touch HDD + own cmds + load new mods/dynamic funcs	display sysinfo + interact w/ FS/net config/port relay + processes 
@@ -244,10 +247,11 @@ owasp	4/74	open web app sec project	design+arch+implmnt+evntlog++ for DEVs
 PAM	4/48	Pluggable Auth Modules = extend auth funk (link sys to RADIUS server/kerberos/or biometrics auth)		
 Pass-The-Hash	4/52-55	use hash + from memory (LSASS)+ auth to dest server	replace attacker hash in mem, with victim hash	defence on pg 4/57
 PBKDF2	4/28	NIST recommends this pwd hash funk + allows dev to # of HMAC (hash msg auth check)	HMAC need 2 hash/round for given hash funk + some need millie 	WPA/WPA2 uses PBKDF2 for psk + 4096 sha1 rounds
-physical attack	1/21	phish framework		
-	3/4	direct access to a system	"stolen laptop + bypass HDD encryption
+	1/21	phish framework		
+physical attack	3/4	direct access to a system	"stolen laptop + bypass HDD encryption
 inception/kon-boot (usb attack)
 LAN turtle+responder (usb eth0 adapter to generate DNS hits + capture hashes)"	rubber ducky
+poison Ivy	5/14	pIvy; config server first + attkr runs client to ctrl server		
 port security	3/57	locks down port:MAC	likely on sensitive LANs, e.g, DMZ 	
 powershell empire	2/138	bd built in pshell + post exploit scanning 	situational_awareness/network	
 Preperation	1/21	constant training/assessment	phish/SE test (phishme), 	
@@ -290,6 +294,7 @@ Responder	3/53-55	tool to answer stray LLMNR/NBT-NS/Proxy reqs + reply to final 
 return pointer (RP)	3/67	adress of the point in program to return to wen subr is done	where we want to return to wen function finishes	
 RITA	3/96	real-time-threat-analysis 	presents bro/zeek logs	
 ROP	3/91	return-oriented-programming = alter RP to use legit OS code 	DEP can't stop ROP cus OS libraries must be marked as exe for the OS itself to function	
+rootkit 	5/6	alters OS + looks good + but attkr cntrl		
 rpcclient	2/141	getting info via smb sessions	"rpcclient -U username server
 enumdomusers
 enumalsgroups
@@ -301,6 +306,7 @@ RTIR	1/91	IR tracking tool
 rubber ducky	3/5	Human interface device + automatic keyboard	run kboard cmds via Ducky Script	
 sae	2/73	simultaneous auth of equals	elimiates pwd guessing	
 salts	4/15	randomly added bits to pwds	adds entropy (random/no predictability)	makes it harder + random str + not secret + OS auto does it
+scareware	5/16	unath access to ntwrk + like SE + pretending to be agent + show logs/install bd/charge$$		
 sccm	1/128	reporting + installed software + pull users/services		
 scrypt	4/28	hash protocol (like pkbdf2) + lot of mem + ops in serial 		
 sc query | more	1/66	detailed services		
@@ -357,7 +363,10 @@ tcp port 27017	1/49	mongodb service
 tcpdump -nn port 27017	1/49	scanning to see if tcp -p 27017 is litening on range.	this port is for mongodb + root is needed for tcpdump	
 tcpview 	1/75	shows listening tcp/udp ports + maps to proc		
 teardrop attack	4/124	stragely fragmented packets via netwrk DOS		
+TH-bd	5/6	normal exe but with netcat OR rootkit OR email attch thts a bot installer		
 traditional ethernet	3/26	broadcast medium = sends all data to all sys connected to LAN		
+trojan horse 	5/6	looks good but is bad	calc w/ netcat	
+trojan horse - app lvl	5/9	full cntrl + client-server arch  + easy=VNC	poison ivy/VNC (legit but abused)/dameware/darkcomet RAT)	
 tshark	3/27	text-mode program of wireshark		
 udp header	2/102	src+destport>udp msg len + udp checksum > data		
 unauthorized use	1/141	allowed normal access but abusing it	email + web surfing	timestamps matter + use a proxy
@@ -374,6 +383,9 @@ nvram = vm bios
 .vmsn = snapshot file (restoring vm)"	"host only net = only host can talk
 bridged = public net (next on switch)
 NAT = host acts as nat (vm behind it)"	
+VNC	5/10-11	Virtual Network Computing by at&t	tcp -p 5900	secure = ssh port redir tcp -p 5900 (ssh sesh via sshV2)
+VNC - client	5/12	active mode= cilent>server via tcp p5900 AND listen mode=server>client GUI shovel tcp p5500	mgmt via tcp p5900 + java applet of vnc viewer tcp5800	
+VNC - shovel	5/12	client listen tcp5500 + uses nc to shvel shell + push thru fw		
 Volatility framework	1/97	capture/analyze memory dumps		
 vulnerability scanning	2/121	map a net + scan for open ports + find vulns + test against list of exploits	nessus	
 w3af	4/116	web app attack audit framework - proxy tool for pentest web apps		
@@ -385,6 +397,7 @@ WCE	4/54	win cred editor (Pass the hash PTA for kerberos)
 webapp state maint	4/113	use proxy to edit raw http/https + nonpersistent cookies		
 wifi pineapple 	2/77	rogue ap	lures victim into network with same SSID	
 wiGLE	2/78	wireless geo logging engine	1000 most common SSIDs	
+winVNC	5/13	server modes=app mode(tool tray) + srvc (srvc list + tool tray post rboot) + can hide ttray		
 wirelessattacks	2/82	wifi/bluetooth/ZigBee/Z-Wave/RFID attacks		
 wireshark	3/27	"sniffing tool (former ethereal)
 -capture traffic + read/parse/display pcap files + read tcpdump format"		huge # of protocol parsers (500+) + text-mode = tshark
