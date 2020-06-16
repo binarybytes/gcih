@@ -88,6 +88,7 @@ chain of custody	1/84	identification: inventory evidence you exchange + sign + a
 cmd injection	4/83	usr input to web app = launch shell for app to run	separated by a ( ; ) or (&)  - looks normal to exe -- like shellShock	via forms+var+cookies
 cmd injection - blind	4/84	cant c output of cmd 	ping badguyIP (sniff for ICMO echo reqs) + nslookup badguyIP (sniff dns reqs)	time-delay inference (ping -n 6) - 5 sec delay?
 cpu	3/65	cpu contains register called instruction pointer = tells it where to grab the next instruction for running program		
+cracker	1/5	mal break into sys		
 crack Station	4/18	rainbow table software in cloud		many hash algos 
 crazyRadioPA	2/83	usb dongle accepts unencrypted connections	identify + intercepts keystrokes via ducky script	
 cred guard	4/55	mitigates attkrs getting hashes for PTH attacks	set to 0 = no body buy admin (RID 500) can PTH to remote	
@@ -101,6 +102,7 @@ secure realtime OOB chat
 DEP	3/91	data exe prevention = makes pgs (stack) non-exe	h/w  (stronger)+ s/w based 	
 dictionary attack	4/8	known/common pwds 		
 difficult-to-trace-trails	3/22	relays, ingenuity of netcat although 1996	reverse connections (relays)	related to living off the land (LOL)
+dig	1/34	linux zone transfer of dns records (determine which machines online)		
 DLL injection/API hooks	5/36	exe/dll used for packing + Win dbg rights can inject DLL in pro	e.g explorer.exe (inject api calls to hide the attkr)	
 DNS	3/31	Domain Name Server = heavily used for name resolutions to IP addresses	UDP based	otherwise will systems will query local systems (LLMNR + NBT-NS)
 DNS - amplification	4/126-127	spoofed packets > 3rd party to amplify traff to tgt		
@@ -161,6 +163,7 @@ Ghidra	5/20	NSA debugger like immunity dbg
 GRR	1/39	IR tool = mem analysis on remote hosts with Rekall + free + by Google + store data in async + can wait until host is online to pull data	multi-platform (linux/win/OSx)	
 gratuitous ARP	3/30	any BITCH can send an ARP response when no bITCH asked for it 	even when a MAC entry is there, it'll SUCK up the new one 	solaris is a LEO and waits for a timeout
 GPU	4/27	NVIDIA GeForce RTX 2070 (768,500 hash/s or 153.7 pwd/s)		
+hacker	1/5	smart individ who wants to explore tech		
 hash'	4/26	salt+pwd=guess pwd		
 hashdump	4/21	obtain local pwd hash from Win10 	meterpreter > hashdump  + ps -S lsass.exe + migrate (lsass PID) 	if fails = redo mtprtr sesh + migrate to diff SYS lvl process + migrate to lsass
 hashes - windows	4/23	username:userid:LANMAN:NTHASH	am all day baffled by : difficult choices for enc data	empty = user inactive/no decrypt for SAM data
@@ -186,6 +189,7 @@ ICMP tunnels	5/94	data inside payload of ICMP pckt (ptunnel/loki//icmpShell/ etc
 icmp tunnels -ptunnel	5/95	listen on tcp port + grabs data+fwd to ptunnel proxy + MD8 auth/no ecrypt		
 Identification	1/43	alert+assessment	network perimeter/host perimeter/host level/app level 	
 iLovemyNeighbour	2/79	rogue AP software	linux VM	rewrites any unencrypted exe with replace dl file
+inception	3/4	phys attack=unlock power on+locked pc via DMA firewire/thunderbolt (good for HDD encrypt)		
 Incident Handling	1/11	action plan for dealing with misuse of comp sys/net/data		
 Incident	1/12	actions resulting in harm to sys/net/data		
 insider threat	1/149	entity with access toyour data (employee/biz partner)	try using warning banners + check FTP sites + monitor message boards + wide net online + 0fox	
@@ -205,6 +209,8 @@ kernel - sys call	5/42	user proc>sys lib>sys call table*k*>HW
 keyed payloads	3/114	encrypted payload via key taken from environment var + not in binary + exe searches runtime envirmt for strings > tries to decrypt binary until success		sig diff everytime 
 kismet	2/71	passive wifi scanner (linux) 	monitor mode 	
 klocwork insight pro	3/95	code review tool (c/c++/c#/java)		
+konboot	3/4	phys. attack=any pwd accepted as correct + hijack pwd lib at startup 		
+LAN turtle+Responder	3/4	phy.attack=mal USB eth0 adapter + DNS req + responder capture hashes		
 LANMAN	4/14	legacy pwd hash mech(weak/suscept) + not case sensitive(all upper)	pwd + uppercase + pad to 14b + split 2x7b chunk + DES encrypt + concat = lanman hash	no salts
 lessons learned	1/115	learn from our mistakes + document what happened + improve capabilities	"develop follow-up report asap max length half day
 do RCA"	make new mistakes + dont repeat old ones 
