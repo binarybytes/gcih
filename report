@@ -89,7 +89,103 @@ $ /bin/bash 0<backpipe | nc -l -p 8080 1>backpipe
 DEFENSES: [P] (data transfer): know what's running on sys + (port scanner): close unused ports + (vuln scan): sys patch + (cnx to open ports): close unused ports + (bd): know what's running on sys + (relays): careful net arch + layered sec + critical filtering (internal FW, private VLANs, network isolation design)
 
 
-TOOLS: konboot, inception, LAN turtle+responder, rubber ducky, netcat, 
+Sniffing: grab packets from LAN, manipulate flow of packets, for broadcast (non-switch)
+promiscuous mode = gather all traffic regardless of MAC (h/w addr) 
+content address mem (CAM) = MACs of frames going from each ports to switch
+Using CAM tables, the switch switches.
+wireshark=lot of prot parsers+capacity to parse bits+useful info (tshark txt mode)
+Always patch (bof common)
+ARP = maps IP to MAC (48b globally unique addr hardcoded on NIC card)
+Systems cache this info in ARP cache ~10mins 
+Cant verify ARP reply came from right machine
+Only sent ax single LAN + not routed btwn LANs
+
+
+Gratuitous ARP = any1 send ARP reply though nobody sent ARP request
+Flood switches mem/poison ARP cache
+Solaris has ARP cache time limits (poison after timeout ...duh)
+Name resolution = DNS, link-local multicast NR (LLMNR), NetBios NS (NBT-NS)
+Failing DNS = sys query local sys via LLMNR then NBT-NS
+BetterCap= auto disc tgt + ARPcache poison+ hijack traff
+Manipulate IP>MAC map + reroute packet to attacker pc
+MITMf = intercept HTTPS w/ SSLStrip+, insert mal .hta, BeEF, Responder
+ARP cache poison = ip fwd+ARP request+sniff (act as DG)
+NetworkMinder=live net analysis+offline pcap analyze  (thumbnail)
+
+
+
+SSHmitm gives public key for SSH server (tgt>attkr + attkr>server)
+Dodge SSL Warnings: comp CA/RA + bleed key fom mem + bogus cert+MD5 hash collision on trusted cert
+comp browser + import attkr cert as trusted
+user accept cert via SE/popup/etc
+MITM + force browser to use HTTP not HTTPs (bettercap SSLstrip)
+attack sites SSL only for auth w/ cleartext HTTP for post-auth session
+evade HSTS = SSLStrip+ (changes hostnames from www>wwww)
+
+
+Session hijacking: LLMNR + Web Proxy Auto-Discovery (WPAD) (heavily post-exploit)
+any time a sys blindly reaches out to identify a sys/srvc > hijack response:redirect to atkr
+Responder=LLMNR/NBT-NS/DNS/MDNS attacks (redir tgt sys to harvest creds)
+HTTP/HTTPS/SQL/Kerberos/FTP/IMAP/SMTP/DNS/LDAP
+Spoof sys + intercept auth requests on the fly
+Serve malicious .exe files + force LANMAN downgrade (ez2crack)
+	
+WPAD attack=make ID of proxy transparent to user
+pretend to be WPAD>serve mal PAC file (use your proxy for all traffic)
+DEFENSES: [P] port-level security on switches, dynamic ARP inspection with DHCP snooping, disable LLMNR and WPAD, encrypt sessions + strong auth, SSH v2+, VPN+encryption, [I] broken ARP entries, check local machine (arp -a), monitor LAN via ARPwatch, check switch logstash (camtableexport.ps1), check DNS cache on win (ipconfig /displaydns), error messages from ssh clients, [C] drop spurious sessions, change pwd+restart srvc, analyze dest sys, [E/R]: change pwd, rebuild sys
+
+Buffer Overflows: stuffing large data into small receptacles (some local/ax net)
+non-validated input for heap+integer based overflows + advtg of mem storage
+[gets] function performs no bounds checking
+[strcpy] function has 1st argument as the dest, the 2nd as the src
+[cpu] contains register called instruction pointer>memory>instructions	
+until a branch/jump happens(if/else, loops,subroutines,go to statements)
+instruction points to new location when jump/branch happens
+[subroutines] exe starts in main funk + points to new area of mem (codeload)
+ctrl returns to main program+points back before function call
+funk var + return point stored in logical data struc called ‘stack’
+[return pointer] contains addr of the point in prgm to return to when subr is done
+var space is filled back>front or high addr>low addr
+hardest part of creating BoF 
+doesn’t know which mem location of malcode > guess via dbg
+
+[stack] like a scratchpad to store things to rmr
+LIFO (last in first out) + pust on top of stack + pop from top 
+RP has addr where funk interrupt was = where we wana go post-funk
+buffer>neighbor var space>pointer space (new addr for RP to malcode)
+1 (use existing BoF code) or 2 (create 0day)
+[create BoF] find BoF condition + malcode>mem + set RP to point in stack to exe
+check binary for weak funk calls
+(strcpy,strncpy,strcat,sprintf,scanf,fgets,gets,getws,memcpy,memmove)
+analyze assembly code (msfelfscan / msfpescan)
+brute force+repeat patterns+crash where pointer(EIP x86, RIP x64)
+!exploitable by Microsoft to auto crash analyze how exploit flaw is
+[cram] put A char into inputs (envrmnt var, fields, menus, GUI interfaces, admins)
+find which A char made it > enter cyclic pattern + look for tht char in RP
+pinpoint exact offset for the RP
+ASCII null (0x00) stops vuln [strcpy] from write+ncode xploit to avoid filter
+[NOP Sled] no operations + exe continues down stack until malcode 
+used to detect these attacks on the net
+NOP sled + mal code + RP = egg 
+
+
+Metasploit: exploit framework, exploit+payload+tgt (dest IP addr/port/options)
+[modules]: (select exploit+tgt+payload+options/launch)
+exploit = take advantage of flag in tgt program
+payload = makes tgt do attkr chores
+auxiliary= do tasks, incl. scans
+post= post-exploit + manipulate tgts
+
+Meterpreter: post-ex module to load/interact with DLLs in real-time
+creates special CLI access within running procs
+no separate proc (no cmd.exe)
+no touching HDD
+no sys cmd exe for shell (all hosted)
+easy growth via adding new DLLs
+	
+
+
+TOOLS: konboot, inception, LAN turtle+responder, rubber ducky, netcat, wireshark/tshark, solaris, LLMNR, NBT-NS, BetterCap, ARPSpoof, MITMf, Backdoor Factory, BDF proxy, ScreenShotter, JSKeylogger, NetworkMiner, SSHmitm, Pacdoor, ARPwatch,
 
 Step 4: Keep Access - GOAL: stay there
 DEFENSES: live with it
