@@ -1,3 +1,64 @@
+Incident Handling Step-by-Step and Computer Crime Investigation
+
+Incident Handling [IH]: action or plan for dealing with intrusions, cyber theft, DOS, intellectual property, etc. IH plans and policies must comply with the applicable laws of your country. Six phases:
+
+Preparation 
+Goal: To get the team ready to handle incidents
+Team: Comp./physical Security, System Admin, Network, Legal, HR, PR, Disaster recovery
+Action: Reoccuring staff training & user’s assessment using SE campaigns or spear phishing frameworks; Establish policy & warning banners; Notifying & interfacing with law enforcement; Good record keeping; Prepare system build checklists; Team organisation & emergency comm. plan; Access to systems/data; POC & Resources; Reporting facilities; Response strategies: contain & clear or watch & learn
+Tools: Sptoolkit, Phishme, Honeynet, GRR(Windows/Linux/OS X), Rekall(memory analysis on remote hosts), Jump Bag
+Identification:
+Goal: To alert and assess an event or incident 
+Occurs: Network perimeter detection(Firewalls, routers, external-facing network based IDS, IPS, DMZ systems, etc.), Host PD(when data enters or leaves a host, personal/local firewalls, port sentry tools), System-level D(antivirus tools, endpoint security suites, file integrity tools, user noticing strange behavior), Application-level D(web apps, app server, cloud service, etc.)
+Action: Situational awareness, Chain of custody, Detecting and reacting to Insider Threats, Provide current intelligence to IH, Assign 10 & 20 IH, control the flow of information, communication channels - encrypted email; asking right/initial assessment questions
+Documentation
+Tools: GnuPG, PGP, MIME, Tresorit or Secure Safe(cloud storage), SANS intrusion discovery cheat sheets for windows & linux; sysinternal, TCPView
+
+Containment:
+Goal: Stop the bleeding
+Phases: 
+Short-term(Pull the power, Disconnect network cable, Isolate the switch port, apply filters to routers/firewalls), Evidence collection(creating forensic images, consider write blocker), 
+Long-term(Ideal: keep system offline, move to Eradication, Numerous potential actions: Patch the system, Insert IPS or in-line snort/suricata, Null routing, change passwords, Alter trust relationships, apply filters to firewalls & routers, remove affected accounts)
+FIRST Case Classification: 
+Incident category(DOS, Compromised Asset/Info,Internal/External Hacking,Malware, Policy Violations), 
+Criticality(affects response time - Level1 Business CS-60 mins, Level2 Non-Bus CS 4 hrs, Level3 Possible incident 48 hrs.), 
+Sensitivity(L1 Extremely, L2 Sensitive, L3 Less Sensitive);  Deployment of a team, Inform Mgmt., Containment and quarantine; Identifying and isolating the trust model; 
+Tools: RTIR(ticketing system), CyberSponse(ITS), CyberCPR(out of band chat, 1-1 messaging, WordWebBugs(documents that call back to identify sensitive data), Volatility framework, Rekal
+
+
+Eradication:
+Goal: To get rid of the attacker's artifacts on the machine
+Action: Restoring from backups, Removing malicious software, improving defenses, perform vulnerability analysis
+Occur: Evaluating whether a backup is compromised; Total rebuild of the Operating System; Moving to a new architecture
+Tools: Nmap(port scanner), Vulnerability scanner( Tenable Nessus, OpenVAS, Rapid7, NeXpose, Qualys), 
+Recovery:
+Goal: To put the impacted systems back into production in a safe manner
+Validate the system, run through user acceptance testing documentation, restore operations, Put the final decision in the hands of system owners by providing and documenting your advice, Monitor the systems
+Write a script that checks whether the artifacts left by the attacker have returned & run the script daily for several months
+Tools: Utilize Network & Host based intrusion detection systems and intrusion prevention systems
+Lessons Learned: 
+Goal: To document what happened and improve our capabilities.
+Develop a follow-up report(on-site handler will do it), schedule lesson learned meeting, apply fixes from learnings, 
+Do a root cause analysis
+
+Enterprise Wide Incident:
+Enterprise Incident Response: need to know where to look
+First thing responder ask for is the logs for the Egress connections from the firewall, the DNS cache and external web filtering device
+DNS data - reveals systems connected to bad IP addresses. 
+Tools: DNS Blacklists, Malware Domain List
+Web proxy data: reveal compromised systems that are connecting to known bas C2 sites, review length of URLs and user agent strings
+Connection data: reviewing NetFlow data can reveal interesting patterns in connection statistics: 
+Systems beaconing out every 30 secs/random intervals, connections that live for far longer than they should. 
+Tools: RITA(Real Intelligence Threat Analytics)
+To pull data: WMIC tool
+Kansa:  Powershell tool for incident response. 
+It creates a stacked analysis of the installed software in your environment. It does long tail analysis or positive skew analysis in statistics by focusing on software & processes installed only on a few systems. 
+It supports the ability to pull the total count for specific things such as ASEPs( Autostart Extensibility Points)
+Hoping to get 2 things from Kansa:
+ a) making haystack much smaller 
+ b) To look what exists on a smaller scale 
+Insider Threat: It is a threat from an entity with access to your data. This class deals with employee & business partner threats. It is important that a company displays warning Banners ateach login point. Identification:by gathering intelligence through proactive scanning and monitoring  
+
 Step1: Recon - GOAL: case the joint
 
 OSINT: online data/contact info/off+defensive/cert transparency
@@ -26,12 +87,91 @@ Step 2: Scan - GOAL: survey tgt for holes
 
 War Dial: dial #’s in seq>find modem/2nd dial tone, r.access to routers (oob), atck vmail
 WarVox: VoIP w/ ID spoof, 1000/8hr, signatures apple against audio, spectrum analysis,
-DEFENSES: 
-
-TOOLS: WarVox, 
+DEFENSES: [P] dial-up line and policy for oob access, war dialing exercises, train user PINs, [I] (monitor funk using SecureLogix Voice IPS), [C] (shut off modems, know who to call), [E/R](remove modems,change/secure phone #)
 
 
 
+War Driving: Wi-Fi Networks Reconnaissance is done 2 ways: 
+Active(sends probe request, SSID) 
+Passive(beacon), Wireless scanning using antenna choices/proximity, security options: AES in CCMP, PSK & SAE in WPA 3; 
+attacking PSK wi-fi - susceptible to offline pass guessing, 
+Wi-Fi Network imposters - Personal and enterprise, non-Wi-Fi (Keyboards, Bluetooth, ZigBee, Z-wave, RFID systems)
+DEFENSES: (P) Deploy WPA3, EAP/TLS Auth, requiring certs, PEAP  (I) Wireless IDS tools: Aruba Netwrks, Motorola AirDefense, AirMagnet, IBM using Linux sensors, Cisco use AP’s (C, E, R) Remove renegade access points
+
+TOOLS: inSSIDer can use GPS, WiFi Analyzer for Android, Kismet(passive, Linux, captures rich data), Aircrack-ng(accepts the file, password guessing, decrypt the packet), Wi-Fi Pineapple, ILMN, Hostapd-WPE, Jackit with Crazyradio PA to identify & inject Ducky script, NetScout AirCheck G2(handheld, Identifying & locating malicious Wi-Fi devices)
+
+Network Topology - Mapping & port scanning; TTL in IPv4, IPv6; sweeping for Network mapping; 
+PN =no ping the tgt just start port scan. 
+Nmap sends 4 packets to identify UP hosts: + traceroute
+ICMP Echo request, 
+TCP SYN to port 443, 
+TCP ACK to port 80
+ICMP timestamp, 
+DEFENSES: (P) Disable incoming ICMP Echo request msgs & outgoing ICMP Time exceeded msgs (I) IDS signatures for ping sweep or traceroute (C) Temporarily block source address if notice a particularly frequent ping sweep, mark rules & purge them on a regular basis 
+
+Port Scanning:  Port scanners=attkr toolbox, identify type/openings on sys. 
+Application data -> internet applications: TCP(connection/session oriented )
+UDP(sessionless) ride on top of IP -> Data link(ethernet, Wi-Fi). 
+There are 216 = 65, 536 different TCP & different UDP ports. 
+IANA maintains latest ports listing. 
+For ex: TCP 80 - web server, TCP 445 - windows SMB, UDP 53 - DNS server, TCP 6000 - X window server. 
+TCP - 3 way handshake using ISN(Initial sequence number) between the 2 systems. 
+6 control bits describe the packet’s role in the connection(SYN, ACK, FIN, RESET, URG, PUSH). 
+Note: control bits can be set independent of one another
+UDP - no 3way handshake= stateless protocol+unreliable. for apps that value speed over reliable delivery such as voice or video transmissions.
+Nmap scan types - Ping sweeps & ARP scans, Connect TCP scans, SYN(half-open), ACK(bypasses some filters, useful for mapping not scanning), FIN(bypasses some filters), FTP proxy(bounce), Idle, UDP, Version scans, IPv6 scanning(-6) supports all scan types
+Nmap OS Fingerprinting - 30 methods including port scanning flag combination, GCD, ISR, TI, II, SS, TS, (W, W1-W6), DF, TG, CC
+Other scanners: 
+a. Masscan improved performance over early tools separating SYN send from ACK receive. With 20 Mbps bandwidth, Masscan can scan 16 million hosts for 10 ports each in approx. 1 hour. 
+b. EyeWitness - takes screenshots of websites, VNC and RDP services. Effective for sorting through thousands of different websites
+Proxy scans: Remux
+DEFENSES: (P) Close all unused ports by shutting off services & applying filters. Utilize packet filters/ proxy firewalls & Intrusion detection system (I) several IDS signatures for port scans. Log analysis 
+
+Evading IDS/IPS: Invalid TCP Checksum Bypass(IDS/IPS systems don’t validate the TCP checksum, attkr can insert a TCP reset with invalid checksum to clear the IDS buffer by send/split packet 2 halves), 
+Bleeding In(attackers do it by operating like normal user would, difficult to detect in services and protocols like SSH, RDP, Citrix, OWA)
+DEFENSES: (P) Keep IDS/IPS up to date, supply IDS/IPS with recommended resources(network perf., processor, RAM & hard drive), for sensitive systems(use host in addition to network based IPS/IDS), implement user behavioral analytics (I) IDS signatures indicate overlapping TCP segments, IPS can block odd packet fragments
+
+Vulnerability Scanning: map a network, scan open ports + various Vuln(s), generate pretty reports. 
+Limitations - only check for what they know, tools tend to be flat, don’t perform detailed correlation among many vulns to ascertain overall risk. 
+Nessus - most popular & useful, client-server architecture with a lot of plugins(P-124, look for diagram). 
+Nessus platform support:
+N server - available for linux, FreeBSD, macOS, Windows
+N client - runs inside of any HTML5 capable browser - firefox, IE, chrome
+Dangerous plugins - may impact the target by crashing or locked out accounts. 
+Safe checks - GUI option that turns off dangerous plugins
+N plugins - ability to write your own plugins; can be written in C, NASL; over 100,000 plugins available - automatically updated every 24 hrs.
+DEFENSES: (P) close all unused ports, shut off all unneeded services, apply all patches in a timely manner, run credentialed scans of your environment, review results sorted by plugin ID NOT by IP address (I) Utilize IDS signatures
+
+TOOLS: Rapid7 InsightVM, SAINT, BeyondTrust Retina Network security Scanner, Nessus, OpenVAS, Qualys
+
+SMB Sessions: SMB protocol - application layer protocol, supports a variety of network-accessible features of windows machines including:
+file/printer sharing, domain auth, remote administration and other features. 
+SMB is heavily used by attackers, often as ”normal TCP/445 traffic”. 
+Essential protocol to understand for defenders. 
+Windows workstations service implements much of the client code. Client tools include File explorer, net use, reg, sc, psexec and more
+Windows server service implements much of the server code
+Supported in Linux and Unix via Samba
+Establishing & interrogating an SMB session on Windows: Attacker doesn’t need a domain admin account to enumerate and scan a domain.(P132)
+
+              C:> net use \\ target ip
+Mount shares= C:> net use \\target ip\username password /u: username
+              C:\users\sec504> net view \\192.168.99.133
+
+Password Guessing:
+
+C:\> net user /domain > users.txt
+C:\> notepad pass.txt
+C:\> @FOR /F %p in (pass.txt) DO @FOR/F %n in (users.txt) DO @net use \\SERVER IP\IPC$ /user: DOMAIN\ %n %p 1>NUL 2>&1 &&  @echo [*] %n:%p &&@net use/delete \\SERVERIP\IPC$ > NUL
+
+
+Enum Host Enumeration: P -136
+Powershell Empire: 
+Backdoor built in powershell(installed in Windows by default) post-exploitations scanning abilities. For ex: accessibles shares: situational_awarness/network/sharefinder,  scan for local IPv4 systems: situational_awarness/network/arpscan
+Uses built-in Microsoft protocols like SMB
+Ability to map domain trusts, group memberships, port scan & conduct reverse DNS lookups
+BloodHound: A tool that graphs the quickest way to get to domain admin privileges
+Ex: Gain access as a domain user, Find all systems is in the local admin group & where a domain admin is logged on, steal the domain admin access
+DEFENSES SMB sessions: (P) Block access to TCP/445, UDP/445, TCP/135, TCP/137, UDP/137, UDP/138, TCP/139 across network boundaries and local firewalls, only allow access to ports that absolutely require SMB access to a given destination (I) check for access to the ports listed above in logs and IDS alerts 
 
 Step 3: Exploit - GOAL: gain access/deny others
 
@@ -433,7 +573,7 @@ Attack Admin via XSS: steal admin cookies
 attkr input browser script + app logs this input 
 admin views the app logs + malcode runs (steals cookies)
 could alter app using admin creds + add new attkr admin acct
-DEFENSES: [P] rm user input char (=<>();&) server side, filter quotes, semicolons, asterisks, percent, underscore, other shell metachar, delete/enc from site output, modSecurity, best= define ok chars, [P for client] disable script/browser fts to ctrl script, NoScript ff ext, selective allow plugins via trusted cert site, anti-XSS, sus activity, IE8 include built-in XSS filter, JS in URLs/HTTP POST vars, [P for Server] limit cookie access w/ HttpOnly flag, set Content Security Policy, browser can report to specific URL if attkd, [I] IDS/logs with scripts, enc info (hex/unicode), [C] filter in data, [E] rm attkr data, [R] contact anti-fraud group
+DEFENSES: [P] rm user input char (=<>();&) server side, filter quotes, semicolons, asterisks, percent, underscore, other shell metachar, delete/enc from site output, modSecurity, best= define ok chars, [P for client] disable script/browser fts to ctrl script, NoScript FFox ext, selective allow plugins via trusted cert site, anti-XSS, sus activity, IE8 include built-in XSS filter, JS in URLs/HTTP POST vars, [P for Server] limit cookie access w/ HttpOnly flag, set Content Security Policy, browser can report to specific URL if attkd, [I] IDS/logs with scripts, enc info (hex/unicode), [C] filter in data, [E] rm attkr data, [R] contact anti-fraud group
 	
 Attack WebApp State Maint: url sesh track + hidden form elements + cookies
 “hold this, give it back to me for all future interactions”
@@ -492,7 +632,190 @@ DEFENSES: [P] host IDS/IPS, patch, AV, egress antispoof filters, critical biz sy
 TOOLS: THC Hydra, RainbowCrack, CrackStation, pbkdf2, bcrypt, scrypt, Argon2, john the ripper, hashcat, fgdump, win cred editor (WCE), mod SAMBA code, msf psexec + psexec_psh mods, Burp, OWASP, WebGoat, ZAP, AppSec Wiki Project, Zap proxy, burp, w3af, fiddler, TFN, TFN2k, LOIC,HOIC
 
 
-
-
 Step 5: Cover Tracks - GOAL: stay hidden
 DEFENSES: live with it
+
+
+
+[switch compare MAC with DHCP assignments]:
+dynamic ARP inspection or ARP security in order to prevent the opportunity for attackers to assume the IP address of trusted clients.  
+switch can compare any MAC address that traverses the device with the known table of DHCP assignments.  
+Any traffic that is a mismatch will be dropped by the switch.
+
+[getting user to reauth to internal servers]:
+Inject crafted RESET packets with the clients' and servers' IP addresses
+ use crafted RESET packets to drop a connection, forcing victims into setting up a connection again
+likely reauth, giving chance to grab auth information.
+
+[Loki]
+Loki is a tunneling tool that should be thought of as telnet over (ICMP). It can also use (UDP) port 53 to disguise (DNS) traffic.
+
+
+
+
+[rtkt defense]
+no way to know it is truly gone
+minimum reformat the hard drive before anything else
+
+[rtkt detect]
+reliable=install a file integrity checker program like Tripwire or AIDE before a system is put on the network, create a db of sig stored off-line in read-only format. Then integrity checker periodically to recreate the signatures of the files and compare them against the off-line database of signatures to determine if a file was changed.
+
+[mount share win]
+admin cmd:
+C:\> net use  \\[targetIP]\[share] [password] /u:[user]
+
+
+[disagree with incident events or say you disagree]
+strong disagreement about facts = can remain a part of the incident record. 
+
+[protect vnc via ssh]
+SSH connection encrypt the cnx end-to-end, protecting against the attack.
+
+[why IRC is popular]
+IRC channels allow for one-to-many communication
+
+[dos attack:syn flood]
+exhaust the connection queue of the victim, or suck up all link capacity. can be exhausted by too many half-open connections. 
+
+[handle compd’ extranet web server]
+best approach is to reroute DNS to another server. watch his actions while isolating users from the compromised server.
+
+[3way handshake]
+Step 1: Host A sends SYN packet to Host B.
+Step 2: Host B responds with a SYN-ACK packet to Host A.
+Step 3: Host A responds to Host B with an ACK packet.
+NOTE:
+SYN packets = synchronization.
+ACK packets = acknowledgement.
+PUSH packets = data > TCP stack.
+
+
+[containment phase]
+create rules to block traffic from an attack that's happening now.
+
+[attkr vs account lockout= pwd spray]
+testing their guessed passwords - password spraying. 
+
+[nmap host discovery requests -  information request host discovery scans ]
+In addition to ICMP echo request (Type 8), Systems reply to timestamp request, information request, and/or address mask request packets are up and available. 
+No TCP packets are generated by these types of host discovery scans, so illegal TCP flags would not be detected. 
+Timestamp and information request host discovery will not slow the rate of scanning as compared to echo requests.
+
+[helpdesk-gather virus details + log tkt]
+assist by gathering information from the users and logging it into a ticketing system.
+
+[network mapping defense]
+ICMP coming from a hostile network (such as the Internet) can be dropped. 
+
+[cold calls from updated WHOIS contact]
+remove the number and put a generic email address. 
+
+[google search useful for phish/spoof]
+"link:www.[target_company].com" for all sites that link to the target.
+
+[resistant protocol to session hijack]
+SSH due to the encrypted session and use of current or recent versions of the protocol.  
+
+[ACK scan into network]
+An ACK scan is particularly useful in getting through simple router-based firewalls. 
+If a router allows "established" connections in (and is not using any stateful inspection), an attacker can use ACK scans to send packets into the network.
+A border device (fireweall, advanced router, etc.) that requires state for inbound connections will be definition drop inbound packets with the ACK flag, negating the effectiveness of an ACK scan.
+A web-proxy that only allows outbound connections will ignore an ACK scan. 
+An IDS connected to a mirror port does not have an IP address to target with an ACK scan nor is there anything "behind the IDS" to map.
+
+
+
+
+[ss: bunch of arp request=event can be misconfig]
+anomalous behavior is classified as an event.
+
+[unix system log default format]
+ASCII format
+
+[msf bypass DEP defenses]
+Return-Oriented Programming (ROP) changing RP so programs ex existing  OS libs instead of new code.
+
+[protect ARP table/cache=hard-code ARP]
+sensitive net (DMZ) hard-coding your ARP tables. specific IP-to-MAC address map, defense grat ARP
+
+[DLP breach + planning to write rules/monitor attacker]
+containment phase 
+
+[find ADS]
+LADS tool
+
+[best change to minimize mistakes during IR]
+proper procedures in place. 
+
+[team worried unqualified people in their system = get qualified]
+Handlers with experience accessing the systems will alleviate the worries 
+
+Labs Notes:
+[1] john to crack pwds:
+
+$ su - 
+# cd /home/tools/john/
+# tail /root/john_files/passwd_*
+# ./unshadow /root/john_files/passwd_b /root/john_files/shadow_b > target_b
+# ./john ./target_b
+
+
+[3] version of service/sendmail:
+nc+grab banner OR nmap -A 127.0.0.1
+$ Nc 127.0.0.1 135 
+$ nmap -A 127.0.0.1
+
+
+[4]: [attkr written exe= SUID exe]
+cmd were looking for files with 4001 permissions.  
+4 represents SUID root and the 1 represents executable.  attacker is 
+trying to get syntax right.  
+SUID files for priv esc exploits; root sh.  
+
+[5] find RID:
+rpcclient 192.168.0.1 -U TargetPerson
+rpcclient> enumalsgroups builtin
+
+[6] find ADS 
+dir /R
+or
+c:> dir /r C:\Users\Jessica\Download
+
+[7] find cmd line/argu for a srv on port:
+admin cmd:
+> netstat -noab | find "135"
+> wmic process where processid=PID get commandline
+
+
+[8] find the startup for a process for user nt auth\nt service
+admin cmd:
+C:> wmic startup list full
+
+
+[9] compare arp table vs inventory:
+$ cat /home/student/arp.out will display the arp table.
+$ cat -v /home/student/asset_inventory.csv will display the inventory table
+file explorer; open in an editor + easier to compare.
+
+
+[sk:  insider threat or mal doc]
+Insider Threat either under Casual - Non-destructive threat (for forwarding the email) or Intentional - Non-destructive (for selling corporate secrets) threat category. 
+
+
+[sk: sniffing on switch]
+broadcast packets and packets destined for that specific host - 
+only send data to needed port on switch.
+
+[sk: tcp easier to detect than ack,syn, etc]
+more overhead= packets +time
+SYN, ACK, FIN scans are stealthy 
+Connect TCP scans slow and easy to detect because there are 3 packets used in the handshake..
+establishes a cnx, other scan types don't.
+
+[sk; nmap scan evade FW]
+ACK & FIN two are commonly used to evade firewalls
+
+[sk: server respond when client sends initial packet in covert_channel seq mode]
+always respond with a RST packet
+
+
