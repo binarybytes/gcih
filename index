@@ -1,104 +1,104 @@
 Topic	B/P	Detail	Example	Comments
 !exploitable	3/72	debugger to analyze software crashes for bofs	fuzzing is a technique used to identify bofs	
-3way handshake	2/100	syn+ack/syn+ack	all tcp are 3way 	"syn= synchronize
-ack=acknowledge
-fin=finish
-reset=tear down sesh
-urg=urgent data
-push=data push to tcp stack"
-account harvesting	4/76	get UID via app response wen usr auths 	if uid is wrong vs if pwd is wrong	autoscript via burp/python+ find uid space
+3way handshake	2/100	syn+ack/syn+ack	all tcp are 3way	"syn= synchronize
+ ack=acknowledge
+ fin=finish
+ reset=tear down sesh
+ urg=urgent data
+ push=data push to tcp stack"
+account harvesting	4/76	get UID via app response wen usr auths	if uid is wrong vs if pwd is wrong	autoscript via burp/python+ find uid space
 accounting unix	5/70	utmp(loggd usrs)+wtmp(past usrs)+btmp(failedlogin)+lastlog(logindeets)	edit tools=remove.c /wtmped.c/marry.c/cloack.c/logwedit.c/wzap.c	
-ADS	5/76	alternate data streams 	smbclient to get ADS' + not show win rsrvd files (com1/com2/lpt1/aux)	find ADS by LADS tool or Streams or AV tool
-aircrack-ng	2/75	pwd guess tool for PSK wifi 	accepts pcap + wordlist	airdecap - ng = decrypt psk pcap 
-Anti-disclosure mvmnt	2/9	vendors dont want vulns disclosed publically 	no free bugs mvmt (so researchers get paid)	
+ADS	5/76	alternate data streams	smbclient to get ADS' + not show win rsrvd files (com1/com2/lpt1/aux)	find ADS by LADS tool or Streams or AV tool
+aircrack-ng	2/75	pwd guess tool for PSK wifi	accepts pcap + wordlist	airdecap - ng = decrypt psk pcap
+Anti-disclosure mvmnt	2/9	vendors dont want vulns disclosed publically	no free bugs mvmt (so researchers get paid)	
 app lvl detection	1/48	app logs	web app/ app server/ cloud service	
 app white-listing	3/113	good apps only = everything else blocked	bypass = mostly misconfig on tgt envirmt	
 ASEP	1/67-68	autostart extensibility points - used for exe programs on sys bootup or user login	"HKLM\Software\Microsoft\Windows\CurrentVersion\Run
-HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce
-HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnceEx"	"dir /s /b ""C:\Users\username\App Data\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"" = ASEP Win8+
-dir /s /b ""C:\Users\username\Start Menu"" = ASEPs in Win Vista + win7
-dir /s /b ""C:\Documents and Settings\username\Start Manu"" = ASEPs on sys before Win Vista
-start msconfig.exe = examine startup items
-wmic startup list full = examine startup items
-kansa can pull unique ASEP data"
+ HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce
+ HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnceEx"	"dir /s /b ""C:\Users\username\App Data\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"" = ASEP Win8+
+ dir /s /b ""C:\Users\username\Start Menu"" = ASEPs in Win Vista + win7
+ dir /s /b ""C:\Documents and Settings\username\Start Manu"" = ASEPs on sys before Win Vista
+ start msconfig.exe = examine startup items
+ wmic startup list full = examine startup items
+ kansa can pull unique ASEP data"
 argon2	4/28	improvements of b/scrypt/pbkdf2 + scrutiny + no widespread adopt		
 armitage	3/81	msf GUI		
 ARP	3/28	address resolution protocol = IP > MAC	data must be directed to the h/w Address (MAC)	
-arpspoof	3/32	allows attacker to inject fake ARP responses into LAN to redirect traffic 		
+arpspoof	3/32	allows attacker to inject fake ARP responses into LAN to redirect traffic		
 arpWatch	3/58	monitor for previously unseen MAC addresses		
 assessments	1/81	determine how much damage could be caused	"how widely deployed is this platform/app?
-whats the effect of vulnerability exploitation?
-what isthe value of the sys impact  sofar? value of data on those systems?
-is there a public exploit? was on recent?
-what level skill does an attacker need to exploit this?
-is the vuln in the config?
-is there a fix?
-are there other factors that in/decrease this vuln?
-can this be made into a worm?"	
+ whats the effect of vulnerability exploitation?
+ what isthe value of the sys impact sofar? value of data on those systems?
+ is there a public exploit? was on recent?
+ what level skill does an attacker need to exploit this?
+ is the vuln in the config?
+ is there a fix?
+ are there other factors that in/decrease this vuln?
+ can this be made into a worm?"	
 attribution	3/22	attribution: wrt quality belonging/association to smt	attribution can be hard (does this artifact belong to this attacker/IOA?)	
 AV bypass	3/114	code caves + keyed payloads + golang + code sign malware + LOLBAS + ghostwrite + veil/unicorn	atbroker + add registries	
 base64	1/74	diff type of enconding	echo base64datadatadata | base64 --decode = decodes b64 data	using CAM table; the switch switches
 bash	1/170	default shell on +linux distros	"ctrl+R = cmd history
-ctrl+L = clear screen
-ctrl+C= abandon cmd
-account (useradd/passwd/su/whoami)
-FS(cd/pwd/ls/abs/mount/eject/mkdir/cp/find/locate/gedit/cat/less)
-running proc (PATH/which/ ./ /ps/jobs)
-net (ifcfg-etho/ifconfig/ip/ping/netstat)
-other (grep/man/info/shutdown)"	
+ ctrl+L = clear screen
+ ctrl+C= abandon cmd
+ account (useradd/passwd/su/whoami)
+ FS(cd/pwd/ls/abs/mount/eject/mkdir/cp/find/locate/gedit/cat/less)
+ running proc (PATH/which/ ./ /ps/jobs)
+ net (ifcfg-etho/ifconfig/ip/ping/netstat)
+ other (grep/man/info/shutdown)"	
 backdoor	3/15	get shell on any tcp/udp port	"unix: nc -l -p 1234 -e /bin/sh
-win: nc -l -p 4321 -e cmd.exe"	persist: nohup ./listener.sh &
+ win: nc -l -p 4321 -e cmd.exe"	persist: nohup ./listener.sh &
 BeEF	4/103	browser exploit framework = contrl browsers via xss	setup beef server to cntrl zombie browsers + use beef hook on tgt	
 bettercap	3/32	ruby framwork + auto discover tgt + ARP poison + diff parses = intercept>hijack tool		
 bcrypt	4/28	multiple hash rounds (this a protocol) + need shit tonne of mem + >72 + no null/0x00bytes		
 bd factory (BDF)	3/34	can create custom plugins for TCP manipulation		BDF factory + BDF proxy
-bd no -e 	3/20	"$ mknod backpipe p
-$ /bin/bin 0<backpipe | nc -l -p 8080 1>backpipe"		
-bloodhound	2/139	tool graphs quick relationships to sys + permissions to sys + logged on users 		gets direct route to elevating sys 
+bd no -e	3/20	"$ mknod backpipe p
+ $ /bin/bin 0<backpipe | nc -l -p 8080 1>backpipe"		
+bloodhound	2/139	tool graphs quick relationships to sys + permissions to sys + logged on users		gets direct route to elevating sys
 bof code	3/74	code tries to invoke shell = can be fed arbitrary code + encode malcode so dont get filtered	tgts UID 0 = linux, SYSTEM = win + arch in OS	thts why its called shellcode
-bof creation	3/70	find bof cond + malcode>mem + set RP in stack>exe 	search code + msfelfscan	C funcs move data btwn buffers
+bof creation	3/70	find bof cond + malcode>mem + set RP in stack>exe	search code + msfelfscan	C funcs move data btwn buffers
 bof find	3/72-73	brute force + shove chars + look for crash (EIP 32bit, RIP 64bit) + !exploitable	fuzzing the program	
-bof RP 	3/77	use NOP instruc = as long as guess addr jumps back into NOP sled somewhere		
+bof RP	3/77	use NOP instruc = as long as guess addr jumps back into NOP sled somewhere		
 BOF	3/63	buffer overflow= large data into small receptables	xplt the way info is stored in programs	non-validated input causes other attacks (heap oflow)
 bots	4/64	action behalf of human: lil human intecept + ctrl sys	aka specialized bd to control sys en masse	maintain bd control+control IRC+mail relay+anon http proxy+dos flood
 bots - comm	4/66	comm via IRC/HTTPs/DNS/social(YT/googleDocs/twitter)		
-bots - funk	4/67	morph code file infect+ cmd SYS priv+start listner shell + FTP a file 	packet fld(SYN/HTTP/UDP ) + proxy (anon)+ GRE/TCP redir + harvest e-addr	reused (syrian army+CIA+russian lojac uefi)
+bots - funk	4/67	morph code file infect+ cmd SYS priv+start listner shell + FTP a file	packet fld(SYN/HTTP/UDP ) + proxy (anon)+ GRE/TCP redir + harvest e-addr	reused (syrian army+CIA+russian lojac uefi)
 botnets	4/64	collection of bots controlled by 1 attacker = botnet/botherder (++ppl)	spread via worms+email atchmt+trojan+browser xplt+driveby dl	
 brute force	4/8	every possibly pwd char combo		
 burp	4/116	proxy/pen-test tool		
 CAM	3/26	content addressable memory = switch maps MAC:port		using CAM table; the switch switches
-canaries/canary	3/92	integrity check of RP (return pointer)	after function call; check RP and canary still match , else; crash gracefully 	3 types: random/xor/terminator + on by default ( /GS ) in MS VStudio
+canaries/canary	3/92	integrity check of RP (return pointer)	after function call; check RP and canary still match , else; crash gracefully	3 types: random/xor/terminator + on by default ( /GS ) in MS VStudio
 canary - random	3/92	use random/non-predictable value to protect RP		
-canary - terminator	3/92	use values not carried over apart of copy func 	e.g, null bytes dnt carry over cus end of string for many string copy funcs	
+canary - terminator	3/92	use values not carried over apart of copy func	e.g, null bytes dnt carry over cus end of string for many string copy funcs	
 canary - XOR	3/92	use random values + XOR'd with parts of stack data		
 code cave	3/114	hijack jump func > prev unused space in exe where malware waits + w/o increasing size of exe itself		
 code Seeker	4/120	project from owasp = app-layer proxy to detect sql/xss		
-codeSonar 	3/95	code review tool = c/c++		
-Contaiment	1/86	stop bleeding + survey + FIRST case (category/criticality/sensitivity) + inform mgmt + track (CyberCPR)	short term = stop the damage +long term = deny access 	"prevent attacker getting any deeper to impacted/other systems
-dont use ping/traceroute/nslookup
-review logs from neighboring systems"
+codeSonar	3/95	code review tool = c/c++		
+Contaiment	1/86	stop bleeding + survey + FIRST case (category/criticality/sensitivity) + inform mgmt + track (CyberCPR)	short term = stop the damage +long term = deny access	"prevent attacker getting any deeper to impacted/other systems
+ dont use ping/traceroute/nslookup
+ review logs from neighboring systems"
 content sec policy	4/108	where linked resources can be loaded (js/css/images etc only from current site) - prev xss		
 coverity static analysis	3/95	code review tool - commercial (c/c++/java/c#)		
-cover trax - net	5/90	tunnelling+prot over prot + 1st prot=encapsulated inside pckt for 2nd prot 		
+cover trax - net	5/90	tunnelling+prot over prot + 1st prot=encapsulated inside pckt for 2nd prot		
 covert TCP	5/98	clt/srvr same exe + ascii data in [IP id field]+[seq # field]+[ack # field]	dnscat2 + QUIC + multiplexed UDP + SCTP	
-ccpm 	2/73	cipher block chaining message auth check protocol	encryption AES uses this mode 	
-chain of custody	1/84	identification: inventory evidence you exchange + sign + account for it + descriptions 	control access to evidence + under control of one identified person	
-cmd injection	4/83	usr input to web app = launch shell for app to run	separated by a ( ; ) or (&)  - looks normal to exe -- like shellShock	via forms+var+cookies
-cmd injection - blind	4/84	cant c output of cmd 	ping badIP (sniff ICMp reqs) + nslookup badguyIP (sniff dns reqs)	time-delay inference (ping -n 6) - 5 sec delay?
-cpu	3/65	cpu contains register called instruction pointer = grab next instruction 		
+ccpm	2/73	cipher block chaining message auth check protocol	encryption AES uses this mode	
+chain of custody	1/84	identification: inventory evidence you exchange + sign + account for it + descriptions	control access to evidence + under control of one identified person	
+cmd injection	4/83	usr input to web app = launch shell for app to run	separated by a ( ; ) or (&) - looks normal to exe -- like shellShock	via forms+var+cookies
+cmd injection - blind	4/84	cant c output of cmd	ping badIP (sniff ICMp reqs) + nslookup badguyIP (sniff dns reqs)	time-delay inference (ping -n 6) - 5 sec delay?
+cpu	3/65	cpu contains register called instruction pointer = grab next instruction		
 cracker	1/5	mal break into sys		
-crack Station	4/18	rainbow table software in cloud		many hash algos 
+crack Station	4/18	rainbow table software in cloud		many hash algos
 crazyRadioPA	2/83	usb dongle accepts unencrypted connections	identify + intercepts keystrokes via ducky script	
 cred guard	4/55	mitigates attkrs getting hashes for PTH attacks	set to 0 = no body buy admin (RID 500) can PTH to remote	
 cyberCPR	1/92	web app tracking incidents/sys/evidence	"enforces need-to-know on incidents
-all files are hashed/encrypted upon upload
-tracks user tasks/activity
-track attacker campaigns
-auto key analysis
-secure realtime OOB chat
-1-3 users free"	
-DEP	3/91	data exe prevention = makes pgs (stack) non-exe	h/w  (stronger)+ s/w based 	
-dictionary attack	4/8	known/common pwds 		
+ all files are hashed/encrypted upon upload
+ tracks user tasks/activity
+ track attacker campaigns
+ auto key analysis
+ secure realtime OOB chat
+ 1-3 users free"	
+DEP	3/91	data exe prevention = makes pgs (stack) non-exe	h/w (stronger)+ s/w based	
+dictionary attack	4/8	known/common pwds		
 difficult-to-trace-trails	3/22	relays, ingenuity of netcat although 1996	reverse connections (relays)	related to living off the land (LOL)
 dig	1/34	linux zone transfer of dns records (determine which machines online)		
 DLL injection/API hooks	5/36	exe/dll used for packing + Win dbg rights can inject DLL in pro	e.g explorer.exe (inject api calls to hide the attkr)	
@@ -116,147 +116,147 @@ dynamic ARP inspection	3/57	helps prevent bogus ARP packs on LAN
 EG	3/90	winDef Exploit Guard = sys rules+net protect + filtering + control access to key sys folders		
 enterprise authentication	2/73	EAP method use pwds+certs+tokens		
 enterprise wide IR	1/119	know where to look + ingree/egress data	"DNS data = reveal systems connection to bad IPs
-proxy = connection to known c2 + review user agent strings"	
-enum	2/136	interrogation tool tgt win sys ax smb session 	enum -u UNAME -p PWD -G IPADDR	
+ proxy = connection to known c2 + review user agent strings"	
+enum	2/136	interrogation tool tgt win sys ax smb session	enum -u UNAME -p PWD -G IPADDR	
 espionage	1/135	stealing info for interests of org/govt	"do osint on your company 
-leak seeding (media leaks)
-thumbprint critical files and search for keywords
-access violations in audit trails
-collect bunch of data 
-make fake project = do word web bugs + track + use signatures"	"ask what the most probable tgts are
-info value?
-possible ways to acquire this tgt?
-who benefits?"
+ leak seeding (media leaks)
+ thumbprint critical files and search for keywords
+ access violations in audit trails
+ collect bunch of data 
+ make fake project = do word web bugs + track + use signatures"	"ask what the most probable tgts are
+ info value?
+ possible ways to acquire this tgt?
+ who benefits?"
 Event	1/13	observable occurrence	sys boot/crash, packet flood, record multi for corrob evidence	
-eventquery.vbs /L security	1/72	event log for sus events 	"eventquery.vbs /L security = before win7
-wevtutil qe security /f:text = win7-10"	
-eventvwr.msc	1/72	look for anomalous elogs 		
-evading IDS/IPS	2/117-119	IDS/IPS dont validate tcp checksum 	attacker can insert TCP reset with invalid checksum to clear IDS/IPS buffer	
+eventquery.vbs /L security	1/72	event log for sus events	"eventquery.vbs /L security = before win7
+ wevtutil qe security /f:text = win7-10"	
+eventvwr.msc	1/72	look for anomalous elogs		
+evading IDS/IPS	2/117-119	IDS/IPS dont validate tcp checksum	attacker can insert TCP reset with invalid checksum to clear IDS/IPS buffer	
 eradication	1/104	rid of attackers artifacts + determine cause/symptoms of incident + vulnerability analysis (nessus)	"restore from BUs
-rootkits (wipe drive/0 out/ reformat drive/rebuild sys/patch)"	"apply FW/router filters
-new ip/name
-null routing
-change dns name
-patch/harden system"
+ rootkits (wipe drive/0 out/ reformat drive/rebuild sys/patch)"	"apply FW/router filters
+ new ip/name
+ null routing
+ change dns name
+ patch/harden system"
 eyewitness	2/107	screenshots of sites+vnc+rdp while its doing scanning		"effective to sort through hundreds of sites 
-look for default pages + rdp servers with domains + indexed dirs"
+ look for default pages + rdp servers with domains + indexed dirs"
 fgdump	4/52	hash dump tool		
 FIRST Case	1/89	incident details (threat cat+criticality+Sev)		
 FlawFinder	3/95	code review tool		
 Forensic images	1/97	"make forensic image as soon as practical
-source for analysis
-image of memory + file sys
-dont do graceful shutdown - YOULL LOSE DATA
-use blank media"	"bit-by-bit image to get all file system data
-some may need advanced network/domain/life forensics 
-many will auto calculate hash of collected evidence"	
+ source for analysis
+ image of memory + file sys
+ dont do graceful shutdown - YOULL LOSE DATA
+ use blank media"	"bit-by-bit image to get all file system data
+ some may need advanced network/domain/life forensics 
+ many will auto calculate hash of collected evidence"	
 format string attack	4/4	bof (bad/vuln code) printf(argv[1]) insteaf of printf("%s\n")		
 fuzzing	3/73	technique used to identify bofs		
 Gcat	5/102	full C2 bd via Gmail + cmd exe/screenshots/dl+upload of files/keylog/exe shellcode	bypass dlp/ids/ips	
-gcc	1/200	use make to compile it 	"gcc -o randombackdoor badbackdoor.c
-./randombackdoor"	
+gcc	1/200	use make to compile it	"gcc -o randombackdoor badbackdoor.c
+ ./randombackdoor"	
 gcm	2/73	galois counter mode (encryption mode)		
 ghostwriting	3/109	junk code = +2 - 2 (reassemble exe to bypass AV + change the hash/sig, but not affect func)	binary to asm src = push <reg>, pop <reg>, xor <reg>	simple NOP bypasses most AV engines
 Ghidra	5/20	NSA debugger like immunity dbg		
 GRR	1/39	IR tool = mem analysis on remote hosts with Rekall + store data in async + wait host online	multi-platform (linux/win/OSx)	
-gratuitous ARP	3/30	any BITCH can send an ARP response when no bITCH asked for it 	even when a MAC entry is there, it'll SUCK up the new one 	solaris is a LEO and waits for a timeout
+gratuitous ARP	3/30	any BITCH can send an ARP response when no bITCH asked for it	even when a MAC entry is there, it'll SUCK up the new one	solaris is a LEO and waits for a timeout
 GPU	4/27	NVIDIA GeForce RTX 2070 (768,500 hash/s or 153.7 pwd/s)		
 hacker	1/5	smart individ who wants to explore tech		
 hash'	4/26	salt+pwd=guess pwd		
-hashdump	4/21	obtain local pwd hash from Win10 	meterpreter > hashdump  + ps -S lsass.exe + migrate (lsass PID) 	if fails = redo mtprtr sesh + migrate to diff SYS lvl process + migrate to lsass
+hashdump	4/21	obtain local pwd hash from Win10	meterpreter > hashdump + ps -S lsass.exe + migrate (lsass PID)	if fails = redo mtprtr sesh + migrate to diff SYS lvl process + migrate to lsass
 hashes - windows	4/23	username:userid:LANMAN:NTHASH	am all day baffled by : difficult choices for enc data	empty = user inactive/no decrypt for SAM data
 hashes - unix	4/24	old nix stored with DES/no salt (uname/pwd in/etc/pwd)	md5 hash + blowfish + salt 4b/8b (uid /etc/pwd + pwdhash in /etc/shadow)	user504:$hashfunk$salt$pwdhash
-hashes - unix 2	4/25	$1=MD5 +$2=Blowfish +  $5=sha256 + $6=512 + no$ = DES		
+hashes - unix 2	4/25	$1=MD5 +$2=Blowfish + $5=sha256 + $6=512 + no$ = DES		
 hashes - rounds	4/25	hash calc repeated 5k x		
 hashing	4/40		fingerprint of a file	
 Hacktivism	2/10	hacking for political motives	defacing sys + comm w/o interfere from govts (censorships)	
-hashcat	4/35-36	uses GPU + lotta formats + office file pwd + kerberos tkt dump via kerberoasting + OS hashes 	straight/combo/bforce/hyb wordlist+mask/hyb mask + wordlist	straight mode (-a 0) = easiest
+hashcat	4/35-36	uses GPU + lotta formats + office file pwd + kerberos tkt dump via kerberoasting + OS hashes	straight/combo/bforce/hyb wordlist+mask/hyb mask + wordlist	straight mode (-a 0) = easiest
 hashcat - mask	4/40	uses pattern (you must use pwd 8 char, 1 upper, 1 lower ..etc)		
 hashcat - rule file	4/44	toggle case of letters in wordlist (l33t speak + reverse words + capitilize 1st letter + add#+ etc)		
 hiding files	5/63	hide by name bd "." or ".." or a space.	locations to hide: /dev or /tmp or /etc or /usr/local/man or /usr/src	
 hiding files - NTFS	5/75	multiple data streams attached+hide behind normal files	C:\> cp hack.exe notepad.exe:stream1.exe	
 HOIC	4/137	high orbit ion cannon = loic + now multithreaded to launch more http + boosters		
-host perimeter	1/48	data enters/leaves host 	personal FW + IPS/ local FW/ port sentry tools	
+host perimeter	1/48	data enters/leaves host	personal FW + IPS/ local FW/ port sentry tools	
 hostapd-WPE	2/80	impersonate WPA2 enterprise to harvest user creds		
 httpOnly	4/108	only cookies via httpS + no cookie from JS in browser		
 http Strict Transport Sec (HSTS)	3/48	prevents sslstrip	bettercap changes names in MITM (www.yahoo to wwww.yahoo)	
-hydra	4/8	pwd guess tool (dict base - not bforce) 	many protocols (smb/rcp/smpt/vnc/+)	
+hydra	4/8	pwd guess tool (dict base - not bforce)	many protocols (smb/rcp/smpt/vnc/+)	
 ICMP tunnels	5/94	data inside payload of ICMP pckt (ptunnel/loki//icmpShell/ etc)		
 icmp tunnels -ptunnel	5/95	listen on tcp port + grabs data+fwd to ptunnel proxy + MD8 auth/no ecrypt		
-Identification	1/43	alert+assessment	network perimeter/host perimeter/host level/app level 	
+Identification	1/43	alert+assessment	network perimeter/host perimeter/host level/app level	
 iLovemyNeighbour	2/79	rogue AP software	linux VM	rewrites any unencrypted exe with replace dl file
 inception	3/4	phys attack=unlock power on+locked pc via DMA firewire/thunderbolt (good for HDD encrypt)		
 Incident Handling	1/11	action plan for dealing with misuse of comp sys/net/data		
 Incident	1/12	actions resulting in harm to sys/net/data		
 insider threat	1/149	entity with access toyour data (employee/biz partner)	twarning banners + FTP sites + message boards + wide net + 0fox	
 inSSIDer	2/69	win tool active scanning standard wifi card	"collects reports info on beacon frames (passive scan)
-probe response (active scan) + gps "	
+ probe response (active scan) + gps"	
 instruction pointer	3/65	cpu containing register = instruc pointer (tells where to grab next instruct for run program	cpu grabs info from mem via instruc pointer = refer to spot in mem	
 immunity Debugger	5/20	debugger for REM (reverse eng malware) + python/GUI/LUI /		
-johnnnyyyy the RIPPER	4/31-33	pwd crack tool + nix/win + feed encry pwd file (merge /etc/pwd and /etc/shadow) 	# unshadow /etc/pwd /etc/shadow > combined	single (var acc name)>wordlist(dict +hyb pwd)>incremental(bforce)>external mode(ext prg)
-john.pot	4/33	crack pwd stored in john.pot file + rm when done/check for old pwds 	must note --format=NT + --format=lanman	$ unshadow pwd shadow > combined
-Jump bag	1/41	stocked items 	FS iso + FTK imager lite + SIFT/encase/sleuth kit + tools + aspirin	
-kansa	1/129	detection tool + stacking like sys against each other to do long-tail analysis/positive skew analysis	.\kansa.ps1 -Targetlist .\hosts.txt -ModulePath .\Modules -Verbose -Analysis	supports pulling unique ASEP 
+johnnnyyyy the RIPPER	4/31-33	pwd crack tool + nix/win + feed encry pwd file (merge /etc/pwd and /etc/shadow)	# unshadow /etc/pwd /etc/shadow > combined	single (var acc name)>wordlist(dict +hyb pwd)>incremental(bforce)>external mode(ext prg)
+john.pot	4/33	crack pwd stored in john.pot file + rm when done/check for old pwds	must note --format=NT + --format=lanman	$ unshadow pwd shadow > combined
+Jump bag	1/41	stocked items	FS iso + FTK imager lite + SIFT/encase/sleuth kit + tools + aspirin	
+kansa	1/129	detection tool + stacking like sys against each other to do long-tail analysis/positive skew analysis	.\kansa.ps1 -Targetlist .\hosts.txt -ModulePath .\Modules -Verbose -Analysis	supports pulling unique ASEP
 keep access	5/6	2 ways=bd+TjH (looks good but bad)		
-kerberoasting	4/56	any domain can req a service tkt + has hashes + req SPN (service principle names) from AD	mimikatz/empire + hash from tkts + srvc no need, jus acc + good old acc 	
+kerberoasting	4/56	any domain can req a service tkt + has hashes + req SPN (service principle names) from AD	mimikatz/empire + hash from tkts + srvc no need, jus acc + good old acc	
 kernel	5/42	HW | kernel | user programs	allocates CPU/mem/HDD, etc	umode/kmode rtkt in HW (ring 3+ring0 )
 kernel - sys call	5/42	user proc>sys lib>sys call table*k*>HW		
-keyed payloads	3/114	encryp payload via env var + search envirmt for strgs > decrypt until success		sig diff everytime 
-kismet	2/71	passive wifi scanner (linux) 	monitor mode 	
+keyed payloads	3/114	encryp payload via env var + search envirmt for strgs > decrypt until success		sig diff everytime
+kismet	2/71	passive wifi scanner (linux)	monitor mode	
 klocwork insight pro	3/95	code review tool (c/c++/c#/java)		
-konboot	3/4	phys. attack=any pwd accepted as correct + hijack pwd lib at startup 		
+konboot	3/4	phys. attack=any pwd accepted as correct + hijack pwd lib at startup		
 LAN turtle+Responder	3/4	phy.attack=mal USB eth0 adapter + DNS req + responder capture hashes		
 LANMAN	4/14	legacy pwd hash mech(weak/suscept) + not case sensitive(all upper)	upper + pad 14b + split 2x7b + DES + concat = lanman hash	no salts
 lessons learned	1/115	learn from our mistakes + document what happened + improve capabilities	"develop follow-up report asap max length half day
-do RCA"	make new mistakes + dont repeat old ones 
+ do RCA"	make new mistakes + dont repeat old ones
 LLMNR	3/31	link-local multicast name resolution = used by systems to query local sysyems		last resort is NBT-NS
-log editing 	5/66	/etc/syslog.conf (chk) or /var/log/secure(or msgs) written in ASCII	shell hist($HOME/ .bash_history) - delete/edit file	kill shell+change environ var (unset HISTFILE then kill -9 $$) + space before cmd
+log editing	5/66	/etc/syslog.conf (chk) or /var/log/secure(or msgs) written in ASCII	shell hist($HOME/ .bash_history) - delete/edit file	kill shell+change environ var (unset HISTFILE then kill -9 $$) + space before cmd
 log editing - win	5/81	evt logs in C:\win\sys32\winevt\logs + use logon Tracer	main evt logs in:[app.evtx]+[sec.evtx]+[sys.evtx]	shadowbrokers tool DanderSpritz live edit + msf "clearev" but clears all not linexline
 LOIC	4/136	low orbit ioc cannon	tcp/udp/http* floods	pull tgt from IRC/use HIVE MIND
 LOL	3/22	living off the land: using what's available w/o intro additional tools		
-lsof -i 	1/52	running service		
+lsof -i	1/52	running service		
 malware layers	5/7	app lvl bd > user-mode rtkt > kernel-mode rtkt		
 masscan	2/106	separates SYN from ACK receive	large scanning tool (masscan 1.2.3.0/8 -p 22,23,25,80,445,3380	
-memory dump/analysis	5/22	analyze mem (Memoryze memorydd.bat/fastdump/win32dd/winpmem/FTKImager/mantech's mdd)	volattil sys Volatility frwork +googles Rekall 	
+memory dump/analysis	5/22	analyze mem (Memoryze memorydd.bat/fastdump/win32dd/winpmem/FTKImager/mantech's mdd)	volattil sys Volatility frwork +googles Rekall	
 metasploit/ MSF	3/79, 3/86	exploit framework + payload/tgts + udp port scan + evasion (encoding) + extra ft. 3/86	exploits+payloads+aux modules+post-explt mods	dev build xplt = w/ pay/exploits msf + select explt/tgt/payload/option/launch
-meterpreter	3/84	msf payload = carries in mem DLL to tgt box + TLS (encrypts)	no sep process shellcode + no touch HDD + own cmd + new mods funcs	display sysinfo + interact w/ FS/net config/port relay + processes 
+meterpreter	3/84	msf payload = carries in mem DLL to tgt box + TLS (encrypts)	no sep process shellcode + no touch HDD + own cmd + new mods funcs	display sysinfo + interact w/ FS/net config/port relay + processes
 msf aux module	3/80	all kinds of tasks + scanning		
 msf exploit	3/80	takes advantage of flaw in tgt program		
 msf payload	3/80	makes tgt do smt attkr wants		
 msf post-exploit	3/80	search/plunder/manipulate tgt		
 msfvenom	3/110	msfpayload + msfencode = msfvenom (all in one cmd)		
 mimikatz	4/55	plaintext pwd recovery attack (post-exploit)		
-MITMF	3/32	intercept HTTPS with SSLStrip+  insert malicious .hta files + redir BeEF + LLMNR poision Responder	can look for user ID/pwd + session ID/URL + inject JS 	supports file mods + mal injections
+MITMF	3/32	intercept HTTPS with SSLStrip+ insert malicious .hta files + redir BeEF + LLMNR poision Responder	can look for user ID/pwd + session ID/URL + inject JS	supports file mods + mal injections
 money	2/11	making money with malicious code	"crptocurrency miners (bitcoin)
-spam/web based ads (redirects)
-pump/dump stock
-phish 
-DOS extortion (competitors)
-ransonware 
-keystroke logging (bank)
-bots for ^"	
+ spam/web based ads (redirects)
+ pump/dump stock
+ phish 
+ DOS extortion (competitors)
+ ransonware 
+ keystroke logging (bank)
+ bots for ^"	
 NBT-NS/NBNS	3/31	used for systems to do local querys > after the DNS>LLMNR		
 nessus	1/109, 2/123-138	vulnerability scanner by Tenable		
 netcat	3/9	R+W data ax net + raw data btwn ports + default client mode + 24 years old !	data transfer + relay + bd + cnction to open port	"< send data out
-> get data in"
-nc client mode	3/10	sent to stderr + fragrouter 		
+ > get data in"
+nc client mode	3/10	sent to stderr + fragrouter		
 nc listen mode	3/11	waits for connection on specific port + data put on stdout		
 netscout aircheck g2	2/86	handheld wifi scanning tool + locating malicious ap		
 netsh advfirewall show currentprofile	1/63	see firewall settings (win 7-10)		
 netsh firewall show config	1/63	see firewall settings (win xp-03)		
-netstat 	"1/51
-2/110"	protocol/tcp+ip connections	"n=addresses/port numbers
-a=all connections/listening ports
-o=owning PID
-b=shows exe tht opened (need root)"	a number after updates displays every n seconds
-net start 	1/66	running services	net start	
-netowrk miner 	3/36	pulling data out of net traffic + presenting it to easily reivew 		
+netstat	"1/51
+ 2/110"	protocol/tcp+ip connections	"n=addresses/port numbers
+ a=all connections/listening ports
+ o=owning PID
+ b=shows exe tht opened (need root)"	a number after updates displays every n seconds
+net start	1/66	running services	net start	
+netowrk miner	3/36	pulling data out of net traffic + presenting it to easily reivew		
 network perimeter detection	1/48	FW/routers/IDS/IPS/DMZ		
-nmap	2/90-98	net map + port scan + 	app data>tcp+udp>IP>datalink	
+nmap	2/90-98	net map + port scan +	app data>tcp+udp>IP>datalink	
 nmap scan types	2/103-105	ping sweep + syn/ack/fin/ftp/idle/udp/version scan		
 NOP sled	3/77	exe continues until it goes down stack to ur malcode	as long as guessed addr jumps back into NOP sled, malcode exes	NOP sled + malcode + RP = egg
 NoScript	4/107	FFox ext - allow sites where scripts run + detect sus scripts		
-NTDS.dit	4/19	Win AD database file 	>ntdsutil + ifm + quit + quit 	need to decrypt ntds.dit using registry hive keys
+NTDS.dit	4/19	Win AD database file	>ntdsutil + ifm + quit + quit	need to decrypt ntds.dit using registry hive keys
 NT Hashes	4/15	modern win sys + case sensitive + converts to unicode+MD4 hash+ encrypt via RC4 or AES/CBC-128 in SAM	no salts used	if already in unicode, dnt need converted
 null char	3/75	8 zero bits in a row		
 Null routing	1/101	drop packets associated to src/dest IP used in attack		
@@ -265,60 +265,60 @@ owasp	4/74	open web app sec project	design+arch+implmnt+evntlog++ for DEVs
 packer	5/19	compress exe=small distribution + limit str search/direct assembly	UPX is popularrr + yoda protector/themida/thinstall/pecompact/pebundle)	
 PAM	4/48	Pluggable Auth Modules = extend auth funk (link sys to RADIUS server/kerberos/or biometrics auth)		
 Pass-The-Hash	4/52-55	use hash + from memory (LSASS)+ auth to dest server	replace attacker hash in mem, with victim hash	defence on pg 4/57
-PBKDF2	4/28	NIST recommends this pwd hash funk + allows dev to # of HMAC (hash msg auth check)	HMAC need 2 hash/round for given hash funk + some need millie 	WPA/WPA2 uses PBKDF2 for psk + 4096 sha1 rounds
+PBKDF2	4/28	NIST recommends this pwd hash funk + allows dev to # of HMAC (hash msg auth check)	HMAC need 2 hash/round for given hash funk + some need millie	WPA/WPA2 uses PBKDF2 for psk + 4096 sha1 rounds
 phishme	1/21	phish framework		
 physical attack	3/4	direct access to a system	"stolen laptop + bypass HDD encryption
-inception/kon-boot (usb attack)
-LAN turtle+responder (usb eth0 adapter to generate DNS hits + capture hashes)"	rubber ducky
+ inception/kon-boot (usb attack)
+ LAN turtle+responder (usb eth0 adapter to generate DNS hits + capture hashes)"	rubber ducky
 poison Ivy	5/14	pIvy; config server first + attkr runs client to ctrl server		
-port security	3/57	locks down port:MAC	likely on sensitive LANs, e.g, DMZ 	
-powershell empire	2/138	bd built in pshell + post exploit scanning 	situational_awareness/network	
-Preperation	1/21	constant training/assessment	phish/SE test (phishme), 	
+port security	3/57	locks down port:MAC	likely on sensitive LANs, e.g, DMZ	
+powershell empire	2/138	bd built in pshell + post exploit scanning	situational_awareness/network	
+Preperation	1/21	constant training/assessment	phish/SE test (phishme),	
 process explorer	1/75	detailed info for runnning processes (including examines memory)		
 process monitor	1/75	shows/logs FS/registry/net+process activity in real time		
 promiscuous mode	3/26	all traffic regardless of dest h/w addr		
 protocol layering	3/28	"Domain>IP=DNS: domain name system
-IP>MAC=ARP: address resolution protocol"		
+ IP>MAC=ARP: address resolution protocol"		
 protocol parser	3/99	grab data from net + parse it for app	icpy diff elements in mem + check data sized copy else; BOF	likely around sensitive areas, DMZ + admins use it
 printf	4/39	make file w multiple words where \n new line, append each to words in other file		
-psk	2/73	pre shared key 	shared amount all users	
+psk	2/73	pre shared key	shared amount all users	
 pulsing zombies	4/134	dos flood with dormant zombies for minutes, then flood, repeat		
 pwd	4/5	need CIA (conf/int/avail) + encrypt/hash	win= sam db+AD...*nix=/etc/shadow	recover pwd/audit pwd strength/dnt use to migrate platforms
 pwd crack	4/9, 4/30	find pwd w/ pwd file+pwd ciphertxt	find uid + algo + crypt pwd + list pwd + encrypt pwd + check for match	speed = dict/combos/automate
-pwd gues	4/6	find valid uid + guess/type pwd 	might trigger acct lkout	
-pwd hash	4/13	user choose pwd + sys hashes ptxt pwd = sys store tht value 	pwd + hash = hash' (hash prime) + sys checks if it matches stored value = auth!	win=lanman/ntlm , *nix=des/3des/md5/blowfish/sha256/sha512, cpu high=s/bcrypt/pbkdf2
-pwd spray	4/7	few pwd > large accts 		
+pwd gues	4/6	find valid uid + guess/type pwd	might trigger acct lkout	
+pwd hash	4/13	user choose pwd + sys hashes ptxt pwd = sys store tht value	pwd + hash = hash' (hash prime) + sys checks if it matches stored value = auth!	win=lanman/ntlm , *nix=des/3des/md5/blowfish/sha256/sha512, cpu high=s/bcrypt/pbkdf2
+pwd spray	4/7	few pwd > large accts		
 QUIC	5/101	quick UDP internet conn - covert channel use multiplexed UDP conn for conn		
 RADIUS		Remote Auth Dial In User Service		
 rainbow crack	4/18	rainbow table software + free tables	LANMAN/NTLM/MD5/SHA1	
 rainbow tables	4/16	precompute a dict of hashes pwds + compare against it	store in RAM/HDD + tables maps hashes to pwds	
 RATS	3/95	Rough Auditing Tool for Security = check code flaws		
 recon	2/15	case joint + gain info on tgt	"osint (whois) + cert search + spiderfoot
-dns (dig/nslookup) 
-web searches/pushpin/GHDB/robots.txt
-maltego (osint tool/transformations)
-shodan/censys
-war dial/drive"	"GDPR made whois less reliable
-nslookup doesnt work = use dig on linux"
+ dns (dig/nslookup) 
+ web searches/pushpin/GHDB/robots.txt
+ maltego (osint tool/transformations)
+ shodan/censys
+ war dial/drive"	"GDPR made whois less reliable
+ nslookup doesnt work = use dig on linux"
 recovery	1/110	put impacted sys back into PROD safely + validate sys + user acceptance docs + monitor sys	"verify operation/functionality
-ask for test plan
-run tests + have biz test"	"decide when to restore (off hour)
-sign memo and ur advice
-write script with IOC/IOA to check if it comes back"
+ ask for test plan
+ run tests + have biz test"	"decide when to restore (off hour)
+ sign memo and ur advice
+ write script with IOC/IOA to check if it comes back"
 regedit	1/67	view registry keys	"regedit 
-reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Run = reads reg key"	
+ reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Run = reads reg key"	
 rekall	1/97	Google's free tool for capturing/analyzing memory on win machines		
 rekall - modules	5/23	imageinfo/netstat/pslist/dlllist/filescan/pedump/mod/pstree		
 relays	3/17	redirect data through ports allowed by FW + info from host > host > host	one way relay: nc -l -p 1234 | nc tgt_server 4321	
-remux	2/108	port scan through multiple open proxies + connects thru proxies 	remux.py	example of why IP filtering doesnt work effectively against attacker
+remux	2/108	port scan through multiple open proxies + connects thru proxies	remux.py	example of why IP filtering doesnt work effectively against attacker
 Responder	3/53-55	tool to answer stray LLMNR/NBT-NS/Proxy reqs + reply to final resolve attempt (multicast DNS)	responder spins up service + victim tries to auth to said service = creds	also serves mal .exes + force LANMAN auth downgrade (easier to crack lanman hashes)
 return pointer (RP)	3/67	adress of the point in program to return to wen subr is done	where we want to return to wen function finishes	
-reverse HTTP shell	5/92	http shell common bd + works thru proxies 		
-RITA	3/96	real-time-threat-analysis 	presents bro/zeek logs	
-ROP	3/91	return-oriented-programming = alter RP to use legit OS code 	DEP can't stop ROP cus OS lib must marked as exe for the OS itself to funk	
-rootkit 	5/6, 5/32	alters OS + looks good + but attkr cntrl	keep bd + mask sys compromise	TH bd + find (chkrootkit/rootkit hunter/rootcheck/sophos/mcafee/GMER)
-rootkit - tactics	5/33	replace sshd (daemon) to include bd pwd + sys binaries 		
-rootkit - hiding	5/35	1.process+2.network+3.file+4.event 	no config + load on sys in dir	
+reverse HTTP shell	5/92	http shell common bd + works thru proxies		
+RITA	3/96	real-time-threat-analysis	presents bro/zeek logs	
+ROP	3/91	return-oriented-programming = alter RP to use legit OS code	DEP can't stop ROP cus OS lib must marked as exe for the OS itself to funk	
+rootkit	5/6, 5/32	alters OS + looks good + but attkr cntrl	keep bd + mask sys compromise	TH bd + find (chkrootkit/rootkit hunter/rootcheck/sophos/mcafee/GMER)
+rootkit - tactics	5/33	replace sshd (daemon) to include bd pwd + sys binaries		
+rootkit - hiding	5/35	1.process+2.network+3.file+4.event	no config + load on sys in dir	
 rootkit - user-mode	5/36-39	dll injection + api hooks		
 rootkit - kernel-mode	5/41-43	app level+replace crit sys exe	ctrl=hide procs/files/netuse/exe redir	
 rootkit - kernel mode 4types	5/44	LKM (unix) and dev driv (win) + alter in mem+ alter kernel image file on hdd+ virtualize sys	both on lin/win	
@@ -327,98 +327,98 @@ rtkt - kernel in mem (2)	5/46	/dev/kmem = map of kern mem on linux+hog mem+alter
 rtkt - kernel image file (3)	5/47	lin(vmlinuz) win(ntoskrnl.exe/win32k.sys) = overwrite kernel file on hdd		
 rtkt - virtualize (4)	4/48	makes host OS the guest OS to an attkrs hypervisor (locks in jail)		
 rtkt - cone of silence	5/51	in code=hidden item visible, out cone =hididen item hidden		
-rtkt - avatar 	5/52	drvr infect + bypass HIDS +persistence+bootkit +umode/kmode+detectVM+localprivesc+encryp C2		
+rtkt - avatar	5/52	drvr infect + bypass HIDS +persistence+bootkit +umode/kmode+detectVM+localprivesc+encryp C2		
 rtkt - fontanini	5/53	hide proc/net/logged in usr/gives UID0 priv to any proc+FS to funk hook+		
 rooty	5/50	kmode rtkt + drvr support/loadable kmodules + [insmod] to insert rtkt components		
 rpcclient	2/141	getting info via smb sessions	"rpcclient -U username server
-enumdomusers
-enumalsgroups
-lsaenumsid
-lookupnames
-lookupsids
-servinfo"	
+ enumdomusers
+ enumalsgroups
+ lsaenumsid
+ lookupnames
+ lookupsids
+ servinfo"	
 RTIR	1/91	IR tracking tool		
 rubber ducky	3/5	Human interface device + automatic keyboard	run kboard cmds via Ducky Script	
 sae	2/73	simultaneous auth of equals	elimiates pwd guessing	
 salts	4/15	randomly added bits to pwds	adds entropy (random/no predictability)	makes it harder + random str + not secret + OS auto does it
 scareware	5/16	unath access to ntwrk + like SE + pretending to be agent + show logs/install bd/charge$$		
 sccm	1/128	reporting + installed software + pull users/services		
-scrypt	4/28	hash protocol (like pkbdf2) + lot of mem + ops in serial 		
+scrypt	4/28	hash protocol (like pkbdf2) + lot of mem + ops in serial		
 SCTP	5/101	stream ctrl transmission prot = multistreaming +built in C2+send data ax multiple connections		
 sc query | more	1/66	detailed services		
 secretsdump.py	4/20	services control panel GUI		
 services.msc	1/66			
 session hijacking	3/51	combo of sniff + spoof		
-session tracking	4/113	uid in URL + hidden form elements (html) + cookies 		
+session tracking	4/113	uid in URL + hidden form elements (html) + cookies		
 SET	5/18	social engineer tkit (includes AV bypass)		
-schtasks	1/71	look for unusual sched tasks + running as SYSTEM + in admin group or blank uname 		
-sharpview	2/137	standalone exe tool to enum win dom/servers	collect info on win via cmd (Get-DomainUser, Get-DomainGroup)	unpriv accounts to run 
-single-iteration pwd	4/27	insecure , e.g, NT pwd hashes (single round MD4 no salt) + 	slow down attkr to crack hash	md5 uses 1k default + sha256/512 = 5k
+schtasks	1/71	look for unusual sched tasks + running as SYSTEM + in admin group or blank uname		
+sharpview	2/137	standalone exe tool to enum win dom/servers	collect info on win via cmd (Get-DomainUser, Get-DomainGroup)	unpriv accounts to run
+single-iteration pwd	4/27	insecure , e.g, NT pwd hashes (single round MD4 no salt) +	slow down attkr to crack hash	md5 uses 1k default + sha256/512 = 5k
 smart_hashdump	4/22	obtain win10 pwd hash from disk		hashes via lsass mb incomplete/limited to local users + fails with UAC ....hd wont
 smb sessions	1/62, 2/131-, 2/140-144	"server message block + associated to file/print sharing ++
-via  tcp 445 
-netbios = tcp/udp p135-139"	"net view \\127.0.0.1 = look file shares
-net sessions = inbound smb sesh
-net use = outbound smb sesh 
-nbtstat -S = netbios over tcp/ip activity"	"app layer protocol (file/printer/domain auth/remote admin etc)
-*nix/nux = samba (smbclient/smbmount/rpcclient etc) + smb daemon"
-smurf attack	4/126	packets to net broadcast addr to dns amplify		
+ via tcp 445 
+ netbios = tcp/udp p135-139"	"net view \\127.0.0.1 = look file shares
+ net sessions = inbound smb sesh
+ net use = outbound smb sesh 
+ nbtstat -S = netbios over tcp/ip activity"	"app layer protocol (file/printer/domain auth/remote admin etc)
+ *nix/nux = samba (smbclient/smbmount/rpcclient etc) + smb daemon"
+smurf attack	4/126	packets to net broadcast addr to dns amplify	redirection DoS attacks	
 sniffing	3/25	grab packets from LAN + gather ALL info transmitted ax line + regardless of h/w addr = promiscuous mode		
 SQL inject	4/88	web server db + user input with sql query		best it double dash ( -- )
 SQL db structure	4/93	user definable table + metadata	union merges 2 select statements (web app+attkr)	
 SSHhmitm	3/44	sub public key for SSH server = 2 connection		"attkr can comp a CA/RA = issue certs
-bleed server key from memory
-bogus cert with MD5 hash collision with trusted cert "
+ bleed server key from memory
+ bogus cert with MD5 hash collision with trusted cert"
 SSL sniffing	3/41	ARP poison + sniff + map to atkr IP + SSL cnx+ Cert unsigned + tgt goes + sees sus site		
 SSL strip	3/48	bettercap rewrites all https:// from web server to browser as http://	sslstrip+ bypasses http Strict Transport Security (hsts) via www> wwww	
 SSL warning	3/47	"compromise browser + import attacker cert 
-SE user to accepting cert 
-MITM browser to use HTTP not httpS
-attack HTTP only sites or SSL only sites"	bleed  server keys from mem + sslstrip	
+ SE user to accepting cert 
+ MITM browser to use HTTP not httpS
+ attack HTTP only sites or SSL only sites"	bleed server keys from mem + sslstrip	
 sptoolkit	1/21	phish framework		
-stack	3/67	logical data structure = stack 	var + RP = stack	LIFE (last in first out) + push things on top + pop things from top
-stack canary	3/92	see *canary/canaries* + added by compiler, NOT the OS. 		
+stack	3/67	logical data structure = stack	var + RP = stack	LIFE (last in first out) + push things on top + pop things from top
+stack canary	3/92	see *canary/canaries* + added by compiler, NOT the OS.		
 stack smash	3/68	no input validation checks = data in var can be oflow	attkr malcode + new RP = points stack to run mal wen return from subr	
 steganography	5/108-11	hiding sensitive info within data (image/word/text/ML images)	tools(Jsteg/mp3stego/s-mail/invisi secrets/stash/hydan)	detect=StegExpose: LSB -least significant bit
 stego - hydan	5/111-114	hide 1b of data in 150b of code (alter pattern of instruc in program)		
 subroutine	3/66	exe starts in main funk , subr is called>instruc pointer to jump new area of mem (where code is)		
 SWAMP	3/95	code review tool		
 switched ethernet	3/26	"does not broadcast all info to all links of LAN segment
-+ rmrs MAC/port = Content Addressable Memory (CAM)"	switch > hub + looking at MAC = only sends data to required port on switch 	
+ + rmrs MAC/port = Content Addressable Memory (CAM)"	switch > hub + looking at MAC = only sends data to required port on switch	
 sys(host) detection	1/48	on the host itself	AV/endpoint security/file integrity tools/ user noticing strange stuff	
 systemctl	2/113	disable services		
-tasklist 	1/64	show procs at cmd line	"tasklist /v = verbose
-tasklist /m /fi ""pid eq 615"" = get cmdline + DLL for PID
-tasklist /svc = processes to services"	
+tasklist	1/64	show procs at cmd line	"tasklist /v = verbose
+ tasklist /m /fi ""pid eq 615"" = get cmdline + DLL for PID
+ tasklist /svc = processes to services"	
 taskmanager	1/73	checks resources (cpu/network/ram/etc)		
 tcp header	2/101	src+dstport>seq#>ack#>heln+rsvd+cont bits+window>checksum+urgent point/tcp options+padding/data		
 tcp port 4444	1/51	default port for metasploit payloads		
 tcp port 27017	1/49	mongodb service		
 tcpdump -nn port 27017	1/49	scanning to see if tcp -p 27017 is litening on range.	this port is for mongodb + root is needed for tcpdump	
-tcpview 	1/75	shows listening tcp/udp ports + maps to proc		
+tcpview	1/75	shows listening tcp/udp ports + maps to proc		
 teardrop attack	4/124	stragely fragmented packets via netwrk DOS		
 TH-bd	5/6	normal exe but with netcat OR rootkit OR email attch thts a bot installer		
 traditional ethernet	3/26	broadcast medium = sends all data to all sys connected to LAN		
-trojan horse 	5/6	looks good but is bad	calc w/ netcat	
-trojan horse - app lvl	5/9	full cntrl + client-server arch  + easy=VNC	poison ivy/VNC (legit but abused)/dameware/darkcomet RAT)	
+trojan horse	5/6	looks good but is bad	calc w/ netcat	
+trojan horse - app lvl	5/9	full cntrl + client-server arch + easy=VNC	poison ivy/VNC (legit but abused)/dameware/darkcomet RAT)	
 tshark	3/27	text-mode program of wireshark		
 udp header	2/102	src+destport>udp msg len + udp checksum > data		
 unauthorized use	1/141	allowed normal access but abusing it	email + web surfing	timestamps matter + use a proxy
 Unicorn	3/107	powershell downgrade attk + inject shellcode into mem	create macro payload ( can use .hta files, DDE attacks) + cstrike/pshell/msf	
 unusual accounts	1/69	unexpected accounts	"lusermgr.msc = launch the gui
-net user = list users
-net localgroup administrators = whose in admin group"	
-unusual files	1/70	check file space for sudden decreases	FOR /R C:\ %i in (*) do @if %~zi gtr 10000000 echo %i %~zi = size:>10M 	
+ net user = list users
+ net localgroup administrators = whose in admin group"	
+unusual files	1/70	check file space for sudden decreases	FOR /R C:\ %i in (*) do @if %~zi gtr 10000000 echo %i %~zi = size:>10M	
 Veil-Evasion	3/106	generate payloads to bypass AV	e.g, create mal-macro (via meterpreter payload > bat file as Word macro)	
 Veil - wrappers	5/18	AV bypass tool (also in SET)		
 vmem file	5/22	.vmem file for suspended guest used for mem analysis		
 VMware	1/162	".vmx = config
-nvram = vm bios
-.vmdk = disk file/HD image
-.vmss = suspended state file (paused vm)
-.vmsn = snapshot file (restoring vm)"	"host only net = only host can talk
-bridged = public net (next on switch)
-NAT = host acts as nat (vm behind it)"	
+ nvram = vm bios
+ .vmdk = disk file/HD image
+ .vmss = suspended state file (paused vm)
+ .vmsn = snapshot file (restoring vm)"	"host only net = only host can talk
+ bridged = public net (next on switch)
+ NAT = host acts as nat (vm behind it)"	
 VNC	5/10-11	Virtual Network Computing by at&t	tcp -p 5900	secure = ssh port redir tcp -p 5900 (ssh sesh via sshV2)
 VNC - client	5/12	active mode= cilent>server via tcp p5900 AND listen mode=server>client GUI shovel tcp p5500	mgmt via tcp p5900 + java applet of vnc viewer tcp5800	
 VNC - shovel	5/12	client listen tcp5500 + uses nc to shvel shell + push thru fw		
@@ -431,30 +431,30 @@ war dial	2/60	dial telephone # for modem dial tone
 warVox	2/62	software listens to mp3 audiofile + signatures	characterizes types of sys + spectrum analysis	
 WCE	4/54	win cred editor (Pass the hash PTA for kerberos)		
 webapp state maint	4/113	use proxy to edit raw http/https + nonpersistent cookies		
-wifi pineapple 	2/77	rogue ap	lures victim into network with same SSID	
+wifi pineapple	2/77	rogue ap	lures victim into network with same SSID	
 wiGLE	2/78	wireless geo logging engine	1000 most common SSIDs	
 winVNC	5/13	server modes=app mode(tool tray) + srvc (srvc list + tool tray post rboot) + can hide ttray		
 wirelessattacks	2/82	wifi/bluetooth/ZigBee/Z-Wave/RFID attacks		
 wireshark	3/27	"sniffing tool (former ethereal)
--capture traffic + read/parse/display pcap files + read tcpdump format"		huge # of protocol parsers (500+) + text-mode = tshark
-word mangling	4/10	hybrid pwd crack 	add symb to dict words (he11o!!)	
+ -capture traffic + read/parse/display pcap files + read tcpdump format"		huge # of protocol parsers (500+) + text-mode = tshark
+word mangling	4/10	hybrid pwd crack	add symb to dict words (he11o!!)	
 worms	4/59-63	auto attk tools spread via net + move sys>sys exploiting weaknesses	exploit warhead to penetrate sys (ramen/nimda/conficker/stuxnet)	most success is nimda + then conficker 08/09 (bof+usb+pwd)
-worms - multiplatform	4/62	small # with xplatform 		
-worms - 0day 	4/63	sasser/zotob via upnp flaw/stuxnet had 4 xplt in it		
-WPA	2/73	oldest WPA standard 		not supported
+worms - multiplatform	4/62	small # with xplatform		
+worms - 0day	4/63	sasser/zotob via upnp flaw/stuxnet had 4 xplt in it		
+WPA	2/73	oldest WPA standard		not supported
 wpa2	2/73	common + AES with 128bit keys in CCMP		
 wpa3	2/73	not wide + support AES with 256 bit in GCM mode		
 WPAD	3/56	"web proxy auto-discovery = used to identify a proxy 
-+ sys tries to find other sys w/ name of WPAD + dl and pac file with proxy settings"	once PAC file, use ur proxy for all traff (pacdoor)	defence: hard-code ARP(set sysboot 1 IP>mac  + port sec+ dynamic ARP inspect +DHCPsnoop
-wmic 	1/65, 2/111	detailed proc info	"wmic process list brief = brief proc info
-wmic process list full = detailed proc info 
-wmic process get name, parentprocessid, processid = specific fields
-wmic process where processid=615 get commandline = focus on PID
-wmic startup list full = examine startup items
-wmic process 615 delete = delete PID"	
-wrappers	5/17	attach bd to good-looking apps aka binders	exe2vba.rb/exe2vbs.rb/SaranWrap/EliteWrap	2 input : 1 output + bd exe 1st + use Veil 
-write blocked	1/98	intercepts write requests 	"software write blockers run on the host directly
-hardware write blockers between hard dish and computer"	
+ + sys tries to find other sys w/ name of WPAD + dl and pac file with proxy settings"	once PAC file, use ur proxy for all traff (pacdoor)	defence: hard-code ARP(set sysboot 1 IP>mac + port sec+ dynamic ARP inspect +DHCPsnoop
+wmic	1/65, 2/111	detailed proc info	"wmic process list brief = brief proc info
+ wmic process list full = detailed proc info 
+ wmic process get name, parentprocessid, processid = specific fields
+ wmic process where processid=615 get commandline = focus on PID
+ wmic startup list full = examine startup items
+ wmic process 615 delete = delete PID"	
+wrappers	5/17	attach bd to good-looking apps aka binders	exe2vba.rb/exe2vbs.rb/SaranWrap/EliteWrap	2 input : 1 output + bd exe 1st + use Veil
+write blocked	1/98	intercepts write requests	"software write blockers run on the host directly
+ hardware write blockers between hard dish and computer"	
 xss	4/96-99	webserver that lets browser reflect usr input back to user (runs tht input with script)	steal info/cookies	
 xss - reflected	4/100	usr visit good site > phished to bad site > passes cookie to attkr bad site > even if grab.cgi isnt there		
 xss - stored	4/101	script stored on tgt backend + delivered to user browser		
